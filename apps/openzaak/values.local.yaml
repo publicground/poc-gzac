@@ -39,6 +39,22 @@ tags:
 
 replicaCount: 1
 
+# TODO: add ingress when ingress controller is deployed
+ingress:
+  enabled: false
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: openzaak.wigo4it.nl
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: gzac-tls-secret
+      hosts:
+        - openzaak.wigo4it.nl
+
 # Resource limits and requests (IMPORTANT for production)
 resources:
   requests:
@@ -63,10 +79,10 @@ extraEnvVars:
         key: "password"
 
 settings:
-  allowedHosts: "" # Wildcard for local dev (allows health probes via pod IP)
-  # ⚠️ WARNING: Only used if existingSecret is not set. Use external secret management in production!
-  # See docs/SECURITY.md and docs/BEST-PRACTICES-ANALYSIS.md
-  # secretKey: "CHANGE-ME-IN-PRODUCTION-PLEASE-USE-LONG-RANDOM-STRING"
+  allowedHosts: "localhost, openzaak.local"
+  isHttps: false
+  disable2fa: true
+  siteDomain: "openzaak.local"
 
   database:
     # CloudNativePG cluster read-write service
