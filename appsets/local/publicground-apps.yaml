@@ -32,6 +32,9 @@ spec:
         revision: HEAD
         files:
           - path: "apps/**/.argocd.yaml"
+      selector:
+        matchLabels:
+          clusters.local.enabled: 'true'
   template:
     metadata:
       name: "{{.path.basename}}"

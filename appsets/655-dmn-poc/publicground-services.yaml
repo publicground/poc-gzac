@@ -32,6 +32,9 @@ spec:
         revision: HEAD
         files:
           - path: "infrastructure/**/.argocd.yaml"
+      selector:
+        matchLabels:
+          clusters.655-dmn-poc.enabled: 'true'
   template:
     metadata:
       name: "{{.path.basename}}"
