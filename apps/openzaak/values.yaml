@@ -1,68 +1,68 @@
-enabled: true
+# enabled: true
 
-tags:
-  redis: false
+# tags:
+#   redis: false
 
-# Disable embedded PostgreSQL - use CloudNativePG operator instead
-postgresql:
-  enabled: false
+# # Disable embedded PostgreSQL - use CloudNativePG operator instead
+# postgresql:
+#   enabled: false
 
-# Resource limits and requests (IMPORTANT for production)
-resources:
-  requests:
-    memory: "512Mi" # Minimum required
-    cpu: "250m" # 0.25 CPU cores
-  limits:
-    memory: "2Gi" # Maximum allowed (prevents OOMKill affecting other pods)
-    cpu: "1" # 1 CPU core burst capacity
+# # Resource limits and requests (IMPORTANT for production)
+# resources:
+#   requests:
+#     memory: "512Mi" # Minimum required
+#     cpu: "250m" # 0.25 CPU cores
+#   limits:
+#     memory: "2Gi" # Maximum allowed (prevents OOMKill affecting other pods)
+#     cpu: "1" # 1 CPU core burst capacity
 
-# Additional environment from CNPG bootstrap secret
-extraEnvVars:
-  - name: DB_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: "openzaak-pg-app"
-        key: "password"
+# # Additional environment from CNPG bootstrap secret
+# extraEnvVars:
+#   - name: DB_PASSWORD
+#     valueFrom:
+#       secretKeyRef:
+#         name: "openzaak-pg-app"
+#         key: "password"
 
-settings:
-  allowedHosts: "" # Wildcard for local dev (allows health probes via pod IP)
-  # ⚠️ WARNING: Only used if existingSecret is not set. Use external secret management in production!
-  # See docs/SECURITY.md and docs/BEST-PRACTICES-ANALYSIS.md
-  secretKey: "CHANGE-ME-IN-PRODUCTION-PLEASE-USE-LONG-RANDOM-STRING"
+# settings:
+#   allowedHosts: "" # Wildcard for local dev (allows health probes via pod IP)
+#   # ⚠️ WARNING: Only used if existingSecret is not set. Use external secret management in production!
+#   # See docs/SECURITY.md and docs/BEST-PRACTICES-ANALYSIS.md
+#   secretKey: "CHANGE-ME-IN-PRODUCTION-PLEASE-USE-LONG-RANDOM-STRING"
 
-  database:
-    # CloudNativePG cluster read-write service
-    host: "openzaak-pg-rw"
-    port: 5432
-    name: "openzaak"
-    username: "openzaak"
-    # Password from CloudNativePG generated secret
-    existingSecret: "openzaak-pg-app"
-    passwordKey: "DB_PASSWORD"
+#   database:
+#     # CloudNativePG cluster read-write service
+#     host: "openzaak-pg-rw"
+#     port: 5432
+#     name: "openzaak"
+#     username: "openzaak"
+#     # Password from CloudNativePG generated secret
+#     existingSecret: "openzaak-pg-app"
+#     passwordKey: "DB_PASSWORD"
 
-  cache:
-    # Using Redis Operator service (Sentinel)
-    default: "openzaak-redis:6379/0"
-    axes: "openzaak-redis:6379/1"
-    portalLocker: "openzaak-redis:6379/2"
+#   cache:
+#     # Using Redis Operator service (Sentinel)
+#     default: "openzaak-redis:6379/0"
+#     axes: "openzaak-redis:6379/1"
+#     portalLocker: "openzaak-redis:6379/2"
 
-  celery:
-    brokerUrl: "redis://openzaak-redis:6379/1"
-    resultBackend: "redis://openzaak-redis:6379/1"
-    # Upstream chart expects typoed key resultBackendl in ConfigMap; keep both until chart is fixed
-    # TODO: Remove workaround once fixed upstream. Track: https://github.com/maykinmedia/charts/issues
-    # Search for 'resultBackendl' typo in openzaak chart ConfigMap template
-    resultBackendl: "redis://openzaak-redis:6379/1"
+#   celery:
+#     brokerUrl: "redis://openzaak-redis:6379/1"
+#     resultBackend: "redis://openzaak-redis:6379/1"
+#     # Upstream chart expects typoed key resultBackendl in ConfigMap; keep both until chart is fixed
+#     # TODO: Remove workaround once fixed upstream. Track: https://github.com/maykinmedia/charts/issues
+#     # Search for 'resultBackendl' typo in openzaak chart ConfigMap template
+#     resultBackendl: "redis://openzaak-redis:6379/1"
 
-  messageBroker:
-    # Celery over Redis Sentinel (Redis Operator)
-    celeryBroker: "redis://openzaak-redis:6379/1"
-    celeryResultBackend: "redis://openzaak-redis:6379/1"
+#   messageBroker:
+#     # Celery over Redis Sentinel (Redis Operator)
+#     celeryBroker: "redis://openzaak-redis:6379/1"
+#     celeryResultBackend: "redis://openzaak-redis:6379/1"
 
-worker:
-  livenessProbe:
-    enabled: true
+# worker:
+#   livenessProbe:
+#     enabled: true
 
-# Minimal sentinel config to prevent template errors (Redis disabled)
-redis:
-  enabled: false
+# # Minimal sentinel config to prevent template errors (Redis disabled)
+# redis:
+#   enabled: false
