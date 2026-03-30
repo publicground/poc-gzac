@@ -1,0 +1,68 @@
+# Project for Platform Services
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: publicground-apps
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Publicground Apps
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: "*"
+      server: "*"
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
+
+# ApplicationSet for Helm-based services
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: publicground-apps-helm
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/publicground/poc-gzac.git
+        revision: HEAD
+        files:
+          - path: "apps/**/.argocd.yaml"
+  template:
+    metadata:
+      name: "{{.path.basename}}"
+    spec:
+      project: publicground-apps
+      sources:
+        - chart: "{{.chartName}}"
+          repoURL: "{{.chartRepoURL}}"
+          targetRevision: "{{.clusters.655-dmn-poc.chartVersion}}"
+          helm:
+            valueFiles:
+              - $argoRepo/{{ .path.path }}/values.yaml
+              - $argoRepo/{{ .path.path }}/values.655-dmn-poc.yaml
+        - repoURL: https://github.com/publicground/poc-gzac.git
+          targetRevision: main
+          ref: argoRepo
+          path: '{{ dig "clusters" "655-dmn-poc" "additionalManifests" "" . }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{.targetNamespace}}"
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        retry:
+          limit: 10
+          backoff:
+            duration: "5s"
+            factor: 2
+            maxDuration: "3m0s"
