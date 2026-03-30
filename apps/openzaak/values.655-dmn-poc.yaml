@@ -1,11 +1,58 @@
-enabled: true
+# NOT FINISHED
+global:
+  configuration:
+    enabled: true
+configuration:
+  enabled: true
+  overwrite: true
+  notificatiesAuthorization:
+    enabled: false
+  notificaties:
+    enabled: false
+  superuser:
+    username: "admin"
+    password: "dummy"
+    email: "dummy@wigo4it.nl"
+  job:
+    enabled: true
+    ttlSecondsAfterFinished: "120"
+  data: |-
+    vng_api_common_applicaties_config_enable: true
+    vng_api_common_applicaties:
+      items:
+      - uuid: 78591bab-9a00-4887-849c-53b21a67782f
+        client_ids:
+        - gzac
+        label: GZAC
+        heeft_alle_autorisaties: true
+    vng_api_common_credentials_config_enable: true
+    vng_api_common_credentials:
+      items:
+      - identifier: gzac
+        secret:
+          value_from:
+            env: OZ_APP_GZAC_SECRET
 
 tags:
   redis: false
 
-# Disable embedded PostgreSQL - use CloudNativePG operator instead
-postgresql:
+replicaCount: 1
+
+# TODO: add ingress when ingress controller is deployed
+ingress:
   enabled: false
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: openzaak.wigo4it.nl
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: gzac-tls-secret
+      hosts:
+        - openzaak.wigo4it.nl
 
 # Resource limits and requests (IMPORTANT for production)
 resources:
@@ -16,29 +63,31 @@ resources:
     memory: "2Gi" # Maximum allowed (prevents OOMKill affecting other pods)
     cpu: "1" # 1 CPU core burst capacity
 
+persistence:
+  enabled: false
+
+existingSecret: openzaak
+existingConfigurationSecrets: openzaak-config-secrets# Additional environment from CNPG bootstrap secret
 # Additional environment from CNPG bootstrap secret
 extraEnvVars:
   - name: DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: "openzaak-pg-app"
+        name: "openzaak-pg-cluster-app"
         key: "password"
 
 settings:
   allowedHosts: "" # Wildcard for local dev (allows health probes via pod IP)
-  # ⚠️ WARNING: Only used if existingSecret is not set. Use external secret management in production!
-  # See docs/SECURITY.md and docs/BEST-PRACTICES-ANALYSIS.md
-  secretKey: "CHANGE-ME-IN-PRODUCTION-PLEASE-USE-LONG-RANDOM-STRING"
+  isHttps: false
+  disable2fa: true
+  siteDomain: "openzaak.local"
 
   database:
     # CloudNativePG cluster read-write service
-    host: "openzaak-pg-rw"
+    host: "openzaak-pg-cluster-rw"
     port: 5432
     name: "openzaak"
     username: "openzaak"
-    # Password from CloudNativePG generated secret
-    existingSecret: "openzaak-pg-app"
-    passwordKey: "DB_PASSWORD"
 
   cache:
     # Using Redis Operator service (Sentinel)
@@ -60,6 +109,7 @@ settings:
     celeryResultBackend: "redis://openzaak-redis:6379/1"
 
 worker:
+  replicaCount: 1
   livenessProbe:
     enabled: true
 
