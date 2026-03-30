@@ -76,7 +76,7 @@ settings:
     username: "openzaak"
     # Password from CloudNativePG generated secret
     existingSecret: "openzaak-pg-cluster-app"
-    passwordKey: "DB_PASSWORD"
+    passwordKey: "password"
 
   cache:
     # Using Redis Operator service (Sentinel)
