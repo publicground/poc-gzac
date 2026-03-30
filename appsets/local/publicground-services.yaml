@@ -31,7 +31,7 @@ spec:
         repoURL: file:///mnt/poc-gzac.git
         revision: HEAD
         files:
-          - path: "apps/**/.argocd.yaml"
+          - path: "test/local/infrastructure/**/.argocd.yaml"
   template:
     metadata:
       name: "{{.path.basename}}"
@@ -66,42 +66,3 @@ spec:
             duration: "5s"
             factor: 2
             maxDuration: "3m0s"
-
-# ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: ApplicationSet
-# metadata:
-#   name: platform-services-kustomize
-# spec:
-#   goTemplate: true
-#   goTemplateOptions: ["missingkey=error"]
-#   generators:
-#   - git:
-#       repoURL: https://gitlab.com/commonground/haven/havenplus/gitops-argocd.git
-#       revision: HEAD
-#       directories:
-#       - path: infrastructure/*/overlays/local
-#   template:
-#     metadata:
-#       name: '{{index .path.segments 1}}'
-#     spec:
-#       project: platform-services
-#       sources:
-#         - repoURL: 'https://gitlab.com/commonground/haven/havenplus/gitops-argocd.git'
-#           targetRevision: HEAD
-#           path: '{{.path.path}}'
-#       destination:
-#         server: https://kubernetes.default.svc
-#       syncPolicy:
-#         automated:
-#           allowEmpty: true
-#           prune: true
-#           selfHeal: true
-#         syncOptions:
-#           - ServerSideApply=true
-#         retry:
-#           limit: 10
-#           backoff:
-#             duration: "5s"
-#             factor: 2
-#             maxDuration: "3m0s"
