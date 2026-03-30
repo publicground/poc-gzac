@@ -1,4 +1,38 @@
+
 enabled: true
+global:
+  configuration:
+    enabled: true
+configuration:
+  enabled: true
+  overwrite: true
+  notificatiesAuthorization:
+    enabled: false
+  notificaties:
+    enabled: false
+  superuser:
+    username: "admin"
+    password: "dummy"
+    email: "dummy@wigo4it.nl"
+  job:
+    enabled: true
+    ttlSecondsAfterFinished: "120"
+  data: |-
+    vng_api_common_applicaties_config_enable: true
+    vng_api_common_applicaties:
+      items:
+      - uuid: 78591bab-9a00-4887-849c-53b21a67782f
+        client_ids:
+        - gzac
+        label: GZAC
+        heeft_alle_autorisaties: true
+    vng_api_common_credentials_config_enable: true
+    vng_api_common_credentials:
+      items:
+      - identifier: gzac
+        secret:
+          value_from:
+            env: OZ_APP_GZAC_SECRET
 
 tags:
   redis: false

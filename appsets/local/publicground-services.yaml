@@ -31,10 +31,12 @@ spec:
         repoURL: file:///mnt/poc-gzac.git
         revision: HEAD
         files:
-          - path: "test/local/infrastructure/**/.argocd.yaml"
+          - path: "infrastructure/**/.argocd.yaml"
   template:
     metadata:
       name: "{{.path.basename}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: "1"
     spec:
       project: publicground-services
       sources:
