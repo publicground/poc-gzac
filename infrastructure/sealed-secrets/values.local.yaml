@@ -11,7 +11,7 @@ resources:
     memory: 256Mi
 metrics:
   serviceMonitor:
-    enabled: true
+    enabled: false # disabled until we have Prometheus Operator
 containerSecurityContext:
   allowPrivilegeEscalation: false
   seccompProfile:
