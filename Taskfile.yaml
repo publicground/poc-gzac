@@ -46,7 +46,8 @@ tasks:
     desc: "Create and start a local Kubernetes cluster with Kind."
     internal: true
     cmds: 
-      - | 
+      - |
+        LOCAL_DIR="$(pwd)"
         kind create cluster --config=- <<EOF
         kind: Cluster
         apiVersion: kind.x-k8s.io/v1alpha4
@@ -55,18 +56,18 @@ tasks:
           - role: control-plane
             image: kindest/node:v{{.KIND_VERSION}}
             extraMounts:
-              - hostPath: /Users/menno/code/poc-gzac/
+              - hostPath: ${LOCAL_DIR}
                 containerPath: /mnt/poc-gzac.git
           - role: worker
             image: kindest/node:v{{.KIND_VERSION}}
             extraMounts:
-              - hostPath: /Users/menno/code/poc-gzac/
+              - hostPath: ${LOCAL_DIR}
                 containerPath: /mnt/poc-gzac.git
-          # - role: worker
-          #   image: kindest/node:v{{.KIND_VERSION}}
-          #   extraMounts:
-          #     - hostPath: /Users/menno/code/poc-gzac/
-          #       containerPath: /mnt/poc-gzac.git
+          - role: worker
+            image: kindest/node:v{{.KIND_VERSION}}
+            extraMounts:
+              - hostPath: ${LOCAL_DIR}
+                containerPath: /mnt/poc-gzac.git
         EOF
     silent: true
 
@@ -77,7 +78,7 @@ tasks:
       - echo -e "\n\n🛠️  Bootstrapping Argo-CD  - this can take while!"
       - helm repo add argo https://argoproj.github.io/argo-helm > /dev/null
       - helm repo update > /dev/null
-      - | 
+      - |
         helm -n argocd upgrade -f test/local/argocd/values.yaml --install --wait --wait-for-jobs --create-namespace {{.ARGO_NS}} argo/argo-cd --version {{.ARGO_CHART_VERSION}} > /dev/null
     silent: true
   
@@ -95,12 +96,12 @@ tasks:
 
   onboard-platform-services:
     desc: "Onboard all platform-services in Argo-CD."
-    cmds: 
+    cmds:
       - echo -e "\n\n🚀  Onboarding publicground-services in Argo-CD"
       - kubectl -n {{.ARGO_NS}} apply -f test/local/cluster/root.yaml
     silent: true
 
-  uninstall: 
+  uninstall:
     desc: "Uninstall local set-up"
     cmds:
       - kind delete cluster --name {{.KIND_CLUSTER_NAME}}
