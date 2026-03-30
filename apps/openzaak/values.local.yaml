@@ -89,9 +89,6 @@ settings:
     port: 5432
     name: "openzaak"
     username: "openzaak"
-    # # Password from CloudNativePG generated secret
-    # existingSecret: "openzaak-pg-cluster-app"
-    # passwordKey: "password"
 
   cache:
     # Using Redis Operator service (Sentinel)
