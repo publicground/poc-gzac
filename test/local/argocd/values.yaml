@@ -1,0 +1,9 @@
+repoServer:
+  volumes:
+    - name: local-repo
+      hostPath:
+        path: /mnt/poc-gzac.git
+        type: Directory
+  volumeMounts:
+    - name: local-repo
+      mountPath: /mnt/poc-gzac.git
