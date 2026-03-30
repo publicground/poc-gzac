@@ -1,0 +1,68 @@
+# Project for Platform Services
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: publicground-apps
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Publicground Apps
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: "*"
+      server: "*"
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
+
+# ApplicationSet for Helm-based services
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: publicground-apps-helm
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: file:///mnt/poc-gzac.git
+        revision: HEAD
+        files:
+          - path: "apps/**/.argocd.yaml"
+  template:
+    metadata:
+      name: "{{.path.basename}}"
+    spec:
+      project: publicground-apps
+      sources:
+        - chart: "{{.chartName}}"
+          repoURL: "{{.chartRepoURL}}"
+          targetRevision: "{{.clusters.local.chartVersion}}"
+          helm:
+            valueFiles:
+              - $argoRepo/{{ .path.path }}/values.yaml
+              - $argoRepo/{{ .path.path }}/values.local.yaml
+        - repoURL: file:///mnt/poc-gzac.git
+          targetRevision: main
+          ref: argoRepo
+          path: '{{ dig "clusters" "local" "additionalManifests" "" . }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{.targetNamespace}}"
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        retry:
+          limit: 10
+          backoff:
+            duration: "5s"
+            factor: 2
+            maxDuration: "3m0s"

@@ -5,3 +5,8 @@ clusters:
   local:
     enabled: true
     chartVersion: "1.13.1"
+    additionalManifests: "apps/openzaak/local/additionalmanifests/"
+  655-dmn-poc:
+    enabled: true
+    chartVersion: "1.13.1"
+    additionalManifests: "apps/openzaak/655-dmn-poc/additionalmanifests/"
