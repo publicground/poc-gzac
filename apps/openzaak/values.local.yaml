@@ -37,9 +37,7 @@ configuration:
 tags:
   redis: false
 
-# Disable embedded PostgreSQL - use CloudNativePG operator instead
-postgresql:
-  enabled: false
+replicaCount: 1
 
 # Resource limits and requests (IMPORTANT for production)
 resources:
@@ -100,6 +98,7 @@ settings:
     celeryResultBackend: "redis://openzaak-redis:6379/1"
 
 worker:
+  replicaCount: 1
   livenessProbe:
     enabled: true
 
