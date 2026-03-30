@@ -1,5 +1,4 @@
 
-enabled: true
 global:
   configuration:
     enabled: true
