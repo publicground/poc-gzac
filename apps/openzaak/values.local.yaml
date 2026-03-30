@@ -50,6 +50,9 @@ resources:
     memory: "2Gi" # Maximum allowed (prevents OOMKill affecting other pods)
     cpu: "1" # 1 CPU core burst capacity
 
+persistence:
+  enabled: false
+
 existingSecret: openzaak
 existingConfigurationSecrets: openzaak-config-secrets
 
