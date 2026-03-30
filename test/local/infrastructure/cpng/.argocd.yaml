@@ -1,0 +1,7 @@
+chartName: cloudnative-pg
+chartRepoURL: https://cloudnative-pg.github.io/charts
+targetNamespace: cnpg-system
+clusters:
+  local:
+    enabled: true
+    chartVersion: 0.22.1
