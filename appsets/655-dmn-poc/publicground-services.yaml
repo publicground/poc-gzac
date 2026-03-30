@@ -28,29 +28,27 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
-        repoURL: file:///mnt/poc-gzac.git
+        repoURL: https://github.com/publicground/poc-gzac.git
         revision: HEAD
         files:
           - path: "infrastructure/**/.argocd.yaml"
   template:
     metadata:
       name: "{{.path.basename}}"
-      annotations:
-        argocd.argoproj.io/sync-wave: "1"
     spec:
       project: publicground-services
       sources:
         - chart: "{{.chartName}}"
           repoURL: "{{.chartRepoURL}}"
-          targetRevision: "{{.clusters.local.chartVersion}}"
+          targetRevision: "{{.clusters.655-dmn-poc.chartVersion}}"
           helm:
             valueFiles:
               - $argoRepo/{{ .path.path }}/values.yaml
-              - $argoRepo/{{ .path.path }}/values.local.yaml
-        - repoURL: file:///mnt/poc-gzac.git
+              - $argoRepo/{{ .path.path }}/values.655-dmn-poc.yaml
+        - repoURL: https://github.com/publicground/poc-gzac.git
           targetRevision: main
           ref: argoRepo
-          path: '{{ dig "clusters" "local" "additionalManifests" "" . }}'
+          path: '{{ dig "clusters" "655-dmn-poc" "additionalManifests" "" . }}'
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{.targetNamespace}}"
