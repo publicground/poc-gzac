@@ -1,5 +1,5 @@
 chartName: gateway
-chartRepoURL: ghcr.io/envoyproxy
+chartRepoURL: docker.io/envoyproxy
 targetNamespace: envoy-gateway-system
 clusters:
   local:
