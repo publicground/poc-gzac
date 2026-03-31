@@ -10,8 +10,8 @@ configuration:
   notificaties:
     enabled: false
   superuser:
-    username: "admin"
-    password: "dummy"
+    username: admin
+    password: dummy
     email: "dummy@wigo4it.nl"
   job:
     enabled: true
