@@ -31,7 +31,7 @@ spec:
   generators:
     - git:
         repoURL: file:///mnt/poc-gzac.git
-        revision: HEAD
+        revision: local
         files:
           - path: "infrastructure/**/.argocd.yaml"
       selector:
@@ -54,7 +54,7 @@ spec:
               - $argoRepo/{{ .path.path }}/values.yaml
               - $argoRepo/{{ .path.path }}/values.local.yaml
         - repoURL: file:///mnt/poc-gzac.git
-          targetRevision: HEAD
+          targetRevision: local
           ref: argoRepo
           path: '{{ dig "clusters" "local" "additionalManifests" "" . }}'
       destination:
@@ -86,7 +86,7 @@ spec:
   generators:
   - git:
       repoURL: file:///mnt/poc-gzac.git
-      revision: HEAD
+      revision: local
       directories:
       - path: infrastructure/*/overlays/local
   template:
@@ -96,7 +96,7 @@ spec:
       project: publicground-services
       sources:
         - repoURL: file:///mnt/poc-gzac.git
-          targetRevision: HEAD
+          targetRevision: local
           path: '{{.path.path}}'
       destination:
         server: https://kubernetes.default.svc
