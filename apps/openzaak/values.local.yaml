@@ -78,7 +78,7 @@ extraEnvVars:
         key: "password"
 
 settings:
-  allowedHosts: "localhost, openzaak.local, openzaak"
+  allowedHosts: "openzaak.local, openzaak"
   useXForwardedHost: false
 
   database:
@@ -111,7 +111,7 @@ settings:
 
   disable2fa: true
 
-  siteDomain: "openzaak.local"
+  # siteDomain: "openzaak.local"
 
 worker:
   replicaCount: 1
