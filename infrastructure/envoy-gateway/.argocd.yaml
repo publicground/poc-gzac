@@ -1,5 +1,5 @@
-chartName: gateway
-chartRepoURL: docker.io/envoyproxy
+chartName: gateway-helm
+chartRepoURL: registry-1.docker.io/envoyproxy
 targetNamespace: envoy-gateway-system
 clusters:
   local:
