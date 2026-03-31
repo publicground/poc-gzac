@@ -3,6 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: publicground-services
+  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -23,6 +24,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: publicground-services-helm
+  namespace: argocd
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -65,6 +67,45 @@ spec:
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
+          - ServerSideApply=true
+        retry:
+          limit: 3
+          backoff:
+            duration: "5s"
+            factor: 2
+            maxDuration: "3m0s"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: publicground-services-kustomize
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: file:///mnt/poc-gzac.git
+      revision: HEAD
+      directories:
+      - path: infrastructure/*/overlays/local
+  template:
+    metadata:
+      name: '{{index .path.segments 1}}'
+    spec:
+      project: publicground-services
+      sources:
+        - repoURL: 'file:///mnt/poc-gzac.git'
+          targetRevision: HEAD
+          path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
           - ServerSideApply=true
         retry:
           limit: 3
