@@ -1,0 +1,7 @@
+chartName: gateway-helm
+chartRepoURL: https://gateway.envoyproxy.io/charts
+targetNamespace: envoy-gateway-system
+clusters:
+  local:
+    enabled: true
+    chartVersion: 1.7.1
