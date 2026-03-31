@@ -54,7 +54,7 @@ spec:
               - $argoRepo/{{ .path.path }}/values.yaml
               - $argoRepo/{{ .path.path }}/values.local.yaml
         - repoURL: file:///mnt/poc-gzac.git
-          targetRevision: main
+          targetRevision: HEAD
           ref: argoRepo
           path: '{{ dig "clusters" "local" "additionalManifests" "" . }}'
       destination:
@@ -95,7 +95,7 @@ spec:
     spec:
       project: publicground-services
       sources:
-        - repoURL: 'file:///mnt/poc-gzac.git'
+        - repoURL: file:///mnt/poc-gzac.git
           targetRevision: HEAD
           path: '{{.path.path}}'
       destination:
