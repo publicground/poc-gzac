@@ -4,4 +4,4 @@ targetNamespace: envoy-gateway-system
 clusters:
   local:
     enabled: true
-    chartVersion: 1.7.1
+    chartVersion: v1.7.1
