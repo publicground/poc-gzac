@@ -94,21 +94,3 @@ worker:
 
 redis:
   enabled: false
-    # Upstream chart expects typoed key resultBackendl in ConfigMap; keep both until chart is fixed
-    # TODO: Remove workaround once fixed upstream. Track: https://github.com/maykinmedia/charts/issues
-    # Search for 'resultBackendl' typo in openzaak chart ConfigMap template
-    resultBackendl: "redis://openzaak-redis:6379/1"
-
-  messageBroker:
-    # Celery over Redis Sentinel (Redis Operator)
-    celeryBroker: "redis://openzaak-redis:6379/1"
-    celeryResultBackend: "redis://openzaak-redis:6379/1"
-
-worker:
-  replicaCount: 1
-  livenessProbe:
-    enabled: true
-
-# Minimal sentinel config to prevent template errors (Redis disabled)
-redis:
-  enabled: false
