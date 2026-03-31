@@ -1,4 +1,3 @@
-# NOT FINISHED
 global:
   configuration:
     enabled: true
@@ -12,7 +11,7 @@ configuration:
   superuser:
     username: "admin"
     password: "dummy"
-    email: "dummy@wigo4it.nl"
+    email: "horstp@wigo4it.nl"
   job:
     enabled: true
     ttlSecondsAfterFinished: "120"
@@ -38,37 +37,23 @@ tags:
 
 replicaCount: 1
 
-# TODO: add ingress when ingress controller is deployed
 ingress:
-  enabled: false
-  className: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  hosts:
-    - host: openzaak.wigo4it.nl
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: gzac-tls-secret
-      hosts:
-        - openzaak.wigo4it.nl
+  enabled: false  # Traffic enters via Gateway API HTTPRoute — see additionalmanifests/655-dmn-poc/httproute.yaml
 
-# Resource limits and requests (IMPORTANT for production)
 resources:
   requests:
-    memory: "512Mi" # Minimum required
-    cpu: "250m" # 0.25 CPU cores
+    memory: "512Mi"
+    cpu: "250m"
   limits:
-    memory: "2Gi" # Maximum allowed (prevents OOMKill affecting other pods)
-    cpu: "1" # 1 CPU core burst capacity
+    memory: "2Gi"
+    cpu: "1"
 
 persistence:
   enabled: false
 
 existingSecret: openzaak
-existingConfigurationSecrets: openzaak-config-secrets# Additional environment from CNPG bootstrap secret
-# Additional environment from CNPG bootstrap secret
+existingConfigurationSecrets: openzaak-config-secrets
+
 extraEnvVars:
   - name: DB_PASSWORD
     valueFrom:
@@ -77,20 +62,18 @@ extraEnvVars:
         key: "password"
 
 settings:
-  allowedHosts: "" # Wildcard for local dev (allows health probes via pod IP)
-  isHttps: false
+  allowedHosts: "openzaak.dmn-poc.publicground.nl"
+  isHttps: true
   disable2fa: true
-  siteDomain: "openzaak.local"
+  siteDomain: "openzaak.dmn-poc.publicground.nl"
 
   database:
-    # CloudNativePG cluster read-write service
     host: "openzaak-pg-cluster-rw"
     port: 5432
     name: "openzaak"
     username: "openzaak"
 
   cache:
-    # Using Redis Operator service (Sentinel)
     default: "openzaak-redis:6379/0"
     axes: "openzaak-redis:6379/1"
     portalLocker: "openzaak-redis:6379/2"
@@ -98,6 +81,19 @@ settings:
   celery:
     brokerUrl: "redis://openzaak-redis:6379/1"
     resultBackend: "redis://openzaak-redis:6379/1"
+    resultBackendl: "redis://openzaak-redis:6379/1"
+
+  messageBroker:
+    celeryBroker: "redis://openzaak-redis:6379/1"
+    celeryResultBackend: "redis://openzaak-redis:6379/1"
+
+worker:
+  replicaCount: 1
+  livenessProbe:
+    enabled: true
+
+redis:
+  enabled: false
     # Upstream chart expects typoed key resultBackendl in ConfigMap; keep both until chart is fixed
     # TODO: Remove workaround once fixed upstream. Track: https://github.com/maykinmedia/charts/issues
     # Search for 'resultBackendl' typo in openzaak chart ConfigMap template
