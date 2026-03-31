@@ -23,7 +23,7 @@ extraDeploy:
       tls.key: REMOVED-LEAKED-PRIVATE-KEY
     kind: Secret
     metadata:
-      name: static-key
+      name: sealed-secrets-key
       labels:
         sealedsecrets.bitnami.com/sealed-secrets-key: active
     type: kubernetes.io/tls
