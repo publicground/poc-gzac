@@ -1,4 +1,4 @@
-chartName: gateway-helm
+chartName: gateway
 chartRepoURL: ghcr.io/envoyproxy
 targetNamespace: envoy-gateway-system
 clusters:
