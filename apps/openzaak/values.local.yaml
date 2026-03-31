@@ -78,7 +78,7 @@ extraEnvVars:
         key: "password"
 
 settings:
-  allowedHosts: "localhost, openzaak.local"
+  allowedHosts: "localhost, openzaak.local, openzaak"
   isHttps: false
   disable2fa: true
   siteDomain: "openzaak.local"
