@@ -45,7 +45,7 @@ spec:
       sources:
         - chart: "{{.chartName}}"
           repoURL: "{{.chartRepoURL}}"
-          targetRevision: "{{.clusters.655-dmn-poc.chartVersion}}"
+          targetRevision: '{{index .clusters "655-dmn-poc" "chartVersion"}}'
           helm:
             valueFiles:
               - $argoRepo/{{ .path.path }}/values.yaml
