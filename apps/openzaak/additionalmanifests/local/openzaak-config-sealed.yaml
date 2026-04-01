@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: openzaak-config-secrets
+  namespace: publicground
+spec:
+  encryptedData:
+    OZ_APP_GZAC_SECRET: AgAf8LlDJS8MfzW5jX/ITvDKIEd8T0sVK03sT/Bes9O5mcTdPK4wz83V0wXR/vhcvPex26JFo85W0P6RLil5nCiBz/NEvLjiZyTg8NOost//YvmCDvbvqxHwirlS8FWuLeaCGckipXRHUBjcFqLfulsE99huKInD7CM98Q8XD8xGuOcveOl2zasDFoH8C0g67jW8s0KoSC8/url4CXRCESkgEhiz1cOOeUGvd2EzyV+7cBe0BQsDsyPTE0KXwx5BkbxoKo3PWy65ozHwXvYZXkAlTU9ROO96evJHQMSpGeoUs6tFDJEgwn51ENxJefgCQVErmMUjOOxniHNQUIp9R/YlB0jHkXuo9huplT4vT0MYXCq5yoO0MS/xOuMXGEh0NQHPuWEylnTvjWh93E4+VnX/zyUUZcTeGoVZUyJiWc2L7M7ff+mFpzXPjJKF31DrnwilI1l0Ouxav/c5G3Pp77jxH01BDLYOYwgmHDpVvP0fozTAYjHd1ukiQzAGQXE01ye2YruLSeIdiQNmaGihhVAojH8w/rIi1Fd0QfRWEXl9tc3Z5kTSxbmjz2ri/e3zUSROaxTkaJHmJ1uZodAEXByK6NWT5X5rBeKOP7KirxNYNwonZAbZ3hooCIL24c75H9Cipbsu3XCo2M5MusX4yw3Wf4zL9VdP1k5w+ruB+eFwxycunXv/VC1nOVAuJ49FEGrYWOEfbuzznYU3kaojbZawIL+txN23JysroIsu03ChnFO/yZaH+RuB
+  template:
+    metadata:
+      name: openzaak-config-secrets
+      namespace: publicground
+    type: Opaque
