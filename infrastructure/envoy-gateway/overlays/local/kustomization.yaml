@@ -11,6 +11,9 @@ helmCharts:
     valuesFile: values.local.yaml
     includeCRDs: false # We laten ze niet renderen, maar filteren ze daarna
 
+resources:
+  - gateway-local.yaml
+
 # # DIT IS HET FILTER: Verwijder alles van het type CustomResourceDefinition
 # # dat behoort tot de Gateway API groep.
 # patches:
