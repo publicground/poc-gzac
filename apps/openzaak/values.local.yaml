@@ -11,8 +11,8 @@ configuration:
     enabled: false
   superuser:
     username: admin
-    password: dummy
-    email: "dummy@wigo4it.nl"
+    password: dummy123
+    email: "peterdummy@wigo4it.nl"
   job:
     enabled: true
     ttlSecondsAfterFinished: "120"
