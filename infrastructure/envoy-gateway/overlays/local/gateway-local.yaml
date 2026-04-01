@@ -2,7 +2,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: gateway-local
-  namespace: default
+  namespace: envoy-gateway-system
 spec:
   gatewayClassName: envoy-gateway-classic
   listeners:
@@ -11,4 +11,4 @@ spec:
     port: 80
     allowedRoutes:
       namespaces:
-        from: Same
+        from: All
