@@ -124,5 +124,5 @@ tasks:
           Once installed, rerun: task expose-lb
     cmds:
       - echo "🛠️  Starting cloud-provider-kind (requires sudo to provision veth interfaces)"
-      - sudo cloud-provider-kind
+      - sudo cloud-provider-kind --gateway-channel disabled
     silent: true
