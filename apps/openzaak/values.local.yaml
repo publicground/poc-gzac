@@ -65,7 +65,7 @@ extraEnvVars:
         key: "password"
 
 settings:
-  allowedHosts: "openzaak.wigo4it.nl, openzaak"
+  allowedHosts: "openzaak.wigo4it.nl, openzaak, openzaak.publicground"
   useXForwardedHost: true
 
   database:
