@@ -7,7 +7,7 @@ spec:
   parentRefs:
   - name: gateway-local
     namespace: envoy-gateway-system
-    sectionName: https
+    sectionName: http
   hostnames:
   - "openzaak.wigo4it.nl"
   rules:
