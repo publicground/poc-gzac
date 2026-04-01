@@ -1,3 +1,17 @@
+configs:
+  cm:
+    exec.enabled: true
+
+    admin.enabled: false
+
+    users.anonymous.enabled: "true"
+    kustomize.buildOptions: "--enable-helm"
+
+  rbac:
+    policy.csv: |
+      g, users.anonymous, role:admin
+    policy.default: role:admin
+
 repoServer:
   volumes:
     - name: local-repo

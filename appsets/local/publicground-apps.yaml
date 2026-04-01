@@ -3,6 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: publicground-apps
+  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -23,13 +24,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: publicground-apps-helm
+  namespace: argocd
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
         repoURL: file:///mnt/poc-gzac.git
-        revision: HEAD
+        revision: local
         files:
           - path: "apps/**/.argocd.yaml"
       selector:
@@ -51,7 +53,7 @@ spec:
               - $argoRepo/{{ .path.path }}/values.yaml
               - $argoRepo/{{ .path.path }}/values.local.yaml
         - repoURL: file:///mnt/poc-gzac.git
-          targetRevision: main
+          targetRevision: local
           ref: argoRepo
           path: '{{ dig "clusters" "local" "additionalManifests" "" . }}'
       destination:

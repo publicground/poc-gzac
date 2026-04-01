@@ -81,16 +81,17 @@ tasks:
       - |
         helm -n argocd upgrade -f test/local/argocd/values.yaml --install --wait --wait-for-jobs --create-namespace {{.ARGO_NS}} argo/argo-cd --version {{.ARGO_CHART_VERSION}} > /dev/null
     silent: true
-  
+
   fetch-argocd-creds:
     desc: "Fetch the Argo-CD admin credentials."
     internal: true
     cmds:
-      - echo "⏰  Waiting until Argo-CD credentials are available..."
-      - until kubectl -n {{.ARGO_NS}} get secret argocd-initial-admin-secret>/dev/null; do [ $? -eq 1 ] && sleep 1; done
-      - echo -e "\n👇 ARGO-CD LOGIN CREDENTIALS 👇"
-      - 'echo "Username: admin"'
-      - 'echo "Password: $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d)"'
+      # - echo "⏰  Waiting until Argo-CD credentials are available..."
+      # - until kubectl -n {{.ARGO_NS}} get secret argocd-initial-admin-secret>/dev/null; do [ $? -eq 1 ] && sleep 1; done
+      # - echo -e "\n👇 ARGO-CD LOGIN CREDENTIALS 👇"
+      # - 'echo "Username: admin"'
+      # - 'echo "Password: $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d)"'
+      # not needed anymore
       - echo -e "\nExecute a port-forward 'kubectl port-forward service/argocd-server -n argocd 8080:443' and then open the browser on http://localhost:8080 and accept the certificate."
     silent: true
 
@@ -123,5 +124,5 @@ tasks:
           Once installed, rerun: task expose-lb
     cmds:
       - echo "🛠️  Starting cloud-provider-kind (requires sudo to provision veth interfaces)"
-      - sudo cloud-provider-kind
+      - sudo cloud-provider-kind --gateway-channel disabled
     silent: true
