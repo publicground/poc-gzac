@@ -1,7 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-# Vertel Kustomize om de Helm chart te renderen
 helmCharts:
   - name: gateway-helm
     repo: oci://docker.io/envoyproxy
@@ -9,22 +8,8 @@ helmCharts:
     releaseName: eg
     namespace: envoy-gateway-system
     valuesFile: values.local.yaml
-    includeCRDs: false # We laten ze niet renderen, maar filteren ze daarna
+    includeCRDs: false
 
 resources:
   - gateway-local.yaml
   - gatewayclass-local.yaml
-
-# # DIT IS HET FILTER: Verwijder alles van het type CustomResourceDefinition
-# # dat behoort tot de Gateway API groep.
-# patches:
-#   - patch: |
-#       $patch: delete
-#       apiVersion: apiextensions.k8s.io/v1
-#       kind: CustomResourceDefinition
-#       metadata:
-#         name: gateways.gateway.networking.k8s.io
-#     target:
-#       group: apiextensions.k8s.io
-#       kind: CustomResourceDefinition
-#       name: ".*gateway.networking.k8s.io" # Regex om alle Gateway CRDs te pakken
