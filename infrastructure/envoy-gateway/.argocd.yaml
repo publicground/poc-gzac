@@ -3,5 +3,5 @@ chartRepoURL: registry-1.docker.io/envoyproxy
 targetNamespace: envoy-gateway-system
 clusters:
   local:
-    enabled: true
+    enabled: false
     chartVersion: v1.7.1
