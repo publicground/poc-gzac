@@ -5,7 +5,9 @@ metadata:
   namespace: publicground
 spec:
   parentRefs:
-  - name: main-gateway
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: main-gateway
     namespace: envoy-gateway-system
     sectionName: https
   hostnames:
@@ -16,5 +18,8 @@ spec:
         type: PathPrefix
         value: /
     backendRefs:
-    - name: openzaak
+    - group: ""
+      kind: Service
+      name: openzaak
       port: 80
+      weight: 1
