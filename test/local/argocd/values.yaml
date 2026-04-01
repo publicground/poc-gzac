@@ -1,13 +1,7 @@
 configs:
-  # General Argo CD configuration. Any values you put under `.configs.cm` are passed to argocd-cm ConfigMap.
-  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cm.yaml
   cm:
-    # -- Enable exec feature in Argo UI
-    ## Ref: https://argo-cd.readthedocs.io/en/latest/operator-manual/rbac/#exec-resource
     exec.enabled: true
 
-    # -- Enable local admin user
-    ## Ref: https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user
     admin.enabled: false
 
     users.anonymous.enabled: "true"
@@ -16,8 +10,6 @@ configs:
   rbac:
     policy.csv: |
       g, users.anonymous, role:admin
-    # Optioneel: zet de standaardrol op 'none' om zeker te weten 
-    # dat alleen gedefinieerde groepen rechten hebben.
     policy.default: role:admin
 
 repoServer:

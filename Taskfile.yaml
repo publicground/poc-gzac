@@ -15,7 +15,12 @@ tasks:
 
   requirements-check:
     desc: "Check whether the user has all the required tools installed locally."
+    vars:
+      CURRENT_BRANCH:
+        sh: git rev-parse --abbrev-ref HEAD
     preconditions:
+      - sh: '[ "$(git rev-parse --abbrev-ref HEAD)" = "local" ]'
+        msg: "Fout: Je moet op de branch 'local' zitten om deze taak uit te voeren. (Huidige branch: {{.CURRENT_BRANCH}})"
       - sh: command -v kind
         msg: |
           🚨 kind is not installed! Use 'asdf' to install it (see README for details)

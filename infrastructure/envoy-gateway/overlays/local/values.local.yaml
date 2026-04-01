@@ -1,17 +1,13 @@
 envoyGateway:
-  # Omdat we de CRD's apart via Kustomize/ArgoCD doen:
   installCRDs: false
 
-# De 'Provider' instellingen (hoe Envoy Gateway met K8s praat)
 provider:
   type: Kubernetes
 
-# Logging op 'info' of 'debug' is handig tijdens het leren
 logging:
   level:
     default: info
 
-# Resources beperken voor je lokale laptop
 deployment:
   replicas: 1
   resources:
@@ -22,8 +18,6 @@ deployment:
       cpu: 100m
       memory: 128Mi
 
-# Optioneel: zet de 'EnvoyProxy' configuratie aan
-# Hiermee kun je later diepere Envoy-instellingen aanpassen
 config:
   envoyProxy:
     namespace: envoy-gateway-system
