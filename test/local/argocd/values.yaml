@@ -18,7 +18,7 @@ configs:
       g, users.anonymous, role:admin
     # Optioneel: zet de standaardrol op 'none' om zeker te weten 
     # dat alleen gedefinieerde groepen rechten hebben.
-    policy.default: role:''
+    policy.default: role:admin
 
 repoServer:
   volumes:
