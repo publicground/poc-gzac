@@ -12,10 +12,10 @@ spec:
     initdb:
       database: "openzaak"
       owner: "openzaak"
-      # postInitApplicationSQL runs in the application DB (openzaak) as the app owner.
-      # openzaak role must retain superuser so Django's PostGIS backend can run
-      # CREATE EXTENSION IF NOT EXISTS postgis during migrate.
-      postInitSQL:
+      # postInitTemplateSQL runs in template1 as the postgres superuser, before the
+      # application database is created. CNPG creates openzaak from template1 so it
+      # inherits PostGIS. Django's PostGIS backend then finds the extension already
+      # present and CREATE EXTENSION IF NOT EXISTS is a silent no-op (PG 15+).
+      postInitTemplateSQL:
         - "CREATE EXTENSION IF NOT EXISTS postgis;"
         - "CREATE EXTENSION IF NOT EXISTS postgis_topology;"
-        - "ALTER ROLE openzaak WITH SUPERUSER;"
