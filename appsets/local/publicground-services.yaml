@@ -3,6 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: publicground-services
+  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -23,13 +24,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: publicground-services-helm
+  namespace: argocd
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
         repoURL: file:///mnt/poc-gzac.git
-        revision: HEAD
+        revision: local
         files:
           - path: "infrastructure/**/.argocd.yaml"
       selector:
@@ -52,12 +54,52 @@ spec:
               - $argoRepo/{{ .path.path }}/values.yaml
               - $argoRepo/{{ .path.path }}/values.local.yaml
         - repoURL: file:///mnt/poc-gzac.git
-          targetRevision: main
+          targetRevision: local
           ref: argoRepo
           path: '{{ dig "clusters" "local" "additionalManifests" "" . }}'
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{.targetNamespace}}"
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        retry:
+          limit: 3
+          backoff:
+            duration: "5s"
+            factor: 2
+            maxDuration: "3m0s"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: publicground-services-kustomize
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: file:///mnt/poc-gzac.git
+      revision: local
+      directories:
+      - path: infrastructure/*/overlays/local
+  template:
+    metadata:
+      name: '{{index .path.segments 1}}'
+    spec:
+      project: publicground-services
+      sources:
+        - repoURL: file:///mnt/poc-gzac.git
+          targetRevision: local
+          path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
       syncPolicy:
         automated:
           allowEmpty: true
