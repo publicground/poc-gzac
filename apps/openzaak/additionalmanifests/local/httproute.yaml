@@ -5,16 +5,21 @@ metadata:
   namespace: publicground
 spec:
   parentRefs:
-  - name: gateway-local
-    namespace: envoy-gateway-system
-    sectionName: http
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: gateway-local
+      namespace: envoy-gateway-system
+      sectionName: http
   hostnames:
-  - "openzaak.wigo4it.nl"
+    - "openzaak.wigo4it.nl"
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: openzaak-nginx
-      port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - group: ""
+          kind: Service
+          name: openzaak-nginx
+          port: 80
+          weight: 1
