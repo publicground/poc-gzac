@@ -5,6 +5,7 @@ clusters:
   local:
     enabled: true
     chartVersion: "2.12.0"
+    additionalManifests: "apps/openobjecten/additionalmanifests/local/"
   655-dmn-poc:
     enabled: false
     chartVersion: "2.12.0"
