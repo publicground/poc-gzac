@@ -1,4 +1,3 @@
-
 global:
   configuration:
     enabled: true
@@ -38,11 +37,9 @@ tags:
 
 replicaCount: 1
 
-# TODO: add ingress when ingress controller is deployed
 ingress:
   enabled: false
 
-# Resource limits and requests (IMPORTANT for production)
 resources:
   requests:
     memory: "512Mi"
