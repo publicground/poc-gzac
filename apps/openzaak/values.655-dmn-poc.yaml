@@ -10,8 +10,9 @@ configuration:
     enabled: false
   superuser:
     username: "admin"
-    password: "dummy"
     email: "horstp@wigo4it.nl"
+    # password field is ignored when existingSecret is set — DJANGO_SUPERUSER_PASSWORD must be
+    # present as a key in the openzaak SealedSecret (additionalmanifests/655-dmn-poc/sealedsecret-openzaak.yaml)
   job:
     enabled: true
     ttlSecondsAfterFinished: "120"
@@ -64,7 +65,7 @@ extraEnvVars:
 settings:
   allowedHosts: "openzaak.dmn-poc.publicground.nl"
   isHttps: true
-  disable2fa: true
+  disable2fa: false
   siteDomain: "openzaak.dmn-poc.publicground.nl"
 
   database:
