@@ -41,27 +41,15 @@ replicaCount: 1
 # TODO: add ingress when ingress controller is deployed
 ingress:
   enabled: false
-  className: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  hosts:
-    - host: openzaak.wigo4it.nl
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: gzac-tls-secret
-      hosts:
-        - openzaak.wigo4it.nl
 
 # Resource limits and requests (IMPORTANT for production)
 resources:
   requests:
-    memory: "512Mi" # Minimum required
-    cpu: "250m" # 0.25 CPU cores
+    memory: "512Mi"
+    cpu: "250m"
   limits:
-    memory: "2Gi" # Maximum allowed (prevents OOMKill affecting other pods)
-    cpu: "1" # 1 CPU core burst capacity
+    memory: "2Gi"
+    cpu: "1"
 
 persistence:
   enabled: false
@@ -69,7 +57,6 @@ persistence:
 existingSecret: openzaak
 existingConfigurationSecrets: openzaak-config-secrets
 
-# Additional environment from CNPG bootstrap secret
 extraEnvVars:
   - name: DB_PASSWORD
     valueFrom:
@@ -78,18 +65,16 @@ extraEnvVars:
         key: "password"
 
 settings:
-  allowedHosts: "openzaak.local, openzaak"
-  useXForwardedHost: false
+  allowedHosts: "openzaak.wigo4it.nl, openzaak"
+  useXForwardedHost: true
 
   database:
-    # CloudNativePG cluster read-write service
     host: "openzaak-pg-cluster-rw"
     port: 5432
     username: "openzaak"
     name: "openzaak"
 
   cache:
-    # Using Redis Operator service (Sentinel)
     default: "openzaak-redis:6379/0"
     axes: "openzaak-redis:6379/1"
     portalLocker: "openzaak-redis:6379/2"
@@ -97,13 +82,9 @@ settings:
   celery:
     brokerUrl: "redis://openzaak-redis:6379/1"
     resultBackend: "redis://openzaak-redis:6379/1"
-    # Upstream chart expects typoed key resultBackendl in ConfigMap; keep both until chart is fixed
-    # TODO: Remove workaround once fixed upstream. Track: https://github.com/maykinmedia/charts/issues
-    # Search for 'resultBackendl' typo in openzaak chart ConfigMap template
     resultBackendl: "redis://openzaak-redis:6379/1"
 
   messageBroker:
-    # Celery over Redis Sentinel (Redis Operator)
     celeryBroker: "redis://openzaak-redis:6379/1"
     celeryResultBackend: "redis://openzaak-redis:6379/1"
 
@@ -111,13 +92,12 @@ settings:
 
   disable2fa: true
 
-  # siteDomain: "openzaak.local"
+  siteDomain: "openzaak.wigo4it.nl"
 
 worker:
   replicaCount: 1
   livenessProbe:
     enabled: true
 
-# Minimal sentinel config to prevent template errors (Redis disabled)
 redis:
   enabled: false
