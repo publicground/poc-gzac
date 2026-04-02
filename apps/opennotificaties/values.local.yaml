@@ -81,6 +81,14 @@ rabbitmq:
     username: user
   persistence:
     enabled: false
+  rbac:
+    create: false
+  clustering:
+    enabled: false
+  serviceAccount:
+    create: true
+    automountServiceAccountToken: false
+
   resources:
     requests:
       cpu: "50m"
