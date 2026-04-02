@@ -37,9 +37,11 @@ extraEnvVars:
       secretKeyRef:
         name: "objecttypen-pg-cluster-app"
         key: "password"
+  - name: IS_HTTPS
+    value: 'False'
 
 settings:
-  allowedHosts: "localhost, objecttypen, objecttypen.wigo4it.nl"
+  allowedHosts: "localhost,objecttypen,objecttypen.wigo4it.nl"
 
   database:
     host: "objecttypen-pg-cluster-rw"
@@ -49,8 +51,7 @@ settings:
 
   cache:
     default: "objecttypen-redis:6379/0"
-    axes: "objecttypen-redis:6379/1"
-    portalLocker: "objecttypen-redis:6379/2"
+    axes: "objecttypen-redis:6379/0"
 
   debug: false
 
