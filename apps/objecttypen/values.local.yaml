@@ -37,6 +37,12 @@ extraEnvVars:
       secretKeyRef:
         name: "objecttypen-pg-cluster-app"
         key: "password"
+  # - name: SESSION_COOKIE_SAMESITE
+  #   value: 'Lax'
+  - name: CSRF_COOKIE_SECURE
+    value: 'False'
+  - name: SESSION_COOKIE_SECURE
+    value: 'False'
 
 settings:
   allowedHosts: "localhost, objecttypen, objecttypen.wigo4it.nl"
