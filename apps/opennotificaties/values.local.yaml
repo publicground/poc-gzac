@@ -1,0 +1,100 @@
+global:
+  configuration:
+    enabled: true
+configuration:
+  enabled: true
+  overwrite: true
+  notificatiesAuthorization:
+    enabled: false
+  notificaties:
+    enabled: false
+  superuser:
+    username: admin
+    password: dummy123
+    email: "peterdummy@wigo4it.nl"
+  job:
+    enabled: false
+
+tags:
+  redis: false
+
+replicaCount: 1
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "1Gi"
+    cpu: "500m"
+
+persistence:
+  enabled: false
+
+existingSecret: opennotificaties
+
+extraEnvVars:
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "opennotificaties-pg-cluster-app"
+        key: "password"
+
+settings:
+  allowedHosts: "opennotificaties.wigo4it.nl, opennotificaties, opennotificaties.publicground"
+  useXForwardedHost: true
+
+  database:
+    host: "opennotificaties-pg-cluster-rw"
+    port: 5432
+    username: "opennotificaties"
+    name: "opennotificaties"
+
+  cache:
+    default: "opennotificaties-redis:6379/0"
+    axes: "opennotificaties-redis:6379/0"
+
+  # celery:
+  #   # brokerUrl: "redis://opennotificaties-redis:6379/1"
+  #   resultBackend: "redis://opennotificaties-redis:6379/1"
+  #   resultBackendl: "redis://opennotificaties-redis:6379/1"
+
+  disable2fa: true
+
+  isHttps: false
+
+  siteDomain: "opennotificaties.wigo4it.nl"
+
+worker:
+  replicaCount: 1
+  livenessProbe:
+    enabled: true
+
+redis:
+  enabled: false
+
+rabbitmq:
+  enabled: true
+  networkPolicy:
+    enabled: false
+  auth:
+    username: user
+    existingPasswordSecret: opennotificaties
+    existingErlangSecret: opennotificaties
+  persistence:
+    enabled: false
+  rbac:
+    create: false
+  clustering:
+    enabled: false
+  serviceAccount:
+    create: true
+    automountServiceAccountToken: false
+
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "256Mi"
+    limits:
+      cpu: "200m"
+      memory: "512Mi"
