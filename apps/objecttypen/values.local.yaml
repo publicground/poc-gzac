@@ -52,7 +52,7 @@ settings:
     axes: "objecttypen-redis:6379/1"
     portalLocker: "objecttypen-redis:6379/2"
 
-  debug: true
+  debug: false
 
   disable2fa: true
 
