@@ -54,10 +54,10 @@ settings:
     default: "opennotificaties-redis:6379/0"
     axes: "opennotificaties-redis:6379/0"
 
-  celery:
-    # brokerUrl: "redis://opennotificaties-redis:6379/1"
-    resultBackend: "redis://opennotificaties-redis:6379/1"
-    resultBackendl: "redis://opennotificaties-redis:6379/1"
+  # celery:
+  #   # brokerUrl: "redis://opennotificaties-redis:6379/1"
+  #   resultBackend: "redis://opennotificaties-redis:6379/1"
+  #   resultBackendl: "redis://opennotificaties-redis:6379/1"
 
   disable2fa: true
 
