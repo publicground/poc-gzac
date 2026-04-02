@@ -78,7 +78,7 @@ rabbitmq:
   networkPolicy:
     enabled: false
   auth:
-    username: guest
+    username: user
   persistence:
     enabled: false
   resources:
