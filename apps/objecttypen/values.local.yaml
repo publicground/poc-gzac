@@ -54,7 +54,7 @@ settings:
 
   debug: true
 
-  disable2fa: false
+  disable2fa: true
 
 redis:
   enabled: false
