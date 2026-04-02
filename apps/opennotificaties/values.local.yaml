@@ -79,6 +79,8 @@ rabbitmq:
     enabled: false
   auth:
     username: user
+    existingPasswordSecret: opennotificaties
+    existingErlangSecret: opennotificaties
   persistence:
     enabled: false
   rbac:
