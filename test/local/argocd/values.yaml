@@ -5,7 +5,7 @@ configs:
     admin.enabled: false
 
     users.anonymous.enabled: "true"
-    kustomize.buildOptions: "--enable-helm"
+    kustomize.buildOptions: "--enable-helm --load-restrictor LoadRestrictionsNone"
 
   rbac:
     policy.csv: |
