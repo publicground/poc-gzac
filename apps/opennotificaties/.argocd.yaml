@@ -1,12 +1,12 @@
-chartName: openzaak
+chartName: opennotificaties
 chartRepoURL: https://raw.githubusercontent.com/maykinmedia/charts/gh-pages/
 targetNamespace: publicground
 clusters:
   local:
-    enabled: false
-    chartVersion: "1.13.1"
-    additionalManifests: "apps/openzaak/additionalmanifests/local/"
-  655-dmn-poc:
     enabled: true
     chartVersion: "1.13.1"
-    additionalManifests: "apps/openzaak/additionalmanifests/655-dmn-poc/"
+    additionalManifests: "apps/opennotificaties/additionalmanifests/local/"
+  655-dmn-poc:
+    enabled: false
+    chartVersion: "1.13.1"
+    additionalManifests: "apps/opennotificaties/additionalmanifests/655-dmn-poc/"
