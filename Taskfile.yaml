@@ -78,13 +78,13 @@ tasks:
 
   bootstrap-argocd:
     desc: "Bootstrap Argo-CD."
-    internal: true
+    internal: false
     cmds:
       - echo -e "\n\n🛠️  Bootstrapping Argo-CD  - this can take while!"
       - helm repo add argo https://argoproj.github.io/argo-helm > /dev/null
       - helm repo update > /dev/null
       - |
-        helm -n argocd upgrade -f test/local/argocd/values.yaml --install --wait --wait-for-jobs --create-namespace {{.ARGO_NS}} argo/argo-cd --version {{.ARGO_CHART_VERSION}} > /dev/null
+        helm -n argocd upgrade --install -f test/local/argocd/values.yaml --install --wait --wait-for-jobs --create-namespace {{.ARGO_NS}} argo/argo-cd --version {{.ARGO_CHART_VERSION}} > /dev/null
     silent: true
 
   fetch-argocd-creds:
