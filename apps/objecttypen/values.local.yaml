@@ -37,8 +37,8 @@ extraEnvVars:
       secretKeyRef:
         name: "objecttypen-pg-cluster-app"
         key: "password"
-  # - name: SESSION_COOKIE_SAMESITE
-  #   value: 'Lax'
+  - name: SESSION_COOKIE_SAMESITE
+    value: 'Lax'
   - name: CSRF_COOKIE_SECURE
     value: 'False'
   - name: SESSION_COOKIE_SECURE
