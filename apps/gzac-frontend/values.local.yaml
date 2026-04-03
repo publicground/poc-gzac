@@ -1,0 +1,20 @@
+image:
+  repository: "ritense/gzac-frontend"
+  tag: "13.20.0"
+
+serviceAccount:
+  create: false
+
+ingress:
+  enabled: false
+
+settings:
+  apiURL: "http://gzac.wigo4it.nl/api"
+  whitelistedDomain: "http://gzac.wigo4it.nl"
+
+  keycloak:
+    url: "http://keycloak.wigo4it.nl"
+    clientID: "gzac-frontend"
+    realm: "publicground"
+    logoutRedirectURL: "http://gzac.wigo4it.nl"
+    redirectURL: "http://gzac.wigo4it.nl/keycloak/callback"
