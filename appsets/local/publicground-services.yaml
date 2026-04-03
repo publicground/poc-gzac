@@ -17,7 +17,6 @@ spec:
     - group: "*"
       kind: "*"
 
-
 # ApplicationSet for Helm-based services
 ---
 apiVersion: argoproj.io/v1alpha1
