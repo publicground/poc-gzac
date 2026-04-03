@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: keycloak
+
+# resources:
+  # - realm-import.yaml
+  # - keycloak-realm-secrets-sealed.yaml
+
+patches:
+  - path: patches/keycloak-instance.yaml
+  - path: patches/httproute.yaml
+# patchesStrategicMerge:
+#   - patches/keycloak-instance.yaml
+
+# patches:
+#   - target:
+#       kind: Keycloak
+#       name: keycloak
+#     patch: |
+#       - op: replace
+#         path: /spec/hostname/hostname
+#         value: keycloak.wigo4it.nl
+#   - target:
+#       kind: HTTPRoute
+#       name: keycloak
+#     patch: |
+#       - op: replace
+#         path: /spec/hostnames/0
+#         value: keycloak.wigo4it.nl

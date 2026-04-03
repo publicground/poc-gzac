@@ -1,0 +1,47 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak
+spec:
+  resources:
+    requests:
+      # set very low resource requests to fit in Kind cluster
+      # needs to be configured, otherwise the operator defaults are used which are too high for Kind
+      memory: 1Mi
+      cpu: 1m
+  db:
+    database: keycloak
+    host: keycloak-pg-cluster-rw
+    passwordSecret:
+      name: keycloak-pg-cluster-app
+      key: password
+    port: 5432
+    usernameSecret:
+      name: keycloak-pg-cluster-app
+      key: username
+    vendor: postgres
+  hostname:
+    hostname: set-in-overlay
+    strict: false
+  http:
+    httpEnabled: true
+  proxy:
+    headers: xforwarded
+  unsupported:
+    podTemplate:
+      spec:
+        # Pod-level security context
+        securityContext:
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+        # Required: must include containers section
+        containers:
+        - name: keycloak
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
