@@ -73,3 +73,43 @@ spec:
             duration: "5s"
             factor: 2
             maxDuration: "3m0s"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: publicground-apps-kustomize
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: file:///mnt/poc-gzac.git
+      revision: local
+      directories:
+      - path: apps/*/overlays/local
+  template:
+    metadata:
+      name: '{{index .path.segments 1}}'
+    spec:
+      project: publicground-apps
+      sources:
+        - repoURL: file:///mnt/poc-gzac.git
+          targetRevision: local
+          path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        retry:
+          limit: 3
+          backoff:
+            duration: "5s"
+            factor: 2
+            maxDuration: "3m0s"
