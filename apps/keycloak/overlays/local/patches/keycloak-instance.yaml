@@ -9,7 +9,7 @@ spec:
     podTemplate:
       spec:
         containers:
-        - name: keycloak
-          envFrom:
-            - secretRef:
-                name: keycloak-realm-secrets
+          - name: keycloak
+            envFrom:
+              - secretRef:
+                  name: keycloak-realm-secrets
