@@ -7,6 +7,6 @@ clusters:
     chartVersion: "1.13.1"
     additionalManifests: "apps/opennotificaties/additionalmanifests/local/"
   655-dmn-poc:
-    enabled: false
+    enabled: true
     chartVersion: "1.13.1"
     additionalManifests: "apps/opennotificaties/additionalmanifests/655-dmn-poc/"
