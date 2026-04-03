@@ -4,12 +4,13 @@ namespace: keycloak
 
 resources:
   - ../../base
-  # - realm-import.yaml
-  # - keycloak-realm-secrets-sealed.yaml
+  - keycloak-realm-secrets-sealed.yaml
+  - realm-import.yaml
 
 patches:
   - path: patches/keycloak-instance.yaml
   - path: patches/httproute.yaml
+
 # patchesStrategicMerge:
 #   - patches/keycloak-instance.yaml
 
