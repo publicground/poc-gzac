@@ -1,0 +1,77 @@
+tags:
+  postgresql: false
+
+image:
+  tag: 13.20.0
+
+existingSecret: gzac-backend
+
+extraEnvVars:
+  - name: SPRING_DATASOURCE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: zac-backend-pg-app
+        key: password
+  - name: LOGGING_LEVEL_ROOT
+    value: DEBUG
+  # - name: JAVA_TOOL_OPTIONS
+  #   value: "-Djavax.net.ssl.trustStore=/app/certs/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.debug=ssl,handshake"
+ingress:
+  enabled: false
+
+settings:
+  spring:
+    datasource:
+      # -- URL for the postgresql database
+      url: "jdbc:postgresql://gzacbackend-pg-rw:5432/gzac-backend"
+      # -- Username for the postgresql database
+      username: "gzac-backend"
+      #   # -- Password for the postgresql database
+      #   password: "TOPSECRET"
+      #   # -- Driver for the postgresql database
+      driverClassName: "org.postgresql.Driver"
+    jpa:
+      properties:
+        hibernateDialect: "org.hibernate.dialect.PostgreSQLDialect"
+
+  keycloak:
+    # -- URL of Keycloak - Required
+    authServerURL: "http://keycloak.wigo4it.nl"
+    # authServerURL: "http://publicground-core-keycloak-service:8080"
+    # -- Keycloak realm - Required
+    realm: "publicground"
+    # -- Client-ID to connect with Keycloak
+    clientID: "gzac-backend"
+    clientRoleID: "gzac-frontend"
+    # publicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmS7QD/aQBw9QEqAHnKSL/UCYxxTyafEO3bK7BuM2VwGB92vDHgO/gZsA3IXiLnvVkFVo2c6q5mdVseX6h80KnfXAJ9LFme0FcRj0DRPOs82Dbdn7XN4CsOkAxZ5dAdhNCsLjET9QfSM/6mmI7HVRgXfPSRrKbN8+udBuLsIKHFNf0rb2cRMb2E/9KQqOTuVgLS2huwYYwgfeLeLcQH1Uy2jwTPEu15Jn+GhdgsAO7P1OITNt5RtxLoc1kYEljZ1AvCeUu3KQLQUzvkF5oRvKbBLR+J4x2RopXJvwWUYvuc5cYEB/xhToJf1JFbrfj9KslEXWShiwMVHJT0KFBiyPLwIDAQAB"
+    version: "26.5.7"
+
+  gzac:
+    # -- Type of database to use (can by either 'postgres' or 'mysql')
+    databaseType: "postgres"
+    # -- Optional: The hostname which exposes gzac-backend
+    # -- Defaults to https://<ingress.hosts[0]>
+    # appHostName:
+    # -- The port on which gzac-backend is listening
+    serverPort: 8080
+    # -- Encryption secret
+    # Or, if using existingSecret: `VALTIMO_CONNECTORENCRYPTION_SECRET`
+    # connectorEncryptionSecret: ""
+    # -- Required if using Valtimo/GZAC plugins: Plugin encryption secret. Must be exactly 16, 24 or 32 bytes.
+    # Or, if using existingSecret: `VALTIMO_PLUGIN_ENCRYPTIONSECRET`
+    # pluginEncryptionSecret: ""
+    # -- Explicit API URL. When unset, it falls back to https://<ingress.hosts[0]>/api/v1
+    # apiUrl:
+
+    # -- Feature flags
+    features:
+      # Valtimo Drafts feature, see: https://docs.valtimo.nl/release-notes/13.x.x/13.0.0#draft-versions
+      drafts:
+        enabled: true
+
+  operaton:
+    # -- Default Operaton admin user
+    adminUserID: "admin"
+    # -- Default Operaton admin password.
+    # Or, if using existingSecret: `OPERATON_BPM_ADMINUSER_PASSWORD`
+    # adminUserPassword: ""
