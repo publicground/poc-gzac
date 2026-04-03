@@ -3,6 +3,8 @@ kind: Keycloak
 metadata:
   name: keycloak
 spec:
+  ingress:
+    enabled: false
   resources:
     requests:
       # set very low resource requests to fit in Kind cluster
@@ -25,6 +27,8 @@ spec:
     strict: false
   http:
     httpEnabled: true
+  networkPolicy:
+    enabled: false
   proxy:
     headers: xforwarded
   unsupported:
