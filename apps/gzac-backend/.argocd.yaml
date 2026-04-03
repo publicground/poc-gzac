@@ -3,7 +3,7 @@ chartRepoURL: https://generiekzaakafhandelcomponent.github.io/helm-charts/
 targetNamespace: publicground
 clusters:
   local:
-    enabled: false
+    enabled: true
     chartVersion: "4.2.2"
     additionalManifests: "apps/gzac-backend/additionalmanifests/local/"
   655-dmn-poc:
