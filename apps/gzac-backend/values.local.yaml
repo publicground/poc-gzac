@@ -23,7 +23,7 @@ settings:
   spring:
     datasource:
       # -- URL for the postgresql database
-      url: "jdbc:postgresql://gzacbackend-pg-rw:5432/gzac-backend"
+      url: "jdbc:postgresql://gzac-backend-pg-cluster-rw:5432/gzac-backend"
       # -- Username for the postgresql database
       username: "gzac-backend"
       #   # -- Password for the postgresql database
