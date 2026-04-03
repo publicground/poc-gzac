@@ -1,0 +1,11 @@
+chartName: gzac-frontend
+chartRepoURL: https://generiekzaakafhandelcomponent.github.io/helm-charts/
+targetNamespace: publicground
+clusters:
+  local:
+    enabled: true
+    chartVersion: "0.1.18"
+    additionalManifests: "apps/gzac-frontend/additionalmanifests/local/"
+  655-dmn-poc:
+    enabled: false
+    chartVersion: "0.1.18"
