@@ -6,5 +6,5 @@ clusters:
     enabled: true
     chartVersion: 1.0.20260403001450
   655-dmn-poc:
-    enabled: false
+    enabled: true
     chartVersion: 1.0.20260403001450

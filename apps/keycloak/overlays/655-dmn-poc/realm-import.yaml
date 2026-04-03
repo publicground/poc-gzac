@@ -1,0 +1,76 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: KeycloakRealmImport
+metadata:
+  name: keycloak-realm-import
+spec:
+  keycloakCRName: keycloak
+  realm:
+    id: "eb865181-ed0d-4a16-86d1-000000000000"
+    realm: "publicground"
+    enabled: true
+
+    users:
+      - id: "eb865181-ed0d-4a16-86d2-000000000001"
+        username: "medewerkergzac"
+        enabled: true
+        email: "medewerkergzac@example.com"
+        firstName: "Medewerker"
+        lastName: "Gzac"
+        credentials:
+          - type: "password"
+            value: "${MEDEWERKER_GZAC_PASSWORD}" # Verwijst naar env var in de Keycloak pod
+            temporary: false
+        realmRoles:
+          - "ROLE_USER"
+      - id: "eb865181-ed0d-4a16-86d2-000000000002"
+        username: "admingzac"
+        enabled: true
+        email: "admingzac@example.com"
+        firstName: "Admin"
+        lastName: "Gzac"
+        credentials:
+          - type: "password"
+            value: "${ADMIN_GZAC_PASSWORD}" # Verwijst naar env var in de Keycloak pod
+            temporary: false
+        realmRoles:
+          - "ROLE_USER"
+          - "ROLE_ADMIN"
+
+    clients:
+      - id: "eb865181-ed0d-4a16-86d3-000000000001"
+        clientId: "gzac-frontend"
+        name: "gzac frontend"
+        enabled: true
+        protocol: "openid-connect"
+        publicClient: true
+        redirectUris:
+          - "https://gzac.dmn-poc.publicground.nl/*"
+        webOrigins:
+          - "https://gzac.dmn-poc.publicground.nl"
+        standardFlowEnabled: true
+        directAccessGrantsEnabled: true
+      - id: "eb865181-ed0d-4a16-86d3-000000000002"
+        clientId: "gzac-backend"
+        name: "gzac backend"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${GZAC_BACKEND_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        redirectUris:
+          - "https://gzac.dmn-poc.publicground.nl/*"
+        webOrigins:
+          - "https://gzac.dmn-poc.publicground.nl"
+        publicClient: false
+        standardFlowEnabled: false
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: false
+        serviceAccountsEnabled: true
+
+    roles:
+      realm:
+        - id: "eb865181-ed0d-4a16-86d4-000000000001"
+          name: "ROLE_USER"
+          description: "Standaard gzac gebruikersrol."
+        - id: "eb865181-ed0d-4a16-86d4-000000000002"
+          name: "ROLE_ADMIN"
+          description: "Standaard gzac beheerdersrol"
