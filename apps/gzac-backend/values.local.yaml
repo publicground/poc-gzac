@@ -10,7 +10,7 @@ extraEnvVars:
   - name: SPRING_DATASOURCE_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: zac-backend-pg-app
+        name: gzac-backend-pg-cluster-app
         key: password
   - name: LOGGING_LEVEL_ROOT
     value: DEBUG
