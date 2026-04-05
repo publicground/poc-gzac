@@ -8,6 +8,6 @@ sealedSecrets:
   # -- Name of the sealed secrets service
   serviceName: sealed-secrets-controller
 
-deployment:
+# deployment:
   # env:
   #   sealedSecretsControllerName: sealed-secrets-controller
