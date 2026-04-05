@@ -1,0 +1,3 @@
+includeLocalNamespaceOnly: true
+
+disableLoadSecrets: true
