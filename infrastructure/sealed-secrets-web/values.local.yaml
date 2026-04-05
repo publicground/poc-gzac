@@ -1,3 +1,3 @@
-includeLocalNamespaceOnly: true
+# includeLocalNamespaceOnly: true
 
-disableLoadSecrets: true
+# disableLoadSecrets: true
