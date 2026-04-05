@@ -1,3 +1,6 @@
 # includeLocalNamespaceOnly: true
 
 # disableLoadSecrets: true
+deployment:
+  env:
+    sealedSecretsControllerName: sealed-secrets-controller
