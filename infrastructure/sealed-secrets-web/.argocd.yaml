@@ -5,7 +5,7 @@ clusters:
   local:
     enabled: true
     chartVersion: v3.3.0
-    # additionalManifests: "infrastructure/sealed-secrets/additionalmanifests/local/"
+    additionalManifests: "infrastructure/sealed-secrets-web/additionalmanifests/local/"
   655-dmn-poc:
     enabled: false
     chartVersion: v3.3.0
