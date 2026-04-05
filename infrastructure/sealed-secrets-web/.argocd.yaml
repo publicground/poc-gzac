@@ -4,8 +4,8 @@ targetNamespace: sealed-secrets-web
 clusters:
   local:
     enabled: true
-    chartVersion: 3.3.0
+    chartVersion: v3.3.0
     # additionalManifests: "infrastructure/sealed-secrets/additionalmanifests/local/"
   655-dmn-poc:
     enabled: false
-    chartVersion: 3.3.0
+    chartVersion: v3.3.0
