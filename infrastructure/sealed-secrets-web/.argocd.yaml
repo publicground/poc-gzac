@@ -1,6 +1,6 @@
 chartName: sealed-secrets
 chartRepoURL: https://charts.bakito.net
-# targetNamespace: sealed-secrets
+targetNamespace: sealed-secrets-web
 clusters:
   local:
     enabled: true
