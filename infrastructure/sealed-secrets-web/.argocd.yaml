@@ -1,4 +1,4 @@
-chartName: sealed-secrets
+chartName: sealed-secrets-web
 chartRepoURL: https://charts.bakito.net
 targetNamespace: sealed-secrets-web
 clusters:
