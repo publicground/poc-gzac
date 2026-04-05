@@ -1,6 +1,6 @@
 # includeLocalNamespaceOnly: true
 
-# disableLoadSecrets: true
+disableLoadSecrets: false
 
 sealedSecrets:
   # -- Namespace of the sealed secrets service
