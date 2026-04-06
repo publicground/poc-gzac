@@ -38,12 +38,12 @@ extraEnvVars:
   - name: DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: "openforms-pg-app"
+        name: "openformulieren-pg-cluster-app"
         key: "password"
   # - name: REDIS_PASSWORD
   #   valueFrom:
   #     secretKeyRef:
-  #       name: openforms-redis-auth
+  #       name: openformulieren-redis-auth
   #       key: password
   - name: LOG_STDOUT
     value: "true"
@@ -58,12 +58,10 @@ settings:
   # secretKey: "CHANGE-ME-IN-PRODUCTION-PLEASE-USE-LONG-RANDOM-STRING"
 
   database:
-    host: "openformulieren-pg-rw"
+    host: "openformulieren-pg-cluster-rw"
     port: 5432
     name: "openformulieren"
     username: "openformulieren"
-    existingSecret: "openformulieren-pg-app"
-    passwordKey: "password"
 
   cache:
     default: "openformulieren-redis:6379/0"
