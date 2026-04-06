@@ -1,0 +1,88 @@
+global:
+  configuration:
+    enabled: true
+configuration:
+  enabled: true
+  overwrite: true
+  notificatiesAuthorization:
+    enabled: false
+  notificaties:
+    enabled: false
+  superuser:
+    username: admin
+    password: dummy123
+    email: "peterdummy@wigo4it.nl"
+  job:
+    enabled: false
+
+tags:
+  redis: false
+
+replicaCount: 1
+
+persistence:
+  enabled: false
+
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "250m"
+  limits:
+    memory: "2Gi"
+    cpu: "1"
+
+postgresql:
+  enabled: false
+
+extraEnvVars:
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "openforms-pg-app"
+        key: "password"
+  # - name: REDIS_PASSWORD
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: openforms-redis-auth
+  #       key: password
+  - name: LOG_STDOUT
+    value: "true"
+  - name: LOG_LEVEL
+    value: DEBUG
+
+settings:
+  allowedHosts: "localhost,openformulieren,openformulieren.wigo4it.nl"
+
+  # ⚠️ WARNING: Default SECRET_KEY! MUST be changed in production. See docs/SECURITY.md
+  # Generate a secure random key (50+ characters): openssl rand -base64 48
+  # secretKey: "CHANGE-ME-IN-PRODUCTION-PLEASE-USE-LONG-RANDOM-STRING"
+
+  database:
+    host: "openformulieren-pg-rw"
+    port: 5432
+    name: "openformulieren"
+    username: "openformulieren"
+    existingSecret: "openformulieren-pg-app"
+    passwordKey: "password"
+
+  cache:
+    default: "openformulieren-redis:6379/0"
+    axes: "openformulieren-redis:6379/0"
+    portalLocker: "openformulieren-redis:6379/0"
+
+  celery:
+    brokerUrl: "redis://openformulieren-redis:6379/1"
+    resultBackendl: "redis://openformulieren-redis:6379/1"
+
+  messageBroker:
+    celeryBroker: "redis://openformulieren-redis:6379/1"
+    celeryResultBackend: "redis://openformulieren-redis:6379/1"
+
+worker:
+  replicaCount: 1
+  livenessProbe:
+    enabled: true
+
+# Minimal sentinel config to prevent template errors (Redis disabled)
+redis:
+  enabled: false
