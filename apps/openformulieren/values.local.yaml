@@ -54,6 +54,7 @@ extraEnvVars:
 
 settings:
   allowedHosts: "localhost,openformulieren,openformulieren.wigo4it.nl"
+  siteDomain: "openformulieren.wigo4it.nl"
 
   # ⚠️ WARNING: Default SECRET_KEY! MUST be changed in production. See docs/SECURITY.md
   # Generate a secure random key (50+ characters): openssl rand -base64 48
@@ -77,6 +78,10 @@ settings:
   messageBroker:
     celeryBroker: "redis://openformulieren-redis:6379/1"
     celeryResultBackend: "redis://openformulieren-redis:6379/1"
+
+  isHttps: false
+
+  disable2fa: true
 
 worker:
   replicaCount: 1
