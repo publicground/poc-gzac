@@ -1,0 +1,12 @@
+chartName: openforms
+chartRepoURL: https://raw.githubusercontent.com/maykinmedia/charts/gh-pages/
+targetNamespace: publicground
+clusters:
+  local:
+    enabled: true
+    chartVersion: "1.12.0"
+    additionalManifests: "apps/openformulieren/additionalmanifests/local/"
+  655-dmn-poc:
+    enabled: true
+    chartVersion: "1.12.0"
+    additionalManifests: "apps/openformulieren/additionalmanifests/655-dmn-poc/"
