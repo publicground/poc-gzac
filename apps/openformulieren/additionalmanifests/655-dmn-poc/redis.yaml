@@ -8,6 +8,9 @@ metadata:
     app.kubernetes.io/managed-by: redis
     app.kubernetes.io/part-of: openformulieren
 spec:
+  podSecurityContext:
+    fsGroup: 1000
+    runAsUser: 1000
   kubernetesConfig:
     image: quay.io/opstree/redis:v7.0.15
     imagePullPolicy: IfNotPresent
