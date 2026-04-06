@@ -19,7 +19,7 @@ resources:
     cpu: "1"
 
 persistence:
-  enabled: false
+  storageClassName: "managed-csi"
 
 existingSecret: openformulieren
 
