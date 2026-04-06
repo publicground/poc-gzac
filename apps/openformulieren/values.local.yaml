@@ -34,6 +34,8 @@ resources:
 postgresql:
   enabled: false
 
+existingSecret: openformulieren
+
 extraEnvVars:
   - name: DB_PASSWORD
     valueFrom:
