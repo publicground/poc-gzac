@@ -1,19 +1,9 @@
 global:
   configuration:
-    enabled: true
+    enabled: false
+
 configuration:
-  enabled: true
-  overwrite: true
-  notificatiesAuthorization:
-    enabled: false
-  notificaties:
-    enabled: false
-  superuser:
-    username: admin
-    password: dummy123
-    email: "peterdummy@wigo4it.nl"
-  job:
-    enabled: false
+  enabled: false
 
 tags:
   redis: false
