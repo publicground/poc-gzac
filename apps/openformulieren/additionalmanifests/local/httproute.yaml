@@ -20,6 +20,6 @@ spec:
       backendRefs:
         - group: ""
           kind: Service
-          name: openformulieren
+          name: openformulieren-openforms-nginx
           port: 80
           weight: 1

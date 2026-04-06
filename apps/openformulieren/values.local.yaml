@@ -31,9 +31,6 @@ resources:
     memory: "2Gi"
     cpu: "1"
 
-postgresql:
-  enabled: false
-
 existingSecret: openformulieren
 
 extraEnvVars:
@@ -74,10 +71,6 @@ settings:
   celery:
     brokerUrl: "redis://openformulieren-redis:6379/1"
     resultBackendl: "redis://openformulieren-redis:6379/1"
-
-  messageBroker:
-    celeryBroker: "redis://openformulieren-redis:6379/1"
-    celeryResultBackend: "redis://openformulieren-redis:6379/1"
 
   isHttps: false
 
