@@ -11,7 +11,7 @@ spec:
       namespace: envoy-gateway-system
       sectionName: https
   hostnames:
-    - "gzac.wigo4it.nl"
+    - "gzac.dmn-poc.publicground.nl"
   rules:
     - matches:
         - path:
