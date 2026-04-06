@@ -1,0 +1,17 @@
+image:
+  repository: "ritense/gzac-frontend"
+  tag: "13.20.0"
+
+serviceAccount:
+  create: false
+
+settings:
+  apiURL: "https://gzac.dmn-poc.publicground.nl/api"
+  whitelistedDomain: "https://gzac.dmn-poc.publicground.nl"
+
+  keycloak:
+    url: "https://keycloak.dmn-poc.publicground.nl"
+    clientID: "gzac-frontend"
+    realm: "publicground"
+    logoutRedirectURL: "https://gzac.dmn-poc.publicground.nl"
+    redirectURL: "https://gzac.dmn-poc.publicground.nl/keycloak/callback"
