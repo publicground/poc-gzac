@@ -7,6 +7,6 @@ clusters:
     chartVersion: "4.2.2"
     additionalManifests: "apps/gzac-backend/additionalmanifests/local/"
   655-dmn-poc:
-    enabled: true
+    enabled: false
     chartVersion: "4.2.2"
     additionalManifests: "apps/gzac-backend/additionalmanifests/655-dmn-poc/"
