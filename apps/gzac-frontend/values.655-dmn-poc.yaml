@@ -1,5 +1,5 @@
 image:
-  repository: "ritense/gzac-frontend"
+  repository: "acr655.azurecr.io/docker.io/ritense/gzac-frontend"
   tag: "13.20.0"
 
 serviceAccount:

@@ -1,3 +1,10 @@
+image:
+  repository: acr655.azurecr.io/docker.io/openformulieren/open-forms
+
+nginx:
+  image:
+    repository: acr655.azurecr.io/docker.io/nginxinc/nginx-unprivileged
+
 global:
   configuration:
     enabled: false

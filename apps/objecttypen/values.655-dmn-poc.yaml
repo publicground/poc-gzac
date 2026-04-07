@@ -1,3 +1,6 @@
+image:
+  repository: acr655.azurecr.io/docker.io/maykinmedia/objecttypes-api
+
 global:
   configuration:
     enabled: true

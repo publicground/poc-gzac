@@ -1,3 +1,6 @@
+image:
+  repository: acr655.azurecr.io/docker.io/openzaak/open-notificaties
+
 global:
   configuration:
     enabled: true
@@ -77,6 +80,9 @@ redis:
 
 rabbitmq:
   enabled: true
+  image:
+    registry: acr655.azurecr.io/docker.io
+    repository: bitnamilegacy/rabbitmq
   networkPolicy:
     enabled: false
   auth:
