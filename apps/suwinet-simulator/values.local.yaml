@@ -1,7 +1,7 @@
 image:
   registry: "ghcr.io"
   repository: "generiekzaakafhandelcomponent/suwinet-simulator"
-  tag: "1.2.1-202603251034.main.f93bb4c4"
+  tag: "1.3.0-202604011155.main.a9fe526f"
 
 appKind: Deployment
 
