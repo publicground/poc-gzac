@@ -26,6 +26,7 @@ podSecurityContext:
 
 containerSecurityContext:
   enabled: true
+  readOnlyRootFilesystem: true
   allowPrivilegeEscalation: false
 
 service:
