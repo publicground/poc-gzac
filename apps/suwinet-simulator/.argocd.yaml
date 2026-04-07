@@ -1,0 +1,12 @@
+chartName: generic
+chartRepoURL: https://gemeente-denhaag.github.io/helm-charts
+targetNamespace: publicground
+clusters:
+  local:
+    enabled: true
+    chartVersion: "0.30.0"
+    additionalManifests: "apps/suwinet-simulator/additionalmanifests/local/"
+  655-dmn-poc:
+    enabled: false
+    chartVersion: "0.30.0"
+    additionalManifests: "apps/suwinet-simulator/additionalmanifests/655-dmn-poc/"
