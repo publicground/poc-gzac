@@ -1,2 +1,3 @@
 resources:
   - azurefile-dmn-poc.yaml
+  - managed-csi-retain.yaml
