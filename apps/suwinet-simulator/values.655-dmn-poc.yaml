@@ -1,14 +1,7 @@
 image:
-  # docker pull --platform linux/amd64 ghcr.io/generiekzaakafhandelcomponent/suwinet-simulator:1.3.0-202604011155.main.a9fe526f
-  # docker tag ghcr.io/generiekzaakafhandelcomponent/suwinet-simulator:1.3.0-202604011155.main.a9fe526f suwinet-simulator:local
-  # kind load docker-image suwinet-simulator:local --name gitops-argocd
-  # registry: "ghcr.io"
-  # repository: "generiekzaakafhandelcomponent/suwinet-simulator"
-  # registry: null
-  # repository: "suwinet-simulator"
-  # tag: "local"
-  fullImage: "suwinet-simulator:local"
-  # tag: "1.3.0-202604011155.main.a9fe526f"
+  registry: "ghcr.io"
+  repository: "generiekzaakafhandelcomponent/suwinet-simulator"
+  tag: "1.3.0-202604011155.main.a9fe526f"
   pullPolicy: IfNotPresent
 
 appKind: Deployment
