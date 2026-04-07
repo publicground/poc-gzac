@@ -8,6 +8,7 @@ spec:
   imageName: "ghcr.io/cloudnative-pg/postgis:18-3.6-system-trixie"
   storage:
     size: "10Gi"
+    storageClass: managed-csi-retain
   bootstrap:
     initdb:
       database: "openzaak"
