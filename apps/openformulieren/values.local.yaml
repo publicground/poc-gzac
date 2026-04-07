@@ -10,9 +10,6 @@ tags:
 
 replicaCount: 1
 
-persistence:
-  enabled: false
-
 resources:
   requests:
     memory: "512Mi"
@@ -20,6 +17,9 @@ resources:
   limits:
     memory: "2Gi"
     cpu: "1"
+
+persistence:
+  enabled: false
 
 existingSecret: openformulieren
 
@@ -29,11 +29,6 @@ extraEnvVars:
       secretKeyRef:
         name: "openformulieren-pg-cluster-app"
         key: "password"
-  # - name: REDIS_PASSWORD
-  #   valueFrom:
-  #     secretKeyRef:
-  #       name: openformulieren-redis-auth
-  #       key: password
   - name: LOG_STDOUT
     value: "true"
   - name: LOG_LEVEL
@@ -41,11 +36,7 @@ extraEnvVars:
 
 settings:
   allowedHosts: "localhost,openformulieren,openformulieren.wigo4it.nl"
-  siteDomain: "openformulieren.wigo4it.nl"
-
-  # ⚠️ WARNING: Default SECRET_KEY! MUST be changed in production. See docs/SECURITY.md
-  # Generate a secure random key (50+ characters): openssl rand -base64 48
-  # secretKey: "CHANGE-ME-IN-PRODUCTION-PLEASE-USE-LONG-RANDOM-STRING"
+  baseUrl: "http://openformulieren.wigo4it.nl"
 
   database:
     host: "openformulieren-pg-cluster-rw"
@@ -64,13 +55,10 @@ settings:
 
   isHttps: false
 
-  disable2fa: true
-
 worker:
   replicaCount: 1
   livenessProbe:
     enabled: true
 
-# Minimal sentinel config to prevent template errors (Redis disabled)
 redis:
   enabled: false
