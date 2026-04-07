@@ -4,7 +4,7 @@ targetNamespace: publicground
 clusters:
   local:
     enabled: true
-    chartVersion: "0.30.0"
+    chartVersion: "0.0.30"
     additionalManifests: "apps/suwinet-simulator/additionalmanifests/local/"
   655-dmn-poc:
     enabled: false
