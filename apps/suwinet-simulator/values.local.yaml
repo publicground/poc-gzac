@@ -4,9 +4,10 @@ image:
   # kind load docker-image suwinet-simulator:local --name gitops-argocd
   # registry: "ghcr.io"
   # repository: "generiekzaakafhandelcomponent/suwinet-simulator"
-  registry: null
-  repository: "suwinet-simulator"
-  tag: "local"
+  # registry: null
+  # repository: "suwinet-simulator"
+  # tag: "local"
+  fullImage: "suwinet-simulator:local"
   # tag: "1.3.0-202604011155.main.a9fe526f"
   pullPolicy: IfNotPresent
 
