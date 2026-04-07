@@ -19,7 +19,7 @@ resources:
     cpu: "1"
 
 persistence:
-  storageClassName: "managed-csi"
+  storageClassName: "azurefile-csi"
 
 existingSecret: openformulieren
 
