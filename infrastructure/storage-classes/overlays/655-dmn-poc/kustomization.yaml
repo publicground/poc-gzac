@@ -1,0 +1,14 @@
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: StorageClass
+      name: azurefile-dmn-poc
+    patch: |-
+      - op: add
+        path: /parameters/storageAccount
+        value: st655dmnpoc
+      - op: add
+        path: /parameters/resourceGroup
+        value: rg-655-dmn-poc-nodes

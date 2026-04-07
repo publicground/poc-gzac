@@ -19,7 +19,7 @@ resources:
     cpu: "1"
 
 persistence:
-  storageClassName: "azurefile-csi"
+  storageClassName: "azurefile-dmn-poc"
 
 existingSecret: openformulieren
 
