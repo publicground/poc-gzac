@@ -2,6 +2,7 @@ tags:
   postgresql: false
 
 image:
+  repository: "acr655.azurecr.io/docker.io/ritense/gzac-backend"
   tag: 13.20.0
 
 existingSecret: gzac-backend
