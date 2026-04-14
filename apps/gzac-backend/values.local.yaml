@@ -14,6 +14,10 @@ extraEnvVars:
         key: password
   - name: LOGGING_LEVEL_ROOT
     value: DEBUG
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
+    value: http://gzac.wigo4it.nl/ws/
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
+    value: wigoadmin
   # - name: JAVA_TOOL_OPTIONS
   #   value: "-Djavax.net.ssl.trustStore=/app/certs/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.debug=ssl,handshake"
 
