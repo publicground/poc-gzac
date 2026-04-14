@@ -16,6 +16,7 @@ extraEnvVars:
     value: DEBUG
   # - name: JAVA_TOOL_OPTIONS
   #   value: "-Djavax.net.ssl.trustStore=/app/certs/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.debug=ssl,handshake"
+
 ingress:
   enabled: false
 

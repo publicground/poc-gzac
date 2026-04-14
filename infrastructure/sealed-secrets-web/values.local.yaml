@@ -1,13 +1,5 @@
-# includeLocalNamespaceOnly: true
-
 disableLoadSecrets: false
 
 sealedSecrets:
-  # -- Namespace of the sealed secrets service
   namespace: sealed-secrets
-  # -- Name of the sealed secrets service
   serviceName: sealed-secrets-controller
-
-# deployment:
-  # env:
-  #   sealedSecretsControllerName: sealed-secrets-controller
