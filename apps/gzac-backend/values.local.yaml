@@ -2,7 +2,7 @@ tags:
   postgresql: false
 
 image:
-  tag: 13.20.0
+  tag: 13.23.0
 
 existingSecret: gzac-backend
 
