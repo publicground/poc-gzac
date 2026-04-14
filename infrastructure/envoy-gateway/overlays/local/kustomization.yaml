@@ -12,5 +12,6 @@ helmCharts:
     includeCRDs: false
 
 resources:
+  - ns.yaml
   - gateway-local.yaml
   - gatewayclass-local.yaml
