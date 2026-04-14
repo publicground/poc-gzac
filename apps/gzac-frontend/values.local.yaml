@@ -1,6 +1,6 @@
 image:
   repository: "ritense/gzac-frontend"
-  tag: "13.20.0"
+  tag: "13.23.0"
 
 serviceAccount:
   create: false
