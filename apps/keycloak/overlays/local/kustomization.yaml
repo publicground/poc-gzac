@@ -8,5 +8,6 @@ resources:
   - realm-import.yaml
 
 patches:
+  - path: patches/cnpg.yaml
   - path: patches/keycloak-instance.yaml
   - path: patches/httproute.yaml
