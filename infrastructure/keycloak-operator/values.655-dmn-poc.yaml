@@ -1,0 +1,5 @@
+image:
+  repository: acr655.azurecr.io/quay.io/keycloak/keycloak-operator
+
+keycloakImage:
+  repository: acr655.azurecr.io/quay.io/keycloak/keycloak
