@@ -6,4 +6,4 @@ spec:
   instances: 1
   imageName: "ghcr.io/cloudnative-pg/postgresql:18.3-system-trixie"
   storage:
-    storageClass: ""
+    storageClass: "standard"
