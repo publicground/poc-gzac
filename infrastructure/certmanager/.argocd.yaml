@@ -3,7 +3,7 @@ chartRepoURL: https://charts.jetstack.io
 targetNamespace: cert-manager
 clusters:
   local:
-    enabled: true
+    enabled: false
     chartVersion: 1.20.1
   655-dmn-poc:
     enabled: true
