@@ -26,7 +26,7 @@ extraEnvVars:
     value: "*"
   - name: VALTIMO_WEB_CORS_PATHS
     value: /**
-  - name: VALTIMO_AUTODEPLOYMENT_PLUGINCONFIG_OPENZAAK-AUTHENTICATION_CLIENTID
+  - name: VALTIMO_OPEN_ZAAK_CLIENT_ID
     value: gzac
   # - name: JAVA_TOOL_OPTIONS
   #   value: "-Djavax.net.ssl.trustStore=/app/certs/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.debug=ssl,handshake"
