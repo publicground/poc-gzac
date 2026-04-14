@@ -18,6 +18,14 @@ extraEnvVars:
     value: http://gzac.wigo4it.nl/ws/
   - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
     value: wigoadmin
+  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDORIGINS
+    value: http://localhost
+  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDMETHODS
+    value: "*"
+  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDHEADERS
+    value: "*"
+  - name: VALTIMO_WEB_CORS_PATHS
+    value: /**
   # - name: JAVA_TOOL_OPTIONS
   #   value: "-Djavax.net.ssl.trustStore=/app/certs/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.debug=ssl,handshake"
 
