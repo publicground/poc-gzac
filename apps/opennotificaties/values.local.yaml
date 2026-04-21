@@ -94,7 +94,7 @@ configuration:
     #           naam: zaken
     #         - filters:
     #             vertrouwelijkheidaanduiding: beperkt_openbaar
-              naam: zaken
+    #          naam: zaken
     sites_config_enable: true
     sites_config:
       items:
