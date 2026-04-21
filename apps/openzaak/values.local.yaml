@@ -25,12 +25,12 @@ configuration:
           api_connection_check_path: notificaties
           api_type: nrc
           auth_type: zgw
-          client_id: open-notificaties
+          client_id: open-zaak
           secret:
             value_from:
               env: opennotificaties_openzaak_secret
-          user_id: open-notificaties
-          user_representation: Open Notificaties
+          user_id: open-zaak
+          user_representation: Open Zaak
 
     notifications_config_enable: true
     notifications_config:
