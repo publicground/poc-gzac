@@ -27,9 +27,20 @@ configuration:
           client_id: open-notificaties
           secret:
             value_from:
-              env: opennotificaties_autorisatie_api_secret
+              env: opennotificaties_to_openzaak_autorisatie_api_secret
           user_id: open-notificaties
           user_representation: Open Notificaties
+        - identifier: notificaties-api
+          label: Notificaties API
+          api_root: http://opennotificaties.wigo4it.nl/api/v1/
+          api_type: nrc
+          auth_type: zgw
+          client_id: open-notificaties
+          secret:
+            value_from:
+              env: opennotificaties_api_secret
+          user_id: open-notificaties
+          user_representation: Open Notificaties Demodam
     # doesn't work this way. needs ac on openzaak to sync apps to on
     # vng_api_common_applicaties_config_enable: true
     # vng_api_common_applicaties:
@@ -50,7 +61,7 @@ configuration:
       - identifier: open-zaak
         secret:
           value_from:
-            env: opennotificaties_openzaak_vng_api_common_secret
+            env: openzaak_to_opennotificaties_openzaak_api_secret
       # Credentials for Open Notificaties, required for autorisaties subscription
       - identifier: open-notificaties
         secret:
