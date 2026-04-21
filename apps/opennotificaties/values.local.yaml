@@ -73,35 +73,35 @@ configuration:
         - naam: autorisaties
           documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/autorisaties
           filters: []
-    #     - naam: besluittypen
-    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/besluittypen
-    #       filters:
-    #         - catalogus
-    #     - naam: informatieobjecttypen
-    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/informatieobjecttypen
-    #       filters:
-    #         - catalogus
-    #     - naam: zaaktypen
-    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/zaaktypen
-    #       filters:
-    #         - catalogus
-    #     - naam: zaken
-    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/zaken
-    #       filters:
-    #         - bronorganisatie
-    #         - zaaktype
-    #         - vertrouwelijkheidaanduiding
-    #     - naam: documenten
-    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/documenten
-    #       filters:
-    #         - bronorganisatie
-    #         - informatieobjecttype
-    #         - vertrouwelijkheidaanduiding
-    #     - naam: besluiten
-    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/besluiten
-    #       filters:
-    #         - verantwoordelijke_organisatie
-    #         - besluittype
+        - naam: besluittypen
+          documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/besluittypen
+          filters:
+            - catalogus
+        - naam: informatieobjecttypen
+          documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/informatieobjecttypen
+          filters:
+            - catalogus
+        - naam: zaaktypen
+          documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/zaaktypen
+          filters:
+            - catalogus
+        - naam: zaken
+          documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/zaken
+          filters:
+            - bronorganisatie
+            - zaaktype
+            - vertrouwelijkheidaanduiding
+        - naam: documenten
+          documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/documenten
+          filters:
+            - bronorganisatie
+            - informatieobjecttype
+            - vertrouwelijkheidaanduiding
+        - naam: besluiten
+          documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/besluiten
+          filters:
+            - verantwoordelijke_organisatie
+            - besluittype
     notifications_abonnementen_config_enable: false
     # notifications_abonnementen_config:
     #   items:
