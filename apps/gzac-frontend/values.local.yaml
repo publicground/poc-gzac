@@ -1,6 +1,6 @@
 image:
   repository: "ritense/gzac-frontend"
-  tag: "13.20.0"
+  tag: "13.23.0"
 
 serviceAccount:
   create: false
@@ -16,5 +16,5 @@ settings:
     url: "http://keycloak.wigo4it.nl"
     clientID: "gzac-frontend"
     realm: "publicground"
-    logoutRedirectURL: "http://gzac.wigo4it.nl"
-    redirectURL: "http://gzac.wigo4it.nl/keycloak/callback"
+    logoutRedirectURL: "http://localhost:8081"
+    redirectURL: "http://localhost:8081/keycloak/callback"
