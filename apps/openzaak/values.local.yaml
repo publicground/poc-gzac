@@ -21,12 +21,13 @@ configuration:
       services:
         - identifier: notifications-api
           label: Notificaties API
-          api_root: https://opennotificaties.wigo4it.nl/api/v1/
+          api_root: http://opennotificaties.wigo4it.nl/api/v1/
           api_connection_check_path: notificaties
           api_type: nrc
           auth_type: api_key
           header_key: Authorization
-          header_value: Token ba9d233e95e04c4a8a661a27daffe7c9bd019067
+          value_from:
+            env: opennotificaties_openzaak_secret
 
     notifications_config_enable: true
     notifications_config:
