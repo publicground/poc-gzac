@@ -63,16 +63,16 @@ tasks:
             extraMounts:
               - hostPath: ${LOCAL_DIR}
                 containerPath: /mnt/poc-gzac.git
-          - role: worker
-            image: kindest/node:v{{.KIND_VERSION}}
-            extraMounts:
-              - hostPath: ${LOCAL_DIR}
-                containerPath: /mnt/poc-gzac.git
-          - role: worker
-            image: kindest/node:v{{.KIND_VERSION}}
-            extraMounts:
-              - hostPath: ${LOCAL_DIR}
-                containerPath: /mnt/poc-gzac.git
+          # - role: worker
+          #   image: kindest/node:v{{.KIND_VERSION}}
+          #   extraMounts:
+          #     - hostPath: ${LOCAL_DIR}
+          #       containerPath: /mnt/poc-gzac.git
+          # - role: worker
+          #   image: kindest/node:v{{.KIND_VERSION}}
+          #   extraMounts:
+          #     - hostPath: ${LOCAL_DIR}
+          #       containerPath: /mnt/poc-gzac.git
         EOF
     silent: true
 
