@@ -63,6 +63,11 @@ configuration:
         secret:
           value_from:
             env: opennotificaties_to_openzaak_secret
+    sites_config_enable: true
+    sites_config:
+      items:
+      - domain: openzaak.wigo4it.nl
+        name: Open-Zaak Test
 
 tags:
   redis: false
