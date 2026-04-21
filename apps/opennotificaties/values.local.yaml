@@ -30,13 +30,14 @@ configuration:
               env: opennotificaties_autorisatie_api_secret
           user_id: open-notificaties
           user_representation: Open Notificaties
-    vng_api_common_applicaties_config_enable: true
-    vng_api_common_applicaties:
-      items:
-        - client_ids:
-            - open-zaak
-          label: Open Zaak
-          heeft_alle_autorisaties: false
+    # doesn't work this way. needs ac on openzaak to sync apps to on
+    # vng_api_common_applicaties_config_enable: true
+    # vng_api_common_applicaties:
+    #   items:
+    #     - client_ids:
+    #         - open-zaak
+    #       label: Open Zaak
+    #       heeft_alle_autorisaties: false
 
     autorisaties_api_config_enable: True
     autorisaties_api:
