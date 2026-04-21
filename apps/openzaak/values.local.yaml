@@ -24,10 +24,11 @@ configuration:
           api_root: http://opennotificaties.wigo4it.nl/api/v1/
           api_connection_check_path: notificaties
           api_type: nrc
-          auth_type: api_key
-          header_key: Authorization
-          value_from:
-            env: opennotificaties_openzaak_secret
+          auth_type: zgw
+          # header_key: Authorization
+          header_value:
+            value_from:
+              env: opennotificaties_openzaak_secret
 
     notifications_config_enable: true
     notifications_config:
