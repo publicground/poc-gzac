@@ -22,7 +22,7 @@ configuration:
         - identifier: notifications-api
           label: Notificaties API
           api_root: http://opennotificaties.wigo4it.nl/api/v1/
-          api_connection_check_path: notificaties
+          # api_connection_check_path: notificaties
           api_type: nrc
           auth_type: zgw
           client_id: open-zaak
