@@ -28,7 +28,7 @@ configuration:
           client_id: open-zaak
           secret:
             value_from:
-              env: opennotificaties_openzaak_secret
+              env: openzaak_to_opennotificaties_secret
           user_id: open-zaak
           user_representation: Open Zaak
 
