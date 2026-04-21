@@ -47,7 +47,7 @@ configuration:
         - gzac
         label: GZAC
         heeft_alle_autorisaties: true
-      - uuid: 78591bab-9a00-4887-849c-53b21a67782g
+      - uuid: e7d02fd2-5a89-4a5d-b73f-d767d8ece22d
         client_ids:
         - open-notificaties
         label: Open Notificaties
