@@ -1,19 +1,106 @@
 global:
   configuration:
     enabled: true
+    overwrite: true
+
 configuration:
   enabled: true
   overwrite: true
-  notificatiesAuthorization:
-    enabled: false
-  notificaties:
-    enabled: false
   superuser:
     username: admin
     password: dummy123
     email: "peterdummy@wigo4it.nl"
   job:
-    enabled: false
+    enabled: true
+    backoffLimit: 6
+    restartPolicy: OnFailure
+  data: |-
+    oidc_db_config_enable: false
+    zgw_consumers_config_enable: True
+    zgw_consumers:
+      services:
+        - identifier: autorisaties-api
+          label: Autorisaties API
+          api_root: http://openzaak.wigo4it.nl/autorisaties/api/v1/
+          api_type: ac
+          auth_type: zgw
+          client_id: open-notificaties
+          secret:
+            value_from:
+              env: opennotificaties_autorisatie_api_secret
+          user_id: open-notificaties
+          user_representation: Open Notificaties
+    autorisaties_api_config_enable: True
+    autorisaties_api:
+      # Configure Open Notificaties to make use of Open Zaak's Autorisaties API
+      authorizations_api_service_identifier: autorisaties-api
+    vng_api_common_credentials_config_enable: True
+    vng_api_common_credentials:
+      items:
+      # Credentials for Open Zaak to be able to make requests to Open Notificaties
+      - identifier: open-zaak
+        secret:
+          value_from:
+            env: opennotificaties_openzaak_vng_api_common_secret
+      # Credentials for Open Notificaties, required for autorisaties subscription
+      - identifier: open-notificaties
+        secret:
+          value_from:
+            env: opennotificaties_autorisaties_vng_api_common_secret
+    notifications_kanalen_config_enable: false
+    # notifications_kanalen_config:
+    #   items:
+    #     - naam: autorisaties
+    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/autorisaties
+    #       filters: []
+    #     - naam: besluittypen
+    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/besluittypen
+    #       filters:
+    #         - catalogus
+    #     - naam: informatieobjecttypen
+    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/informatieobjecttypen
+    #       filters:
+    #         - catalogus
+    #     - naam: zaaktypen
+    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/zaaktypen
+    #       filters:
+    #         - catalogus
+    #     - naam: zaken
+    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/zaken
+    #       filters:
+    #         - bronorganisatie
+    #         - zaaktype
+    #         - vertrouwelijkheidaanduiding
+    #     - naam: documenten
+    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/documenten
+    #       filters:
+    #         - bronorganisatie
+    #         - informatieobjecttype
+    #         - vertrouwelijkheidaanduiding
+    #     - naam: besluiten
+    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/besluiten
+    #       filters:
+    #         - verantwoordelijke_organisatie
+    #         - besluittype
+    notifications_abonnementen_config_enable: false
+    # notifications_abonnementen_config:
+    #   items:
+    #     - uuid: ff5a9438-6512-4c2d-b69e-6c512c466fb8
+    #       callback_url: http://openzaak.wigo4it.nl/api/v1/callback
+    #       auth: Token foo
+    #       kanalen:
+    #         - filters:
+    #             zaaktype: http://openzaak.wigo4it.nl/catalogi/api/v1/zaaktypen/d0b3a90d-7959-4699-8bdb-bf228aef5e21
+    #           naam: zaken
+    #         - filters:
+    #             vertrouwelijkheidaanduiding: beperkt_openbaar
+              naam: zaken
+    sites_config_enable: true
+    sites_config:
+      items:
+        - domain: opennotificaties.wigo4it.nl
+          name: Open Notificaties
+
 
 tags:
   redis: false
@@ -32,6 +119,7 @@ persistence:
   enabled: false
 
 existingSecret: opennotificaties
+existingConfigurationSecrets: opennotificaties-config-secrets
 
 extraEnvVars:
   - name: DB_PASSWORD
