@@ -47,6 +47,11 @@ configuration:
         - gzac
         label: GZAC
         heeft_alle_autorisaties: true
+      - uuid: 78591bab-9a00-4887-849c-53b21a67782g
+        client_ids:
+        - open-notificaties
+        label: Open Notificaties
+        heeft_alle_autorisaties: true
     vng_api_common_credentials_config_enable: true
     vng_api_common_credentials:
       items:
@@ -54,6 +59,10 @@ configuration:
         secret:
           value_from:
             env: OZ_APP_GZAC_SECRET
+      - identifier: open-notificaties
+        secret:
+          value_from:
+            env: opennotificaties_to_openzaak_secret
 
 tags:
   redis: false
