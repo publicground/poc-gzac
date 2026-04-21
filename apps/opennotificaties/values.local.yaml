@@ -56,12 +56,12 @@ configuration:
         secret:
           value_from:
             env: opennotificaties_autorisaties_vng_api_common_secret
-    notifications_kanalen_config_enable: false
-    # notifications_kanalen_config:
-    #   items:
-    #     - naam: autorisaties
-    #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/autorisaties
-    #       filters: []
+    notifications_kanalen_config_enable: true
+    notifications_kanalen_config:
+      items:
+        - naam: autorisaties
+          documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/autorisaties
+          filters: []
     #     - naam: besluittypen
     #       documentatie_link: http://openzaak.wigo4it.nl/ref/kanalen/#/besluittypen
     #       filters:
