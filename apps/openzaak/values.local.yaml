@@ -4,10 +4,10 @@ global:
 configuration:
   enabled: true
   overwrite: true
-  notificatiesAuthorization:
-    enabled: false
-  notificaties:
-    enabled: false
+  # notificatiesAuthorization:
+  #   enabled: false
+  # notificaties:
+  #   enabled: false
   superuser:
     username: admin
     password: dummy123
@@ -16,6 +16,29 @@ configuration:
     enabled: true
     ttlSecondsAfterFinished: "120"
   data: |-
+    zgw_consumers_config_enable: true
+    zgw_consumers:
+      services:
+        - identifier: notifications-api
+          label: Notificaties API
+          api_root: http://opennotificaties.wigo4it.nl/api/v1/
+          # api_connection_check_path: notificaties
+          api_type: nrc
+          auth_type: zgw
+          client_id: open-zaak
+          secret:
+            value_from:
+              env: openzaak_to_opennotificaties_secret
+          user_id: open-zaak
+          user_representation: Open Zaak
+
+    notifications_config_enable: true
+    notifications_config:
+      notifications_api_service_identifier: notifications-api
+      notification_delivery_max_retries: 1
+      notification_delivery_retry_backoff: 2
+      notification_delivery_retry_backoff_max: 3
+
     vng_api_common_applicaties_config_enable: true
     vng_api_common_applicaties:
       items:
@@ -24,6 +47,16 @@ configuration:
         - gzac
         label: GZAC
         heeft_alle_autorisaties: true
+      - uuid: e7d02fd2-5a89-4a5d-b73f-d767d8ece22d
+        client_ids:
+        - open-notificaties
+        label: Open Notificaties
+        heeft_alle_autorisaties: true
+      - uuid: c975302f-3100-438c-96d1-e00c79ef0bbe
+        client_ids:
+        - open-zaak
+        label: Open Zaak
+        heeft_alle_autorisaties: true
     vng_api_common_credentials_config_enable: true
     vng_api_common_credentials:
       items:
@@ -31,6 +64,19 @@ configuration:
         secret:
           value_from:
             env: OZ_APP_GZAC_SECRET
+      - identifier: open-notificaties
+        secret:
+          value_from:
+            env: opennotificaties_to_openzaak_secret
+      - identifier: open-zaak
+        secret:
+          value_from:
+            env: opennotificaties_api_secret
+    sites_config_enable: true
+    sites_config:
+      items:
+      - domain: openzaak.wigo4it.nl
+        name: Open-Zaak Test
 
 tags:
   redis: false

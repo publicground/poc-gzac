@@ -2,7 +2,7 @@ tags:
   postgresql: false
 
 image:
-  tag: 13.20.0
+  tag: 13.23.0
 
 existingSecret: gzac-backend
 
@@ -14,6 +14,20 @@ extraEnvVars:
         key: password
   - name: LOGGING_LEVEL_ROOT
     value: DEBUG
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
+    value: http://gzac.wigo4it.nl/ws/
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
+    value: wigoadmin
+  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDORIGINS
+    value: "*"
+  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDMETHODS
+    value: "*"
+  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDHEADERS
+    value: "*"
+  - name: VALTIMO_WEB_CORS_PATHS
+    value: /**
+  - name: VALTIMO_OPEN_ZAAK_CLIENT_ID
+    value: gzac
   # - name: JAVA_TOOL_OPTIONS
   #   value: "-Djavax.net.ssl.trustStore=/app/certs/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.debug=ssl,handshake"
 
