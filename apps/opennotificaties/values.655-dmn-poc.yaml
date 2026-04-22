@@ -6,6 +6,8 @@ global:
     enabled: true
     overwrite: true
     secrets: {}
+  security:
+    allowInsecureImages: true
 
 configuration:
   enabled: true
