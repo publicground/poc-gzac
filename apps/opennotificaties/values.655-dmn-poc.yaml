@@ -10,17 +10,97 @@ global:
 configuration:
   enabled: true
   overwrite: true
-  notificatiesAuthorization:
-    enabled: false
-  notificaties:
-    enabled: false
   superuser:
     username: "admin"
     email: "horstp@wigo4it.nl"
     # password field is ignored when existingSecret is set — DJANGO_SUPERUSER_PASSWORD must be
     # present as a key in the opennotificaties SealedSecret (additionalmanifests/655-dmn-poc/sealedsecret-opennotificaties.yaml)
   job:
-    enabled: false
+    enabled: true
+    backoffLimit: 6
+    restartPolicy: OnFailure
+  data: |-
+    oidc_db_config_enable: false
+    zgw_consumers_config_enable: True
+    zgw_consumers:
+      services:
+        - identifier: autorisaties-api
+          label: Autorisaties API
+          api_root: http://openzaak.dmn-poc.publicground.nl/autorisaties/api/v1/
+          api_type: ac
+          auth_type: zgw
+          client_id: open-notificaties
+          secret:
+            value_from:
+              env: opennotificaties_to_openzaak_autorisatie_api_secret
+          user_id: open-notificaties
+          user_representation: Open Notificaties
+        - identifier: notificaties-api
+          label: Notificaties API
+          api_root: http://opennotificaties.dmn-poc.publicground.nl/api/v1/
+          api_type: nrc
+          auth_type: zgw
+          client_id: open-notificaties
+          secret:
+            value_from:
+              env: opennotificaties_api_secret
+          user_id: open-notificaties
+          user_representation: Open Notificaties Demodam
+    autorisaties_api_config_enable: True
+    autorisaties_api:
+      authorizations_api_service_identifier: autorisaties-api
+    vng_api_common_credentials_config_enable: True
+    vng_api_common_credentials:
+      items:
+      - identifier: open-zaak
+        secret:
+          value_from:
+            env: openzaak_to_opennotificaties_openzaak_api_secret
+      - identifier: open-notificaties
+        secret:
+          value_from:
+            env: opennotificaties_autorisaties_vng_api_common_secret
+    notifications_kanalen_config_enable: true
+    notifications_kanalen_config:
+      items:
+        - naam: autorisaties
+          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/autorisaties
+          filters: []
+        - naam: besluittypen
+          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/besluittypen
+          filters:
+            - catalogus
+        - naam: informatieobjecttypen
+          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/informatieobjecttypen
+          filters:
+            - catalogus
+        - naam: zaaktypen
+          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/zaaktypen
+          filters:
+            - catalogus
+        - naam: zaken
+          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/zaken
+          filters:
+            - bronorganisatie
+            - zaaktype
+            - vertrouwelijkheidaanduiding
+        - naam: documenten
+          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/documenten
+          filters:
+            - bronorganisatie
+            - informatieobjecttype
+            - vertrouwelijkheidaanduiding
+        - naam: besluiten
+          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/besluiten
+          filters:
+            - verantwoordelijke_organisatie
+            - besluittype
+    notifications_abonnementen_config_enable: false
+    sites_config_enable: true
+    sites_config:
+      items:
+        - domain: opennotificaties.dmn-poc.publicground.nl
+          name: Open Notificaties
 
 tags:
   redis: false
@@ -42,6 +122,7 @@ persistence:
   enabled: false
 
 existingSecret: opennotificaties
+existingConfigurationSecrets: opennotificaties-config-secrets
 
 extraEnvVars:
   - name: DB_PASSWORD
