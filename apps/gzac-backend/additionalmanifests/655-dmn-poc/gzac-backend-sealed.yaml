@@ -1,4 +1,9 @@
 ---
+# TODO: The following new secrets must be added and sealed with kubeseal against the 655-dmn-poc cluster:
+#   AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_SECRET: Suwinet Simulator basic-auth password
+#   VALTIMO_OPEN_ZAAK_CLIENT_SECRET: shared secret between GZAC and Open Zaak
+# Run: kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets \
+#       --format yaml < secret.yaml >> gzac-backend-sealed.yaml
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
