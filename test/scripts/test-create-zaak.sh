@@ -79,7 +79,31 @@ else:
 ")
 
   if [[ -z "${ZAAKTYPE_URL}" ]]; then
-    fail "No zaaktypen found in OpenZaak. Import a catalogus first."
+    # Fall back: extract first zaaktype URL directly from catalogussen
+    ZAAKTYPE_URL=$(echo "${ZAAKTYPEN_RESPONSE}" | python3 -c "
+import sys, json
+# If count==0 the results list is empty; try nothing — caller should publish
+print('')
+" 2>/dev/null || true)
+    # Try catalogussen endpoint as fallback
+    CATALOGI_RESPONSE=$(curl -sf --max-time 30 \
+      -H "Authorization: Bearer ${JWT}" \
+      -H "Accept-Crs: EPSG:4326" \
+      "${OPENZAAK_BASE_URL}/catalogi/api/v1/catalogussen" 2>&1) || true
+    ZAAKTYPE_URL=$(echo "${CATALOGI_RESPONSE}" | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+for cat in data.get('results', []):
+    typen = cat.get('zaaktypen', [])
+    if typen:
+        print(typen[0])
+        sys.exit(0)
+print('')
+" 2>/dev/null || true)
+    if [[ -z "${ZAAKTYPE_URL}" ]]; then
+      fail "No zaaktypen found in OpenZaak. Import a catalogus first."
+    fi
+    echo -e "${YELLOW}⚠${NC}  Zaaktype is in CONCEPT status. Publish it in the admin to avoid errors."
   fi
   ok "Found zaaktype: ${ZAAKTYPE_URL}"
 else
