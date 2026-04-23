@@ -147,7 +147,7 @@ settings:
     default: "opennotificaties-redis:6379/0"
     axes: "opennotificaties-redis:6379/0"
 
-  disable2fa: false
+  disable2fa: true
 
   isHttps: true
 
