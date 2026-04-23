@@ -117,7 +117,7 @@ extraEnvVars:
 settings:
   allowedHosts: "openzaak.dmn-poc.publicground.nl"
   isHttps: true
-  disable2fa: false
+  disable2fa: true
   siteDomain: "openzaak.dmn-poc.publicground.nl"
 
   database:
