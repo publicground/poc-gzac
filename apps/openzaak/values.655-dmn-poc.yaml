@@ -29,7 +29,7 @@ configuration:
       services:
         - identifier: notifications-api
           label: Notificaties API
-          api_root: http://opennotificaties.dmn-poc.publicground.nl/api/v1/
+          api_root: https://opennotificaties.dmn-poc.publicground.nl/api/v1/
           api_type: nrc
           auth_type: zgw
           client_id: open-zaak

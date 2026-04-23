@@ -28,7 +28,7 @@ configuration:
       services:
         - identifier: autorisaties-api
           label: Autorisaties API
-          api_root: http://openzaak.dmn-poc.publicground.nl/autorisaties/api/v1/
+          api_root: https://openzaak.dmn-poc.publicground.nl/autorisaties/api/v1/
           api_type: ac
           auth_type: zgw
           client_id: open-notificaties
@@ -39,7 +39,7 @@ configuration:
           user_representation: Open Notificaties
         - identifier: notificaties-api
           label: Notificaties API
-          api_root: http://opennotificaties.dmn-poc.publicground.nl/api/v1/
+          api_root: https://opennotificaties.dmn-poc.publicground.nl/api/v1/
           api_type: nrc
           auth_type: zgw
           client_id: open-notificaties
@@ -66,34 +66,34 @@ configuration:
     notifications_kanalen_config:
       items:
         - naam: autorisaties
-          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/autorisaties
+          documentatie_link: https://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/autorisaties
           filters: []
         - naam: besluittypen
-          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/besluittypen
+          documentatie_link: https://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/besluittypen
           filters:
             - catalogus
         - naam: informatieobjecttypen
-          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/informatieobjecttypen
+          documentatie_link: https://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/informatieobjecttypen
           filters:
             - catalogus
         - naam: zaaktypen
-          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/zaaktypen
+          documentatie_link: https://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/zaaktypen
           filters:
             - catalogus
         - naam: zaken
-          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/zaken
+          documentatie_link: https://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/zaken
           filters:
             - bronorganisatie
             - zaaktype
             - vertrouwelijkheidaanduiding
         - naam: documenten
-          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/documenten
+          documentatie_link: https://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/documenten
           filters:
             - bronorganisatie
             - informatieobjecttype
             - vertrouwelijkheidaanduiding
         - naam: besluiten
-          documentatie_link: http://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/besluiten
+          documentatie_link: https://openzaak.dmn-poc.publicground.nl/ref/kanalen/#/besluiten
           filters:
             - verantwoordelijke_organisatie
             - besluittype
