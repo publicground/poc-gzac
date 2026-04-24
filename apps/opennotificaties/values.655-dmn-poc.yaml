@@ -159,6 +159,11 @@ settings:
 
   siteDomain: "opennotificaties.dmn-poc.publicground.nl"
 
+livenessProbe:
+  initialDelaySeconds: 120  # extra time for migrate + createinitialsuperuser before uWSGI starts
+  periodSeconds: 10
+  failureThreshold: 6
+
 worker:
   replicaCount: 1
   livenessProbe:
