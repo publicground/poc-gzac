@@ -98,6 +98,12 @@ configuration:
             - verantwoordelijke_organisatie
             - besluittype
     notifications_abonnementen_config_enable: false
+    notifications_config_enable: true
+    notifications_config:
+      notifications_api_service_identifier: notificaties-api
+      notification_delivery_max_retries: 2
+      notification_delivery_retry_backoff: 2
+      notification_delivery_retry_backoff_max: 3
     sites_config_enable: true
     sites_config:
       items:
