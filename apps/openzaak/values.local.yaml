@@ -8,6 +8,10 @@ configuration:
   #   enabled: false
   # notificaties:
   #   enabled: false
+  # notificatiesAuthorization:
+  #   enabled: false
+  # notificaties:
+  #   enabled: false
   superuser:
     username: admin
     password: dummy123
