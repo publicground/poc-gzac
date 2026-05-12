@@ -101,10 +101,10 @@ spec:
         implicitFlowEnabled: false
         directAccessGrantsEnabled: true
         serviceAccountsEnabled: false
-        roles:
-          - name: Admin
-            clientRole: true
-            description: "Admin rol voor OpenZaak"
+        # roles:
+        #   - name: Admin
+        #     clientRole: true
+        #     description: "Admin rol voor OpenZaak"
         protocolMappers:
           - name: "oz-client-roles-mapper-to-roles-claim"
             protocol: openid-connect
@@ -126,3 +126,9 @@ spec:
         - id: "eb865181-ed0d-4a16-86d4-000000000002"
           name: "ROLE_ADMIN"
           description: "Standaard gzac beheerdersrol"
+      client:
+        openzaak:
+          - id: "eb865181-ed0d-4a16-86d5-000000000001"
+            name: Admin
+            clientRole: true
+            description: "Admin rol voor OpenZaak"
