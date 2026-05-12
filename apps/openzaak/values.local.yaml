@@ -112,13 +112,13 @@ configuration:
             username_case_sensitive: true
           groups_settings:
             claim_mapping:
-              - groups
+              - resource_access.openzaak.roles
             sync: true
             sync_pattern: '*'
             default_groups: []
             make_users_staff: true
             superuser_group_names:
-              - Registreerders
+              - Admin
 
 tags:
   redis: false
