@@ -35,6 +35,20 @@ spec:
         realmRoles:
           - "ROLE_USER"
           - "ROLE_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000003"
+        username: "adminopenzaak"
+        enabled: true
+        email: "adminopenzaak@example.com"
+        firstName: "Open"
+        lastName: "Zaak Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENZAAK_PASSWORD}"
+            temporary: false
+        clientRoles:
+          openzaak:
+            - "Admin"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
@@ -87,6 +101,22 @@ spec:
         implicitFlowEnabled: false
         directAccessGrantsEnabled: true
         serviceAccountsEnabled: false
+        roles:
+          - name: Admin
+            clientRole: true
+            description: "Admin rol voor OpenZaak"
+        protocolMappers:
+          - name: "oz-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "openzaak"
+              multivalued: "true"
+              jsonType.label: "String"
 
     roles:
       realm:
