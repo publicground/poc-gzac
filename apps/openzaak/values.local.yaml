@@ -112,7 +112,9 @@ configuration:
             username_case_sensitive: true
           groups_settings:
             claim_mapping:
-              - resource_access.openzaak.roles
+              - resource_access
+              - openzaak
+              - roles
             sync: true
             sync_pattern: '*'
             default_groups: []
