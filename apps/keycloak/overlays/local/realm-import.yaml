@@ -69,6 +69,24 @@ spec:
         implicitFlowEnabled: false
         directAccessGrantsEnabled: false
         serviceAccountsEnabled: true
+      - id: "eb865181-ed0d-4a16-86d3-000000000003"
+        clientId: "openzaak"
+        name: "openzaak"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENZAAK_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        redirectUris:
+          - "https://openzaak.wigo4it.nl/oidc/callback/"
+          - "http://openzaak.wigo4it.nl/oidc/callback/"
+        webOrigins:
+          - "https://openzaak.wigo4it.nl"
+          - "http://openzaak.wigo4it.nl"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
 
     roles:
       realm:
