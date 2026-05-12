@@ -3,7 +3,7 @@ tags:
 
 image:
   repository: "acr655.azurecr.io/docker.io/ritense/gzac-backend"
-  tag: 13.20.0
+  tag: 13.23.0
 
 existingSecret: gzac-backend
 
@@ -15,6 +15,20 @@ extraEnvVars:
         key: password
   - name: LOGGING_LEVEL_ROOT
     value: DEBUG
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
+    value: https://gzac.dmn-poc.publicground.nl/ws/
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
+    value: wigoadmin
+  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDORIGINS
+    value: "*"
+  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDMETHODS
+    value: "*"
+  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDHEADERS
+    value: "*"
+  - name: VALTIMO_WEB_CORS_PATHS
+    value: /**
+  - name: VALTIMO_OPEN_ZAAK_CLIENT_ID
+    value: gzac
   - name: OPERATON_BPM_ADMINUSER_ID
     value: wigoadmin
   - name: VALTIMO_SECURITY_WHITELIST_HOSTS_0
