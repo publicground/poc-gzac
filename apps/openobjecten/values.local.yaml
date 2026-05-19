@@ -84,7 +84,7 @@ configuration:
       items:
       - identifier: admin-oidc
         enabled: true
-        oidc_rp_client_id: objecten
+        oidc_rp_client_id: openobjecten
         oidc_rp_client_secret:
           value_from:
             env: KEYCLOAK_CLIENT_SECRET
@@ -113,7 +113,7 @@ configuration:
             default_groups: []
             make_users_staff: true
             superuser_group_names:
-              - Registreerders
+              - OPENOBJECTEN_ADMIN
 
 tags:
   redis: false
