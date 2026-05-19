@@ -15,6 +15,7 @@ configuration:
     enabled: false
   job:
     enabled: true
+    ttlSecondsAfterFinished: ""
   data: |-
     #   zgw_consumers_config_enable: true
     #   zgw_consumers:
