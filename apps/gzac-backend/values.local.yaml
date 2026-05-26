@@ -49,6 +49,8 @@ env:
     value: publicground
   - name: KEYCLOAK_RESOURCE
     value: gzac-backend
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENT_ID
+    value: gzac-backend
   - name: CAMUNDA_BPM_ADMINUSER_ID
     value: wigoadmin
   - name: VALTIMO_OAUTH_PUBLIC-KEY
