@@ -5,7 +5,6 @@ keycutofftime: "Tue, 01 Jan 2030 00:00:00 +0000"
 keyrenewperiod: "0"
 
 args:
-  - "--key-generation=false"
   - "--key-prefix=sealed-secrets-key"
   - "--key-renew-period=0"
   - "--key-cutoff-time=Tue, 01 Jan 2030 00:00:00 +0000"
