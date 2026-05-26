@@ -1,7 +1,7 @@
 fullnameOverride: sealed-secrets-controller
 
 secretName: "sealed-secrets-key"
-keycutofftime: "2030-01-01"
+keycutofftime: "Tue, 01 Jan 2030 00:00:00 +0000"
 keyrenewperiod: "0"
 commandArgs:
   - "--key-renew-period=0"
