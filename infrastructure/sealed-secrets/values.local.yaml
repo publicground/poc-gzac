@@ -3,9 +3,13 @@ fullnameOverride: sealed-secrets-controller
 secretName: "sealed-secrets-key"
 keycutofftime: "Tue, 01 Jan 2030 00:00:00 +0000"
 keyrenewperiod: "0"
-commandArgs:
+
+args:
+  - "--key-generation=false"
   - "--key-renew-period=0"
+  - "--key-cutoff-time=Tue, 01 Jan 2030 00:00:00 +0000"
   - "--controller-namespace=sealed-secrets"
+
 resources:
   requests:
     cpu: 50m
