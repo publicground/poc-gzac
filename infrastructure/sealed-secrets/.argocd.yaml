@@ -3,7 +3,7 @@ chartRepoURL: https://bitnami-labs.github.io/sealed-secrets
 targetNamespace: sealed-secrets
 clusters:
   local:
-    enabled: false
+    enabled: true
     chartVersion: 2.17.9
     additionalManifests: "infrastructure/sealed-secrets/additionalmanifests/local/"
   655-dmn-poc:
