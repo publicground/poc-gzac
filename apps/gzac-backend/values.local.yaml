@@ -1,3 +1,6 @@
+image:
+  tag: sd-alo-backend-925abf46-1779802620
+
 replicaCount: 1
 
 # Liveness probe is disabled on test. This in order to facilitate remote debugging on this environment.
