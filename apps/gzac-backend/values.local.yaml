@@ -53,6 +53,8 @@ env:
     value: gzac-backend
   - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_PROVIDER
     value: keycloakapi
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_ISSUER_URI
+    value: "http://keycloak.wigo4it.nl/realms/publicground"
   - name: CAMUNDA_BPM_ADMINUSER_ID
     value: wigoadmin
   - name: VALTIMO_OAUTH_PUBLIC-KEY
