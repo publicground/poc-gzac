@@ -1,6 +1,6 @@
 image:
-  registry: "crzgwpweu01.azurecr.io"
-  repository: "zgw/gzac-sd-zgw-backend"
+  registry: "ghcr.io"
+  repository: "publicground/poc-gzac-bestanden/gzac-sd-zgw-backend"
   tag:
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
