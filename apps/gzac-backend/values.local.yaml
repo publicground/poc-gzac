@@ -37,8 +37,8 @@ ingress:
 
 settings:
   spring:
-    profiles:
-      active: "dev"
+    # profiles:
+    #   active: "dev"
     datasource:
       # -- URL for the postgresql database
       url: "jdbc:postgresql://gzac-backend-pg-cluster-rw:5432/gzac-backend"
