@@ -337,9 +337,9 @@ env:
 #   size: 1Gi
 #   mountPath: /data
 
-# volumes:
-# - name: tmpfs-1
-#   emptyDir: {}
+volumes:
+- name: tmpfs-1
+  emptyDir: {}
 # - name: wsg-jks-vol
 #   secret:
 #     # This secret is not managed by this infra yaml. The secret is deployed by Devops Den Haag
