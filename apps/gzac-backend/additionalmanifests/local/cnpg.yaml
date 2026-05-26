@@ -5,7 +5,7 @@ metadata:
   namespace: publicground
 spec:
   instances: 1
-  imageName: "ghcr.io/cloudnative-pg/postgresql:17.10-system-trixie"
+  imageName: "ghcr.io/cloudnative-pg/postgresql:15.18-system-trixie"
   storage:
     size: "1Gi"
   bootstrap:
