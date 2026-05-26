@@ -1,95 +1,359 @@
-tags:
-  postgresql: false
-  keycloak: false
+replicaCount: 1
 
-image:
-  tag: sd-alo-backend-925abf46-1779802620
-
-existingSecret: gzac-backend
-
-extraEnvVars:
-  - name: SPRING_DATASOURCE_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: gzac-backend-pg-cluster-app
-        key: password
-  - name: LOGGING_LEVEL_ROOT
-    value: DEBUG
-  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
-    value: http://gzac.wigo4it.nl/ws/
-  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
-    value: wigoadmin
-  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDORIGINS
-    value: "*"
-  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDMETHODS
-    value: "*"
-  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDHEADERS
-    value: "*"
-  - name: VALTIMO_WEB_CORS_PATHS
-    value: /**
-  - name: VALTIMO_OPEN_ZAAK_CLIENT_ID
-    value: gzac
-  # - name: JAVA_TOOL_OPTIONS
-  #   value: "-Djavax.net.ssl.trustStore=/app/certs/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.debug=ssl,handshake"
-
-ingress:
+# Liveness probe is disabled on test. This in order to facilitate remote debugging on this environment.
+livenessProbe:
   enabled: false
 
-settings:
-  spring:
-    # profiles:
-    #   active: "dev"
-    datasource:
-      # -- URL for the postgresql database
-      url: "jdbc:postgresql://gzac-backend-pg-cluster-rw:5432/gzac-backend"
-      # -- Username for the postgresql database
-      username: "gzac-backend"
-      #   # -- Password for the postgresql database
-      #   password: "TOPSECRET"
-      #   # -- Driver for the postgresql database
-      driverClassName: "org.postgresql.Driver"
-    jpa:
-      properties:
-        hibernateDialect: "org.hibernate.dialect.PostgreSQLDialect"
 
-  keycloak:
-    # -- URL of Keycloak - Required
-    authServerURL: "http://keycloak.wigo4it.nl"
-    # authServerURL: "http://publicground-core-keycloak-service:8080"
-    # -- Keycloak realm - Required
-    realm: "publicground"
-    # -- Client-ID to connect with Keycloak
-    clientID: "gzac-backend"
-    clientRoleID: "gzac-frontend"
-    publicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvSFXvj5f7wVOPvR5qFjLlsxHxlaeCD83F6z/O/6vc2wkJkCRGIdkqdJYKW2SWoibgd0tWPAeD4O9AKisyBO+MprfEyNTpaypvzb1Y49NVTg8gatdbV9V27d7mZJTnmViXUZF+U7eE4zHsuAQ9vVf3S3hhZhIGIhsLKMJI4yaJUQMlGSWHc6h17BICiYursn46OXu0SEmp6/C4A6TjqIhCON1x234Ky0KDZMZ05ttaM+G/rqcDCP0UrfnEmP7cGblVPH3xEGZN0pwrxXNRYv5DS7lL624Y0x7Zyq5rYwMfBlb4ZtlwjbckbL2kVZx53YOJxTwoGyxUqpsbI6WEyHpUQIDAQAB"
-    version: "26.5.7"
+## Autoscaling configuration
+##
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  # targetCPU: 50
+  # targetMemory: 50
 
-  gzac:
-    # -- Type of database to use (can by either 'postgres' or 'mysql')
-    databaseType: "postgres"
-    # -- Optional: The hostname which exposes gzac-backend
-    # -- Defaults to https://<ingress.hosts[0]>
-    # appHostName:
-    # -- The port on which gzac-backend is listening
-    serverPort: 8080
-    # -- Encryption secret
-    # Or, if using existingSecret: `VALTIMO_CONNECTORENCRYPTION_SECRET`
-    # connectorEncryptionSecret: ""
-    # -- Required if using Valtimo/GZAC plugins: Plugin encryption secret. Must be exactly 16, 24 or 32 bytes.
-    # Or, if using existingSecret: `VALTIMO_PLUGIN_ENCRYPTIONSECRET`
-    # pluginEncryptionSecret: ""
-    # -- Explicit API URL. When unset, it falls back to https://<ingress.hosts[0]>/api/v1
-    # apiUrl:
+## An array to add env vars
+## For example:
+## env:
+##  - name: TEST_VAR
+##    value: test
+##
+env:
+  # - name: AWS_SSM_ENABLED
+  #   value: "false"
+  # - name: SPRING_PROFILES_ACTIVE
+  #   value: postgres
+  - name: KEYCLOAK_AUTH_SERVER_URL
+    value: http://keycloak.wigo4it.nl
+  - name: KEYCLOAK_REALM
+    value: publicground
+  - name: KEYCLOAK_RESOURCE
+    value: gzac-backend
+  - name: CAMUNDA_BPM_ADMINUSER_ID
+    value: wigoadmin
+  - name: VALTIMO_OAUTH_PUBLIC-KEY
+    value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiVvxbvRGRvNpG/xiS0tz9dvkOhU40Y+EdPKXgTsvdDmEzvwqkTmECxSGAA3qt0fgX+UdvtJjuRfe4KK9A5ed6SG20zezuQ7x+yQWxhR/VvTzCGaps2lgQ+qqqkqGrvusFhCL+cAwIswRhCSRA9z/DWkTU82unJoNi47xXu2AyAYZpbgiHj3pzS6MsUtN0AVxf7QIKiMM+IptTxSyFfUnDTzUo1y9X1me8AjlVfMvaliiT7kDXoTeR0tSZgSp8+LX39vN2SH6o4nuy6FNi/tfDwV431YKomgx77S+S6pVtPzzUUOUEFxPKFNg8ZyHEWt99JZucRnVjujqaEAo6xn/SQIDAQAB
+  - name: KEYCLOAK_HOST
+    value: http://keycloak.wigo4it.nl
+  - name: VALTIMO_RESOURCE_TEMP_DIRECTORY
+    value: /data/tmp
+  - name: LOGGING_LEVEL_ROOT
+    value: INFO
 
-    # -- Feature flags
-    features:
-      # Valtimo Drafts feature, see: https://docs.valtimo.nl/release-notes/13.x.x/13.0.0#draft-versions
-      drafts:
-        enabled: true
+#Suwinet
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
+  #   value: "https://sd-zgw.test.denhaag.nl/ws/"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SUFFIX
+  #   value: ""
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
+  #   value: "zgwadmin"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_KEY_STORE_PATH
+  #   value: ""
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_TRUST_STORE_PATH
+  #   value: ""
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_KEY_STORE_KEY
+  #   value: ""
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_TRUST_STORE_KEY
+  #   value: ""
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_AUTHTYPE
+  #   value: "BASIC"
+  - name: VALTIMO_SECURITY_WHITELIST_HOSTS_0
+    value: 0.0.0.0/0
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_OPENZAAK-AUTHENTICATION_CLIENTID
+  #   value: "gzac"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_CATALOGI-API_URL
+  #   value: "https://openzaak-zgw.test.denhaag.nl/catalogi/api/v1/"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_ZAKEN-API_URL
+  #   value: "https://openzaak-zgw.test.denhaag.nl/zaken/api/v1/"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_OBJECTS-API_URL
+  #   value: "https://objecten-zgw.test.denhaag.nl/api/v2/"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_OBJECTTYPES-API_URL
+  #   value: "https://objecttypen-zgw.test.denhaag.nl/api/v2/"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_OPENNOTIFICATIES_AUTHENTICATION_CLIENTID
+  #   value: "GZAC"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_NOTIFICATIES-API_URL
+  #   value: "https://opennotificaties-zgw.test.denhaag.nl/api/v1/"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_NOTIFICATIES-API_CALLBACK-URL
+  #   value: "https://sd-zgw.test.denhaag.nl/api/v1/notificatiesapi/callback"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_VERZOEK_RSIN
+  #   value: "100000009"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_VERZOEK_ALO_PROPERTIES_INITIATOR-ROL-TYPE-URL
+  #   value: "https://openzaak-zgw.test.denhaag.nl/catalogi/api/v1/roltypen/ec259fcf-a346-4448-b137-c1e6e389ae78"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_VERZOEK_IOAW_PROPERTIES_INITIATOR-ROL-TYPE-URL
+  #   value: "https://openzaak-zgw.test.denhaag.nl/catalogi/api/v1/roltypen/f6285d0c-a309-4c70-8fc7-67608257d00e"
+  # - name: ALGEMENE_BIJSTAND_AANVRAAG_ZAAKEIGENSCHAP_URL
+  #   value: "https://openzaak-zgw.test.denhaag.nl/catalogi/api/v1/eigenschappen/34eb71c7-7e77-4d28-abe2-3c61673aac7b"
+  # - name: IOAW_UITKERING_AANVRAAG_ZAAKEIGENSCHAP_URL
+  #   value: "https://openzaak-zgw.test.denhaag.nl/catalogi/api/v1/eigenschappen/9738e061-ca71-41bf-8f83-05d14ea13c4d"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_BRONORGANISATIE_RSIN
+  #   value: "100000009"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_DOCUMENTEN_API_URL
+  #   value: "https://openzaak-zgw.test.denhaag.nl/documenten/api/v1/"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_DOCUMENTEN_API_VERSION
+  #   value: "1.4.2-maykin-1.13.0"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_OPENDMS_AUTHENTICATION_CLIENTID
+  #   value: "opendms"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_OPENDMS_DOCUMENTEN_API_URL
+  #   value: "https://wsgateway.ot.denhaag.nl/opendms/intern/documentenapi/v1/"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_OPENDMS_DOCUMENTEN_API_VERSION
+  #   value: "1.4.2"
+  # - name: AUTODEPLOYMENT_PLUGINCONFIG_BESLUITEN_API_URL
+  #   value: "https://openzaak-zgw.test.denhaag.nl/besluiten/api/v1/"
 
-  operaton:
-    # -- Default Operaton admin user
-    adminUserID: "admin"
-    # -- Default Operaton admin password.
-    # Or, if using existingSecret: `OPERATON_BPM_ADMINUSER_PASSWORD`
-    # adminUserPassword: ""
+  # ALO Object Management
+  # - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_VERZOEK_ALO_OBJECTTYPE_VERSION
+  #   value: "3"
+  # - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_ALO_INFORMATIEVERZOEK_ITEMS_OBJECTTYPE-ID
+  #   value: "69eb2977-b79e-45a8-9762-961a30b0488a"
+  # - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_ALO_INFORMATIEVERZOEK_ITEMS_OBJECTTYPE-VERSION
+  #   value: "1"
+  # - name: AUTODEPLOYMENT_ALO_PORTAALFORMULIER
+  #   value: "https://objecten-zgw.test.denhaag.nl/api/v2/objects/97eca156-9474-4e77-8fc1-3ec1479d4ebc"
+
+
+## Sync objects from Azure keyvault to kubernetes as secrets
+##
+##   sync-1:
+##    vaultname: azurekeyvaltname # name of the azure keyvault
+##    objectname: test-secret # secretname stored in AKV
+##    objecttype: secret # objecttype in AKV
+##    output:
+##      transform: # optional transformers executed in listed order
+##      - trim # optional - trims empty space
+##      - base64encode # optional - encode to base64
+##      - base64decode # optional - decode from base64
+##      secret:
+##        name: testsecret # secretname to create in kubernetes
+##        dataKey: TEST_SECRET #key to store in secret
+##
+## The above example will create 1 secret in kubernetes from Azure keyvault
+## Supported vault object types: secret, certificate, key, multi-key-value-secret
+##
+# vaultname: kv-zgw-ota-weu-01
+# syncAKV:
+#   sync-1:
+#     vaultname: '{{ .Values.vaultname }}'
+#     objectname: '{{ include "app.fullname" . }}-test-keycloak-credentials-secret'
+#     objecttype: secret
+#     output:
+#       secret:
+#         name: '{{ include "app.fullname" . }}'
+#         dataKey: KEYCLOAK_CREDENTIALS_SECRET
+#   sync-2:
+#     vaultname: '{{ .Values.vaultname }}'
+#     objectname: '{{ include "app.fullname" . }}-test-spring-datasource-password'
+#     objecttype: secret
+#     output:
+#       secret:
+#         name: '{{ include "app.fullname" . }}'
+#         dataKey: SPRING_DATASOURCE_PASSWORD
+#   sync-3:
+#     vaultname: '{{ .Values.vaultname }}'
+#     objectname: '{{ include "app.fullname" . }}-test-valtimo-connector-encryption-secret'
+#     objecttype: secret
+#     output:
+#       secret:
+#         name: '{{ include "app.fullname" . }}'
+#         dataKey: VALTIMO_CONNECTOR_ENCRYPTION_SECRET
+#   sync-4:
+#     vaultname: '{{ .Values.vaultname }}'
+#     objectname: '{{ include "app.fullname" . }}-test-spring-datasource-url'
+#     objecttype: secret
+#     output:
+#       secret:
+#         name: '{{ include "app.fullname" . }}'
+#         dataKey: SPRING_DATASOURCE_URL
+#   sync-5:
+#     vaultname: '{{ .Values.vaultname }}'
+#     objectname: '{{ include "app.fullname" . }}-test-spring-datasource-username'
+#     objecttype: secret
+#     output:
+#       secret:
+#         name: '{{ include "app.fullname" . }}'
+#         dataKey: SPRING_DATASOURCE_USERNAME
+#   sync-6:
+#     vaultname: '{{ .Values.vaultname }}'
+#     objectname: '{{ include "app.fullname" . }}-test-valtimo-plugin-encryption-secret'
+#     objecttype: secret
+#     output:
+#       secret:
+#         name: '{{ include "app.fullname" . }}'
+#         dataKey: VALTIMO_PLUGIN_ENCRYPTION_SECRET
+#   sync-7:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: 'suwinet-simulator-test-suwinet-password'
+#       objecttype: secret
+#       output:
+#           secret:
+#               name: '{{ include "app.fullname" . }}'
+#               dataKey: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_SECRET
+#   sync-8:
+#     vaultname: '{{ .Values.vaultname }}'
+#     objectname: '{{ include "app.fullname" . }}-test-camunda-bpm-adminuser-password'
+#     objecttype: secret
+#     output:
+#       secret:
+#         name: '{{ include "app.fullname" . }}'
+#         dataKey: CAMUNDA_BPM_ADMINUSER_PASSWORD
+#   sync-9:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-test-new-relic-license-key'
+#       objecttype: secret
+#       output:
+#           secret:
+#               name: '{{ include "app.fullname" . }}'
+#               dataKey: NEW_RELIC_LICENSE_KEY
+#   sync-10:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-test-wsg-wmv-client-cert-jks'
+#       objecttype: secret
+#       output:
+#           transform:
+#               - base64decode
+#           secret:
+#               name: '{{ include "app.fullname" . }}-test-wsg-wmv-client-cert-jks'
+#               dataKey: '{{ include "app.fullname" . }}-test-wsg-wmv-client-cert.jks'
+#   sync-11:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-test-autodeployment-pluginconfig-openzaak-authentication-clientsecret'
+#       objecttype: secret
+#       output:
+#           secret:
+#               name: '{{ include "app.fullname" . }}'
+#               dataKey: AUTODEPLOYMENT_PLUGINCONFIG_OPENZAAK-AUTHENTICATION_CLIENTSECRET
+#   sync-12:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-test-autodeployment-pluginconfig-objects-api-authentication-token'
+#       objecttype: secret
+#       output:
+#           secret:
+#               name: '{{ include "app.fullname" . }}'
+#               dataKey: AUTODEPLOYMENT_PLUGINCONFIG_OBJECTS-API-AUTHENTICATION_TOKEN
+#   sync-13:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-test-autodeployment-pluginconfig-objecttypes-api-authentication-token'
+#       objecttype: secret
+#       output:
+#           secret:
+#               name: '{{ include "app.fullname" . }}'
+#               dataKey: AUTODEPLOYMENT_PLUGINCONFIG_OBJECTTYPES-API-AUTHENTICATION_TOKEN
+#   sync-14:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-test-autodeployment-pluginconfig-opennotificaties-authentication-clientsecret'
+#       objecttype: secret
+#       output:
+#           secret:
+#               name: '{{ include "app.fullname" . }}'
+#               dataKey: AUTODEPLOYMENT_PLUGINCONFIG_OPENNOTIFICATIES_AUTHENTICATION_CLIENTSECRET
+#   sync-15:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-test-autodeployment-pluginconfig-handelsregister-keystoresecret'
+#       objecttype: secret
+#       output:
+#           secret:
+#               name: '{{ include "app.fullname" . }}'
+#               dataKey: AUTODEPLOYMENT_PLUGINCONFIG_HANDELSREGISTER_KEYSTORESECRET
+#   sync-16:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-test-autodeployment-smartdocuments-password'
+#       objecttype: secret
+#       output:
+#           secret:
+#               name: '{{ include "app.fullname" . }}'
+#               dataKey: AUTODEPLOYMENT_PLUGINCONFIG_SMARTDOCUMENTS_PASSWORD
+#   sync-17:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-io-test-jks'
+#       objecttype: secret
+#       output:
+#           transform:
+#               - base64decode
+#           secret:
+#               name: '{{ include "app.fullname" . }}-io-test-jks'
+#               dataKey: '{{ include "app.fullname" . }}-io-test-hc-2025.jks'
+#   sync-18:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-test-autodeployment-pluginconfig-haalcentraal-keystoresecret'
+#       objecttype: secret
+#       output:
+#           secret:
+#               name: '{{ include "app.fullname" . }}'
+#               dataKey: AUTODEPLOYMENT_PLUGINCONFIG_HAALCENTRAAL_KEYSTORESECRET
+#   sync-19:
+#       vaultname: '{{ .Values.vaultname }}'
+#       objectname: '{{ include "app.fullname" . }}-test-autodeployment-pluginconfig-opendms-authentication-clientsecret'
+#       objecttype: secret
+#       output:
+#           secret:
+#               name: '{{ include "app.fullname" . }}'
+#               dataKey: AUTODEPLOYMENT_PLUGINCONFIG_OPENDMS_AUTHENTICATION_CLIENTSECRET
+
+
+# extraObjects:
+# - apiVersion: networking.k8s.io/v1
+#   kind: Ingress
+#   metadata:
+#     name: '{{ include "common.names.fullname" . }}-camunda'
+#     namespace: '{{ .Release.Namespace }}'
+#     annotations:
+#       appgw.ingress.kubernetes.io/rewrite-rule-set: zgw-rewriteset1
+#       appgw.ingress.kubernetes.io/ssl-redirect: 'true'
+#       appgw.ingress.kubernetes.io/use-private-ip: 'true'
+#       appgw.ingress.kubernetes.io/health-probe-status-codes: '403'
+#       appgw.ingress.kubernetes.io/cookie-based-affinity: "true"
+#       meta.helm.sh/release-name: '{{ include "common.names.fullname" . }}'
+#       meta.helm.sh/release-namespace: '{{ .Release.Namespace }}'
+#     labels:
+#       app.kubernetes.io/instance: '{{ include "common.names.fullname" . }}'
+#       app.kubernetes.io/managed-by: '{{ .Release.Service }}'
+#       app.kubernetes.io/name: '{{ include "common.names.fullname" . }}'
+#   spec:
+#     ingressClassName: '{{ .Values.ingress.ingressClassName }}'
+#     rules:
+#     - host: '{{ .Values.ingress.hostname }}'
+#       http:
+#         paths:
+#         - backend:
+#             service:
+#               name: '{{ include "common.names.fullname" . }}'
+#               port:
+#                 name: app
+#           path: /camunda/
+#           pathType: Prefix
+#     tls:
+#     - hosts:
+#       - '{{ .Values.ingress.hostname }}'
+#       secretName: '{{ .Values.ingress.existingTlsSecret }}'
+
+# persistence:
+#   enabled: true
+#   storageClass: zgw-t-azurefile-csi
+#   accessMode: ReadWriteMany
+#   size: 1Gi
+#   mountPath: /data
+
+# volumes:
+# - name: tmpfs-1
+#   emptyDir: {}
+# - name: wsg-jks-vol
+#   secret:
+#     # This secret is not managed by this infra yaml. The secret is deployed by Devops Den Haag
+#     secretName: wsgateway-ot-denhaag-nl-full-chain-jks
+# - name: wsg-wmv-client-jks-vol
+#   secret:
+#     secretName: '{{ include "app.fullname" . }}-test-wsg-wmv-client-cert-jks'
+# - name: wsg-sd-io-jks-vol
+#   secret:
+#       secretName: '{{ include "app.fullname" . }}-io-test-jks'
+
+volumeMounts:
+- mountPath: /tmp
+  name: tmpfs-1
+# - mountPath: /certs
+#   name: wsg-jks-vol
+# - mountPath: /certs/haalcentraal
+#   name: wsg-wmv-client-jks-vol
+# - mountPath: /certs/haalcentraal-io
+#   name: wsg-sd-io-jks-vol
