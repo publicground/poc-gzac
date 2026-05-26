@@ -4,7 +4,7 @@ tags:
 
 image:
   repository: ghcr.io/publicground/poc-gzac-bestanden/gzac-sd-zgw-backend
-  tag: sd-alo-backend-02f874a4-1779785231
+  tag: sd-alo-backend-ef2fd646-1779800968
 
 existingSecret: gzac-backend
 
