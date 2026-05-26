@@ -3,8 +3,7 @@ tags:
   keycloak: false
 
 image:
-  repository: ghcr.io/publicground/poc-gzac-bestanden/gzac-sd-zgw-backend
-  tag: sd-alo-backend-ef2fd646-1779800968
+  tag: sd-alo-backend-925abf46-1779802620
 
 existingSecret: gzac-backend
 
