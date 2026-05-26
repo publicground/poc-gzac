@@ -1,8 +1,9 @@
 tags:
   postgresql: false
+  keycloak: false
 
 image:
-  tag: 13.23.0
+  tag: sd-alo-backend-02f874a4-1779785231
 
 existingSecret: gzac-backend
 
