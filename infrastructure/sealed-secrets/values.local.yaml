@@ -1,7 +1,8 @@
 fullnameOverride: sealed-secrets-controller
 
 secretName: "sealed-secrets-key"
-
+keycutofftime: "2030-01-01"
+keyrenewperiod: "0"
 commandArgs:
   - "--key-renew-period=0"
   - "--controller-namespace=sealed-secrets"
