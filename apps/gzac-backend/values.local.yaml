@@ -28,6 +28,21 @@ env:
   #   value: "false"
   # - name: SPRING_PROFILES_ACTIVE
   #   value: postgres
+  - name: SPRING_DATASOURCE_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: gzac-backend-pg-cluster-app
+        key: password
+  - name: SPRING_DATASOURCE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: gzac-backend-pg-cluster-app
+        key: password
+  - name: SPRING_DATASOURCE_URL
+    valueFrom:
+      secretKeyRef:
+        name: gzac-backend-pg-cluster-app
+        key: jdbc-uri
   - name: KEYCLOAK_AUTH_SERVER_URL
     value: http://keycloak.wigo4it.nl
   - name: KEYCLOAK_REALM
