@@ -134,7 +134,7 @@ podAntiAffinityPreset: soft
 ##
 envFrom:
   - secretRef:
-       name: '{{ include "app.fullname" . }}'
+       name: gzac-backend
 
 ## Configure options for liveness and readiness probes
 ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes)
