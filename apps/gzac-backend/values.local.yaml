@@ -55,6 +55,8 @@ env:
     value: keycloakapi
   - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_ISSUER_URI
     value: "http://keycloak.wigo4it.nl/realms/publicground"
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_JWK_SET_URI
+    value: "http://keycloak.wigo4it.nl/realms/publicground/protocol/openid-connect/certs"
   - name: CAMUNDA_BPM_ADMINUSER_ID
     value: wigoadmin
   - name: VALTIMO_OAUTH_PUBLIC-KEY
