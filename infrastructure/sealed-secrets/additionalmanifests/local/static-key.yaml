@@ -5,9 +5,9 @@ data:
 kind: Secret
 metadata:
   creationTimestamp: "2026-05-26T23:33:59Z"
-  generateName: sealed-secrets-key-men
+  generateName: sealed-secrets-key
   labels:
     sealedsecrets.bitnami.com/sealed-secrets-key: active
-  name: sealed-secrets-key-men
+  name: sealed-secrets-key
   namespace: sealed-secrets
 type: kubernetes.io/tls
