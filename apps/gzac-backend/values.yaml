@@ -10,7 +10,7 @@ image:
 
 ## Specifies the application name (required to be set)
 ##
-name: "sd-backend"
+name: "gzac-backend"
 
 minReadySeconds: 10
 
