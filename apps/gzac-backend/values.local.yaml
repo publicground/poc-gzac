@@ -16,7 +16,11 @@ autoscaling:
   maxReplicas: 10
   # targetCPU: 50
   # targetMemory: 50
-
+hostAliases:
+  - ip: "172.18.0.2" # VERVANG DIT door het ClusterIP van je Envoy/Contour Ingress service
+    hostnames:
+      - "keycloak.localhost"
+      - "gzac.localhost"
 ## An array to add env vars
 ## For example:
 ## env:
