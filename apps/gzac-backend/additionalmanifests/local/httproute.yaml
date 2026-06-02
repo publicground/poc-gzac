@@ -19,7 +19,7 @@ spec:
             value: /api
         - path:
             type: PathPrefix
-            value: /operaton
+            value: /camunda
       backendRefs:
         - group: ""
           kind: Service
