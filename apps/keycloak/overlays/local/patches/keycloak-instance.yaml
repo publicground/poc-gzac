@@ -12,6 +12,8 @@ spec:
   hostname:
     hostname: keycloak.wigo4it.nl
     strict: false
+  http:
+    httpEnabled: true
   unsupported:
     podTemplate:
       spec:
