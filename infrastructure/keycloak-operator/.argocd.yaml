@@ -4,7 +4,8 @@ targetNamespace: keycloak
 clusters:
   local:
     enabled: true
-    chartVersion: 1.0.20260508000547
+    chartVersion: 1.0.20260522003247
+    # 1.0.20260508000547
   655-dmn-poc:
     enabled: true
     chartVersion: 1.0.20260403001450
