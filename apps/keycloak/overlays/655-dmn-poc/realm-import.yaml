@@ -35,6 +35,48 @@ spec:
         realmRoles:
           - "ROLE_USER"
           - "ROLE_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000003"
+        username: "adminopenzaak"
+        enabled: true
+        email: "adminopenzaak@example.com"
+        firstName: "Open"
+        lastName: "Zaak Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENZAAK_PASSWORD}"
+            temporary: false
+        clientRoles:
+          openzaak:
+            - "Admin"
+      - id: "eb865181-ed0d-4a16-86d2-000000000004"
+        username: "adminopennotificaties"
+        enabled: true
+        email: "adminopennotificaties@example.com"
+        firstName: "Open"
+        lastName: "Notificaties Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENNOTIFICATIES_PASSWORD}"
+            temporary: false
+        clientRoles:
+          opennotificaties:
+            - "OPENNOTIFICATIES_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000005"
+        username: "adminopenobjecten"
+        enabled: true
+        email: "adminopenobjecten@example.com"
+        firstName: "Open"
+        lastName: "Objecten Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENOBJECTEN_PASSWORD}"
+            temporary: false
+        clientRoles:
+          openobjecten:
+            - "OPENOBJECTEN_ADMIN"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
@@ -65,6 +107,90 @@ spec:
         implicitFlowEnabled: false
         directAccessGrantsEnabled: false
         serviceAccountsEnabled: true
+      - id: "eb865181-ed0d-4a16-86d3-000000000003"
+        clientId: "openzaak"
+        name: "openzaak"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENZAAK_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        redirectUris:
+          - "https://openzaak.dmn-poc.publicground.nl/oidc/callback/"
+        webOrigins:
+          - "https://openzaak.dmn-poc.publicground.nl"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "oz-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "openzaak"
+              multivalued: "true"
+              jsonType.label: "String"
+      - id: "eb865181-ed0d-4a16-86d3-000000000004"
+        clientId: "opennotificaties"
+        name: "opennotificaties"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENNOTIFICATIES_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        redirectUris:
+          - "https://opennotificaties.dmn-poc.publicground.nl/oidc/callback/"
+        webOrigins:
+          - "https://opennotificaties.dmn-poc.publicground.nl"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "on-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "opennotificaties"
+              multivalued: "true"
+              jsonType.label: "String"
+      - id: "eb865181-ed0d-4a16-86d3-000000000005"
+        clientId: "openobjecten"
+        name: "openobjecten"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENOBJECTEN_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        redirectUris:
+          - "https://openobjecten.dmn-poc.publicground.nl/oidc/callback/"
+        webOrigins:
+          - "https://openobjecten.dmn-poc.publicground.nl"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "oo-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "openobjecten"
+              multivalued: "true"
+              jsonType.label: "String"
 
     roles:
       realm:
@@ -74,3 +200,19 @@ spec:
         - id: "eb865181-ed0d-4a16-86d4-000000000002"
           name: "ROLE_ADMIN"
           description: "Standaard gzac beheerdersrol"
+      client:
+        openzaak:
+          - id: "eb865181-ed0d-4a16-86d5-000000000001"
+            name: Admin
+            clientRole: true
+            description: "Admin rol voor OpenZaak"
+        opennotificaties:
+          - id: "eb865181-ed0d-4a16-86d6-000000000001"
+            name: OPENNOTIFICATIES_ADMIN
+            clientRole: true
+            description: "Admin rol voor OpenNotificaties"
+        openobjecten:
+          - id: "eb865181-ed0d-4a16-86d7-000000000001"
+            name: OPENOBJECTEN_ADMIN
+            clientRole: true
+            description: "Admin rol voor OpenObjecten"
