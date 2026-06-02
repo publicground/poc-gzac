@@ -9,5 +9,12 @@ spec:
       name: gateway-local
       namespace: envoy-gateway-system
       sectionName: http
+  rules:
+    - filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              - name: "X-Forwarded-Proto"
+                value: "https" # Faken dat het via HTTPS binnenkwam
   hostnames:
     - "keycloak.wigo4it.nl"
