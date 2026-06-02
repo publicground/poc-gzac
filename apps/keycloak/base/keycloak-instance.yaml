@@ -16,8 +16,8 @@ spec:
       name: keycloak-pg-cluster-app
       key: username
     vendor: postgres
-  hostname:
-    hostname: set-in-overlay
+  # hostname:
+  #   hostname: set-in-overlay
   http:
     httpEnabled: true
   networkPolicy:
