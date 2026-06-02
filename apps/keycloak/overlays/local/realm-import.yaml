@@ -16,6 +16,7 @@ spec:
         email: "medewerkergzac@example.com"
         firstName: "Medewerker"
         lastName: "Gzac"
+        emailVerified: true
         credentials:
           - type: "password"
             value: "${MEDEWERKER_GZAC_PASSWORD}" # Verwijst naar env var in de Keycloak pod
@@ -28,6 +29,7 @@ spec:
         email: "admingzac@example.com"
         firstName: "Admin"
         lastName: "Gzac"
+        emailVerified: true
         credentials:
           - type: "password"
             value: "${ADMIN_GZAC_PASSWORD}" # Verwijst naar env var in de Keycloak pod
