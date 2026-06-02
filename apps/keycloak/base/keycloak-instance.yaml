@@ -22,8 +22,8 @@ spec:
     httpEnabled: true
   networkPolicy:
     enabled: false
-  proxy:
-    headers: xforwarded
+  # proxy:
+  #   headers: xforwarded
   unsupported:
     podTemplate:
       spec:

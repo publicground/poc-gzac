@@ -14,8 +14,8 @@ spec:
     strict: false
   http:
     httpEnabled: true
-  proxy:
-    headers: "xforwarded"
+  # proxy:
+  #   headers: "xforwarded"
   unsupported:
     podTemplate:
       spec:
