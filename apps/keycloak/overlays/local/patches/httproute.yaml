@@ -9,17 +9,5 @@ spec:
       name: gateway-local
       namespace: envoy-gateway-system
       sectionName: http
-  rules:
-    - filters:
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            set:
-              - name: "X-Forwarded-Proto"
-                value: "http" # Faken dat het via HTTPS binnenkwam
-      backendRefs:
-        - group: ""
-          name: keycloak-service # Vul hier de naam van de Keycloak ClusterIP Service in
-          port: 8080
-          weight: 1
   hostnames:
     - "keycloak.wigo4it.nl"
