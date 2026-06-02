@@ -40,17 +40,8 @@ env:
         name: gzac-backend-pg-cluster-app
         key: jdbc-uri
   - name: KEYCLOAK_AUTH_SERVER_URL
-    value: http://keycloak-service.keycloak.svc.cluster.local:8080
-  - name: KEYCLOAK_REALM
-    value: publicground
-  - name: KEYCLOAK_RESOURCE
-    value: gzac-backend
-  - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENT_ID
-    value: gzac-backend
-  - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_PROVIDER
-    value: keycloakapi
   - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_ISSUER_URI
-    value: "http://keycloak-service.keycloak.svc.cluster.local:8080/realms/publicground"
+    value: "https://keycloak.wigo4it.nl/realms/publicground"
   - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_JWK_SET_URI
     value: "http://keycloak-service.keycloak.svc.cluster.local:8080/realms/publicground/protocol/openid-connect/certs"
   - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI

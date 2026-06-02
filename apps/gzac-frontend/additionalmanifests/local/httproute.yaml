@@ -9,9 +9,9 @@ spec:
       kind: Gateway
       name: gateway-local
       namespace: envoy-gateway-system
-      sectionName: http
+      sectionName: https
   hostnames:
-    - "gzac.localhost"
+    - "gzac.wigo4it.nl"
   rules:
     - matches:
         - path:
