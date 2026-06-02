@@ -111,6 +111,10 @@ spec:
         implicitFlowEnabled: false
         directAccessGrantsEnabled: false
         serviceAccountsEnabled: true
+        serviceAccountClientRoles:
+          realm-management:
+            - "view-users"
+            - "view-realm"
       - id: "eb865181-ed0d-4a16-86d3-000000000003"
         clientId: "openzaak"
         name: "openzaak"
