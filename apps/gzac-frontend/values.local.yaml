@@ -1,3 +1,5 @@
+image:
+  tag: sha-4572f6c
 ## config values will be used for generating the config.js
 config:
   apiUri: http://gzac.wigo4it.nl/api/
