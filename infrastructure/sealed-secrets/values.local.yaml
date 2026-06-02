@@ -1,8 +1,9 @@
 fullnameOverride: sealed-secrets-controller
 
-commandArgs:
-  - "--key-renew-period=0"
-  - "--controller-namespace=sealed-secrets"
+secretName: "sealed-secrets-key"
+
+keyrenewperiod: "0"
+
 resources:
   requests:
     cpu: 50m

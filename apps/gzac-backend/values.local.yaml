@@ -1,94 +1,113 @@
-tags:
-  postgresql: false
-
 image:
-  tag: 13.23.0
+  tag: sd-alo-backend-925abf46-1779802620
 
-existingSecret: gzac-backend
+replicaCount: 1
 
-extraEnvVars:
+# Liveness probe is disabled on test. This in order to facilitate remote debugging on this environment.
+livenessProbe:
+  enabled: false
+
+
+## Autoscaling configuration
+##
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  # targetCPU: 50
+  # targetMemory: 50
+
+## An array to add env vars
+## For example:
+## env:
+##  - name: TEST_VAR
+##    value: test
+##
+env:
+  - name: SPRING_DATASOURCE_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: gzac-backend-pg-cluster-app
+        key: password
   - name: SPRING_DATASOURCE_PASSWORD
     valueFrom:
       secretKeyRef:
         name: gzac-backend-pg-cluster-app
         key: password
-  - name: LOGGING_LEVEL_ROOT
-    value: DEBUG
-  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
-    value: http://gzac.wigo4it.nl/ws/
-  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
+  - name: SPRING_DATASOURCE_URL
+    valueFrom:
+      secretKeyRef:
+        name: gzac-backend-pg-cluster-app
+        key: jdbc-uri
+  - name: KEYCLOAK_AUTH_SERVER_URL
+    value: http://keycloak.wigo4it.nl
+  - name: KEYCLOAK_REALM
+    value: publicground
+  - name: KEYCLOAK_RESOURCE
+    value: gzac-backend
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENT_ID
+    value: gzac-backend
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_PROVIDER
+    value: keycloakapi
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_ISSUER_URI
+    value: "http://keycloak.wigo4it.nl/realms/publicground"
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_JWK_SET_URI
+    value: "http://keycloak.wigo4it.nl/realms/publicground/protocol/openid-connect/certs"
+  - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
+    value: "http://keycloak.wigo4it.nl/realms/publicground/protocol/openid-connect/certs"
+  - name: CAMUNDA_BPM_ADMINUSER_ID
     value: wigoadmin
-  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDORIGINS
-    value: "*"
-  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDMETHODS
-    value: "*"
-  - name: VALTIMO_WEB_CORS_CORSCONFIGURATION_ALLOWEDHEADERS
-    value: "*"
-  - name: VALTIMO_WEB_CORS_PATHS
-    value: /**
-  - name: VALTIMO_OPEN_ZAAK_CLIENT_ID
-    value: gzac
-  # - name: JAVA_TOOL_OPTIONS
-  #   value: "-Djavax.net.ssl.trustStore=/app/certs/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.debug=ssl,handshake"
+  - name: VALTIMO_OAUTH_PUBLIC-KEY
+    value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiVvxbvRGRvNpG/xiS0tz9dvkOhU40Y+EdPKXgTsvdDmEzvwqkTmECxSGAA3qt0fgX+UdvtJjuRfe4KK9A5ed6SG20zezuQ7x+yQWxhR/VvTzCGaps2lgQ+qqqkqGrvusFhCL+cAwIswRhCSRA9z/DWkTU82unJoNi47xXu2AyAYZpbgiHj3pzS6MsUtN0AVxf7QIKiMM+IptTxSyFfUnDTzUo1y9X1me8AjlVfMvaliiT7kDXoTeR0tSZgSp8+LX39vN2SH6o4nuy6FNi/tfDwV431YKomgx77S+S6pVtPzzUUOUEFxPKFNg8ZyHEWt99JZucRnVjujqaEAo6xn/SQIDAQAB
+  - name: KEYCLOAK_HOST
+    value: http://keycloak.wigo4it.nl
+  # - name: VALTIMO_RESOURCE_TEMP_DIRECTORY
+  #   value: /data/tmp
+  - name: LOGGING_LEVEL_ROOT
+    value: INFO
 
-ingress:
-  enabled: false
+#Suwinet
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
+    value: "http://suwinet-simulator:8080"
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SUFFIX
+    value: ""
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
+    value: "wigoadmin"
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_KEY_STORE_PATH
+    value: ""
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_TRUST_STORE_PATH
+    value: ""
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_KEY_STORE_KEY
+    value: ""
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_TRUST_STORE_KEY
+    value: ""
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_AUTHTYPE
+    value: "BASIC"
+  - name: VALTIMO_SECURITY_WHITELIST_HOSTS_0
+    value: 0.0.0.0/0
 
-settings:
-  spring:
-    profiles:
-      active: "dev"
-    datasource:
-      # -- URL for the postgresql database
-      url: "jdbc:postgresql://gzac-backend-pg-cluster-rw:5432/gzac-backend"
-      # -- Username for the postgresql database
-      username: "gzac-backend"
-      #   # -- Password for the postgresql database
-      #   password: "TOPSECRET"
-      #   # -- Driver for the postgresql database
-      driverClassName: "org.postgresql.Driver"
-    jpa:
-      properties:
-        hibernateDialect: "org.hibernate.dialect.PostgreSQLDialect"
+  # ALO Object Management
+  - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_VERZOEK_ALO_OBJECTTYPE_VERSION
+    value: "3"
+  - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_ALO_ADRESSEN_MET_VEEL_BEWONERS_OBJECTTYPE-VERSION
+    value: "1"
+  - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_ALO_INFORMATIEVERZOEK_ITEMS_OBJECTTYPE-VERSION
+    value: "1"
+  - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_EXTERNE_KLANTTAAK_OBJECTTYPE_VERSION
+    value: "1"
 
-  keycloak:
-    # -- URL of Keycloak - Required
-    authServerURL: "http://keycloak.wigo4it.nl"
-    # authServerURL: "http://publicground-core-keycloak-service:8080"
-    # -- Keycloak realm - Required
-    realm: "publicground"
-    # -- Client-ID to connect with Keycloak
-    clientID: "gzac-backend"
-    clientRoleID: "gzac-frontend"
-    publicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvSFXvj5f7wVOPvR5qFjLlsxHxlaeCD83F6z/O/6vc2wkJkCRGIdkqdJYKW2SWoibgd0tWPAeD4O9AKisyBO+MprfEyNTpaypvzb1Y49NVTg8gatdbV9V27d7mZJTnmViXUZF+U7eE4zHsuAQ9vVf3S3hhZhIGIhsLKMJI4yaJUQMlGSWHc6h17BICiYursn46OXu0SEmp6/C4A6TjqIhCON1x234Ky0KDZMZ05ttaM+G/rqcDCP0UrfnEmP7cGblVPH3xEGZN0pwrxXNRYv5DS7lL624Y0x7Zyq5rYwMfBlb4ZtlwjbckbL2kVZx53YOJxTwoGyxUqpsbI6WEyHpUQIDAQAB"
-    version: "26.5.7"
 
-  gzac:
-    # -- Type of database to use (can by either 'postgres' or 'mysql')
-    databaseType: "postgres"
-    # -- Optional: The hostname which exposes gzac-backend
-    # -- Defaults to https://<ingress.hosts[0]>
-    # appHostName:
-    # -- The port on which gzac-backend is listening
-    serverPort: 8080
-    # -- Encryption secret
-    # Or, if using existingSecret: `VALTIMO_CONNECTORENCRYPTION_SECRET`
-    # connectorEncryptionSecret: ""
-    # -- Required if using Valtimo/GZAC plugins: Plugin encryption secret. Must be exactly 16, 24 or 32 bytes.
-    # Or, if using existingSecret: `VALTIMO_PLUGIN_ENCRYPTIONSECRET`
-    # pluginEncryptionSecret: ""
-    # -- Explicit API URL. When unset, it falls back to https://<ingress.hosts[0]>/api/v1
-    # apiUrl:
+# persistence:
+#   enabled: true
+#   storageClass: 
+#   accessMode: ReadWriteMany
+#   size: 1Gi
+#   mountPath: /data
 
-    # -- Feature flags
-    features:
-      # Valtimo Drafts feature, see: https://docs.valtimo.nl/release-notes/13.x.x/13.0.0#draft-versions
-      drafts:
-        enabled: true
+volumes:
+- name: tmpfs-1
+  emptyDir: {}
 
-  operaton:
-    # -- Default Operaton admin user
-    adminUserID: "admin"
-    # -- Default Operaton admin password.
-    # Or, if using existingSecret: `OPERATON_BPM_ADMINUSER_PASSWORD`
-    # adminUserPassword: ""
+volumeMounts:
+- mountPath: /tmp
+  name: tmpfs-1
