@@ -77,6 +77,14 @@ spec:
         clientRoles:
           openobjecten:
             - "OPENOBJECTEN_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000006"
+        username: "service-account-gzac-backend" # De vaste naam die Keycloak hanteert
+        enabled: true
+        serviceAccountClientId: "gzac-backend" # Dit linkt de user aan je client
+        clientRoles:
+          realm-management:
+            - "view-users"
+            - "view-realm"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
