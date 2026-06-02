@@ -16,5 +16,8 @@ spec:
             set:
               - name: "X-Forwarded-Proto"
                 value: "https" # Faken dat het via HTTPS binnenkwam
+      backendRefs:
+        - name: keycloak-service # Vul hier de naam van de Keycloak ClusterIP Service in
+          port: 8080
   hostnames:
     - "keycloak.wigo4it.nl"
