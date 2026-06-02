@@ -10,4 +10,4 @@ spec:
       namespace: envoy-gateway-system
       sectionName: http
   hostnames:
-    - "keycloak.wigo4it.nl"
+    - "keycloak.localhost"
