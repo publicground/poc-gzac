@@ -40,18 +40,27 @@ env:
         name: gzac-backend-pg-cluster-app
         key: jdbc-uri
   - name: KEYCLOAK_AUTH_SERVER_URL
+    value: https://keycloak.wigo4it.nl
+  - name: KEYCLOAK_REALM
+    value: publicground
+  - name: KEYCLOAK_RESOURCE
+    value: gzac-backend
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENT_ID
+    value: gzac-backend
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_PROVIDER
+    value: keycloakapi
   - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_ISSUER_URI
     value: "https://keycloak.wigo4it.nl/realms/publicground"
   - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_JWK_SET_URI
-    value: "http://keycloak-service.keycloak.svc.cluster.local:8080/realms/publicground/protocol/openid-connect/certs"
+    value: "https://keycloak.wigo4it.nl/realms/publicground/protocol/openid-connect/certs"
   - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
-    value: "http://keycloak-service.keycloak.svc.cluster.local:8080/realms/publicground/protocol/openid-connect/certs"
+    value: "https://keycloak.wigo4it.nl/realms/publicground/protocol/openid-connect/certs"
   - name: CAMUNDA_BPM_ADMINUSER_ID
     value: wigoadmin
   - name: VALTIMO_OAUTH_PUBLIC-KEY
     value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiVvxbvRGRvNpG/xiS0tz9dvkOhU40Y+EdPKXgTsvdDmEzvwqkTmECxSGAA3qt0fgX+UdvtJjuRfe4KK9A5ed6SG20zezuQ7x+yQWxhR/VvTzCGaps2lgQ+qqqkqGrvusFhCL+cAwIswRhCSRA9z/DWkTU82unJoNi47xXu2AyAYZpbgiHj3pzS6MsUtN0AVxf7QIKiMM+IptTxSyFfUnDTzUo1y9X1me8AjlVfMvaliiT7kDXoTeR0tSZgSp8+LX39vN2SH6o4nuy6FNi/tfDwV431YKomgx77S+S6pVtPzzUUOUEFxPKFNg8ZyHEWt99JZucRnVjujqaEAo6xn/SQIDAQAB
   - name: KEYCLOAK_HOST
-    value: http://keycloak-service.keycloak.svc.cluster.local:8080
+    value: https://keycloak.wigo4it.nl
   # - name: VALTIMO_RESOURCE_TEMP_DIRECTORY
   #   value: /data/tmp
   - name: LOGGING_LEVEL_ROOT
