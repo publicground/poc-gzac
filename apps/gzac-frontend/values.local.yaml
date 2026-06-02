@@ -1,20 +1,9 @@
-image:
-  repository: "ritense/gzac-frontend"
-  tag: "13.23.0"
-
-serviceAccount:
-  create: false
-
-ingress:
-  enabled: false
-
-settings:
-  apiURL: "http://gzac.wigo4it.nl/api"
-  whitelistedDomain: "http://gzac.wigo4it.nl"
-
-  keycloak:
-    url: "http://keycloak.wigo4it.nl"
-    clientID: "gzac-frontend"
-    realm: "publicground"
-    logoutRedirectURL: "http://localhost:8081"
-    redirectURL: "http://localhost:8081/keycloak/callback"
+## config values will be used for generating the config.js
+config:
+  apiUri: http://gzac.wigo4it.nl/api/
+  keycloakClientId: gzac-frontend
+  keycloakLogoutRedirectUri: http://gzac.wigo4it.nl
+  keycloakRealm: publicground
+  keycloakRedirectUri: http://gzac.wigo4it.nl/keycloak/callback
+  keycloakUrl: http://keycloak.wigo4it.nl
+  whiteListedDomain: http://gzac.wigo4it.nl
