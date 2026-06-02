@@ -10,26 +10,13 @@ spec:
       memory: 1Mi
       cpu: 1m
   hostname:
-    # hostname: http://keycloak.wigo4it.nl
+    hostname: keycloak.wigo4it.nl
     strict: false
-  http:
-    httpEnabled: true
-  # proxy:
-  #   headers: "xforwarded"
   unsupported:
     podTemplate:
       spec:
         containers:
           - name: keycloak
-            args:
-              - "start-dev"
             envFrom:
               - secretRef:
                   name: keycloak-realm-secrets
-  additionalOptions:
-    - name: proxy-headers
-      value: "xforwarded" # Verplicht omdat Envoy er nu tussen zit
-    - name: hostname-strict
-      value: "false" # Laat Keycloak luisteren naar keycloak.example.nl
-    - name: hostname-strict-https
-      value: "false"
