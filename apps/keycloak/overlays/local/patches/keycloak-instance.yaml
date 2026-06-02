@@ -26,3 +26,10 @@ spec:
             envFrom:
               - secretRef:
                   name: keycloak-realm-secrets
+  additionalOptions:
+    - name: proxy-headers
+      value: "xforwarded" # Verplicht omdat Envoy er nu tussen zit
+    - name: hostname-strict
+      value: "false" # Laat Keycloak luisteren naar keycloak.example.nl
+    - name: hostname-strict-https
+      value: "false"
