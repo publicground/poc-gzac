@@ -10,7 +10,7 @@ spec:
       memory: 1Mi
       cpu: 1m
   hostname:
-    hostname: http://keycloak.wigo4it.nl
+    # hostname: http://keycloak.wigo4it.nl
     strict: false
   http:
     httpEnabled: true
