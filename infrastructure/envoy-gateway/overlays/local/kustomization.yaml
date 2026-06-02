@@ -5,7 +5,7 @@ namespace: envoy-gateway-system
 helmCharts:
   - name: gateway-helm
     repo: oci://docker.io/envoyproxy
-    version: v1.7.1
+    version: v1.8.0
     releaseName: eg
     namespace: envoy-gateway-system
     valuesFile: values.local.yaml
@@ -15,3 +15,4 @@ resources:
   - ns.yaml
   - gateway-local.yaml
   - gatewayclass-local.yaml
+  - tls-secret.yaml

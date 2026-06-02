@@ -2,10 +2,10 @@ image:
   tag: sha-35b82f7
 ## config values will be used for generating the config.js
 config:
-  apiUri: http://gzac.localhost/api/
+  apiUri: https://gzac.wigo4it.nl/api/
   keycloakClientId: gzac-frontend
-  keycloakLogoutRedirectUri: http://gzac.localhost
+  keycloakLogoutRedirectUri: https://gzac.wigo4it.nl
   keycloakRealm: publicground
-  keycloakRedirectUri: http://gzac.localhost/keycloak/callback
-  keycloakUrl: http://keycloak.localhost
-  whiteListedDomain: http://gzac.localhost
+  keycloakRedirectUri: https://gzac.wigo4it.nl/keycloak/callback
+  keycloakUrl: https://keycloak.wigo4it.nl
+  whiteListedDomain: https://gzac.wigo4it.nl
