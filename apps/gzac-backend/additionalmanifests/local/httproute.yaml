@@ -11,7 +11,7 @@ spec:
       namespace: envoy-gateway-system
       sectionName: http
   hostnames:
-    - "gzac.wigo4it.nl"
+    - "gzac.localhost"
   rules:
     - matches:
         - path:
