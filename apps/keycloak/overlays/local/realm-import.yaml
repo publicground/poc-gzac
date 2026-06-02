@@ -230,16 +230,16 @@ spec:
             name: OPENOBJECTEN_ADMIN
             clientRole: true
             description: "Admin rol voor OpenObjecten"
-      clientRoles:
-        realm-management:
-          - name: "view-users"
-            description: "${role_view-users}"
-            clientRole: true
-            containerId: "realm-management" # ID of naam van de realm-management client
-          - name: "view-realm"
-            description: "${role_view-realm}"
-            clientRole: true
-            containerId: "realm-management"
+      # clientRoles:
+      #   realm-management:
+      #     - name: "view-users"
+      #       description: "${role_view-users}"
+      #       clientRole: true
+      #       containerId: "realm-management" # ID of naam van de realm-management client
+      #     - name: "view-realm"
+      #       description: "${role_view-realm}"
+      #       clientRole: true
+      #       containerId: "realm-management"
 
     scopeMappings:
       - client: "gzac-backend"
