@@ -111,10 +111,6 @@ spec:
         implicitFlowEnabled: false
         directAccessGrantsEnabled: false
         serviceAccountsEnabled: true
-        serviceAccountClientRoles:
-          realm-management:
-            - "view-users"
-            - "view-realm"
       - id: "eb865181-ed0d-4a16-86d3-000000000003"
         clientId: "openzaak"
         name: "openzaak"
@@ -234,3 +230,19 @@ spec:
             name: OPENOBJECTEN_ADMIN
             clientRole: true
             description: "Admin rol voor OpenObjecten"
+      clientRoles:
+        realm-management:
+          - name: "view-users"
+            description: "${role_view-users}"
+            clientRole: true
+            containerId: "realm-management" # ID of naam van de realm-management client
+          - name: "view-realm"
+            description: "${role_view-realm}"
+            clientRole: true
+            containerId: "realm-management"
+
+    scopeMappings:
+      - client: "gzac-backend"
+        roles:
+          - "realm-management/view-users"
+          - "realm-management/view-realm"
