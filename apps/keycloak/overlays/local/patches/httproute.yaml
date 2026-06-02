@@ -15,7 +15,7 @@ spec:
           requestHeaderModifier:
             set:
               - name: "X-Forwarded-Proto"
-                value: "https" # Faken dat het via HTTPS binnenkwam
+                value: "http" # Faken dat het via HTTPS binnenkwam
       backendRefs:
         - group: ""
           name: keycloak-service # Vul hier de naam van de Keycloak ClusterIP Service in
