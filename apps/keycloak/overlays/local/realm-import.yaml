@@ -224,6 +224,21 @@ spec:
         - id: "eb865181-ed0d-4a16-86d4-000000000002"
           name: "ROLE_ADMIN"
           description: "Standaard gzac beheerdersrol"
+        - id: "eb865181-ed0d-4a16-86d4-000000000003"
+          name: "default-roles-publicground"
+          description: "${role_default-roles}"
+          composite: true
+          clientRole: false
+          containerId: "eb865181-ed0d-4a16-86d1-000000000000"
+          attributes: {}
+          realmRoles:
+            - "default-roles-publicground"
+            - "offline_access"
+            - "uma_authorization"
+          clientRoleMappings:
+            account:
+              - "view-profile"
+              - "manage-account"
       client:
         openzaak:
           - id: "eb865181-ed0d-4a16-86d5-000000000001"
