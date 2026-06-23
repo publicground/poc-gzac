@@ -3,6 +3,13 @@ kind: Keycloak
 metadata:
   name: keycloak
 spec:
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1700Mi
+    limits:
+      cpu: 2
+      memory: 3Gi
   hostname:
     hostname: keycloak.dmn-poc.publicground.nl
     strict: false
