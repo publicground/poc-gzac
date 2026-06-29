@@ -125,7 +125,7 @@ configuration:
             default_groups: []
             make_users_staff: true
             superuser_group_names:
-              - Admin
+              - OPENZAAK_ADMIN
 
 tags:
   redis: false
