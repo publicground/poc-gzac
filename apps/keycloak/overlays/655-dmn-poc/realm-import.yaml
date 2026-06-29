@@ -48,7 +48,7 @@ spec:
             temporary: false
         clientRoles:
           openzaak:
-            - "Admin"
+            - "OPENZAAK_ADMIN"
       - id: "eb865181-ed0d-4a16-86d2-000000000004"
         username: "adminopennotificaties"
         enabled: true
@@ -75,6 +75,27 @@ spec:
             value: "${ADMIN_OPENOBJECTEN_PASSWORD}"
             temporary: false
         clientRoles:
+          openobjecten:
+            - "OPENOBJECTEN_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000006"
+        username: "antonvissers"
+        enabled: true
+        email: "antonvissers@denhaag.nl"
+        firstName: "Anton"
+        lastName: "Vissers"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ANTON_PASSWORD}"
+            temporary: false
+        realmRoles:
+          - "ROLE_USER"
+          - "ROLE_ADMIN"
+        clientRoles:
+          openzaak:
+            - "OPENZAAK_ADMIN"
+          opennotificaties:
+            - "OPENNOTIFICATIES_ADMIN"
           openobjecten:
             - "OPENOBJECTEN_ADMIN"
 
@@ -203,7 +224,7 @@ spec:
       client:
         openzaak:
           - id: "eb865181-ed0d-4a16-86d5-000000000001"
-            name: Admin
+            name: OPENZAAK_ADMIN
             clientRole: true
             description: "Admin rol voor OpenZaak"
         opennotificaties:
