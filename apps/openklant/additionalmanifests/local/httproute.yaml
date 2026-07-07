@@ -20,6 +20,6 @@ spec:
       backendRefs:
         - group: ""
           kind: Service
-          name: openklant
-          port: 80
+          name: openklant-nginx
+          port: 8000
           weight: 1
