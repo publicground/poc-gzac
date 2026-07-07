@@ -1,6 +1,6 @@
 envoyGateway:
   installCRDs: false
-
+# mkcert "*.wigo4it.nl" wigo4it.nl localhost 127.0.0.1
 provider:
   type: Kubernetes
 

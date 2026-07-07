@@ -16,6 +16,7 @@ spec:
         email: "medewerkergzac@example.com"
         firstName: "Medewerker"
         lastName: "Gzac"
+        emailVerified: true
         credentials:
           - type: "password"
             value: "${MEDEWERKER_GZAC_PASSWORD}" # Verwijst naar env var in de Keycloak pod
@@ -28,6 +29,7 @@ spec:
         email: "admingzac@example.com"
         firstName: "Admin"
         lastName: "Gzac"
+        emailVerified: true
         credentials:
           - type: "password"
             value: "${ADMIN_GZAC_PASSWORD}" # Verwijst naar env var in de Keycloak pod
@@ -98,6 +100,20 @@ spec:
             - "OPENNOTIFICATIES_ADMIN"
           openobject:
             - "OPENOBJECT_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000007"
+        username: "adminopenklant"
+        enabled: true
+        email: "adminopenklant@example.com"
+        firstName: "Open"
+        lastName: "Klant Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENKLANT_PASSWORD}"
+            temporary: false
+        clientRoles:
+          openklant:
+            - "OPENKLANT_ADMIN"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
@@ -212,6 +228,34 @@ spec:
               usermodel.clientRoleMapping.clientId: "openobject"
               multivalued: "true"
               jsonType.label: "String"
+      - id: "eb865181-ed0d-4a16-86d3-000000000006"
+        clientId: "openklant"
+        name: "openklant"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENKLANT_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        redirectUris:
+          - "https://openklant.dmn-poc.publicground.nl/oidc/callback/"
+        webOrigins:
+          - "https://openklant.dmn-poc.publicground.nl"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "ok-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "openklant"
+              multivalued: "true"
+              jsonType.label: "String"
 
     roles:
       realm:
@@ -237,3 +281,8 @@ spec:
             name: OPENOBJECT_ADMIN
             clientRole: true
             description: "Admin rol voor OpenObject"
+        openklant:
+          - id: "eb865181-ed0d-4a16-86d8-000000000001"
+            name: OPENKLANT_ADMIN
+            clientRole: true
+            description: "Admin rol voor OpenKlant"
