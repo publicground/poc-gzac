@@ -42,6 +42,11 @@ spec:
       name: "{{.path.basename}}"
     spec:
       project: publicground-apps
+      {{- $localIgnore := dig "clusters" "local" "ignoreDifferences" "" . }}
+      {{- if $localIgnore }}
+      ignoreDifferences:
+        {{- $localIgnore | toYaml | nindent 8 }}
+      {{- end }}
       sources:
         - chart: "{{.chartName}}"
           repoURL: "{{.chartRepoURL}}"

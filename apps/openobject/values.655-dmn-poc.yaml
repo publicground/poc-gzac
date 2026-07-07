@@ -1,5 +1,5 @@
 image:
-  repository: acr655.azurecr.io/docker.io/maykinmedia/objects-api
+  repository: acr655.azurecr.io/docker.io/maykinmedia/open-object
 
 global:
   configuration:
@@ -14,7 +14,7 @@ configuration:
     username: "admin"
     email: "horstp@wigo4it.nl"
     # password field is ignored when existingSecret is set — OBJECTS_SUPERUSER_PASSWORD must be
-    # present as a key in the openobjecten SealedSecret (additionalmanifests/655-dmn-poc/sealedsecret-openobjecten.yaml)
+    # present as a key in the openobject SealedSecret (additionalmanifests/655-dmn-poc/sealedsecret-openobject.yaml)
   initContainer:
     enabled: false
   job:
@@ -33,7 +33,7 @@ configuration:
       items:
       - identifier: admin-oidc
         enabled: true
-        oidc_rp_client_id: openobjecten
+        oidc_rp_client_id: openobject
         oidc_rp_client_secret:
           value_from:
             env: KEYCLOAK_CLIENT_SECRET
@@ -62,7 +62,7 @@ configuration:
             default_groups: []
             make_users_staff: true
             superuser_group_names:
-              - OPENOBJECTEN_ADMIN
+              - OPENOBJECT_ADMIN
 
 tags:
   redis: false
@@ -83,37 +83,38 @@ resources:
 persistence:
   enabled: false
 
-existingSecret: openobjecten
-existingConfigurationSecrets: openobjecten-config-secrets
+existingSecret: openobject
+existingConfigurationSecrets: openobject-config-secrets
 
 extraEnvVars:
   - name: DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: "openobjecten-pg-cluster-app"
+        name: "openobject-pg-cluster-app"
         key: "password"
 
 settings:
-  allowedHosts: "openobjecten.dmn-poc.publicground.nl"
+  allowedHosts: "openobject.dmn-poc.publicground.nl"
 
-  disable2fa: false
+  disable2fa: true
 
   database:
-    host: "openobjecten-pg-cluster-rw"
+    host: "openobject-pg-cluster-rw"
     port: 5432
-    username: "openobjecten"
-    name: "openobjecten"
+    username: "openobject"
+    name: "openobject"
 
-  siteDomain: "openobjecten.dmn-poc.publicground.nl"
+  siteDomain: "openobject.dmn-poc.publicground.nl"
 
   cache:
-    default: "openobjecten-redis:6379/0"
-    axes: "openobjecten-redis:6379/1"
+    default: "openobject-redis:6379/0"
+    axes: "openobject-redis:6379/0"
+    oidc: "openobject-redis:6379/0"
 
   celery:
-    brokerUrl: "redis://openobjecten-redis:6379/1"
-    resultBackend: "redis://openobjecten-redis:6379/1"
-    resultBackendl: "redis://openobjecten-redis:6379/1"
+    brokerUrl: "redis://openobject-redis:6379/1"
+    resultBackend: "redis://openobject-redis:6379/1"
+    resultBackendl: "redis://openobject-redis:6379/1"
 
   isHttps: true
 
