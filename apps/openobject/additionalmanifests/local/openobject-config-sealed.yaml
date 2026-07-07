@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: openobject-config-secrets
+  namespace: publicground
+spec:
+  encryptedData:
+    KEYCLOAK_CLIENT_SECRET: AgB3/xFUGcgXUr8il/hpQiHNaFT0YxjYR6FTfWBZTFZi2TijN5pxfZtf5rTk9uPv7RPe3y3tYt9ebpjxuecx5G1/jyWVcHyiZ+qTBKwkITgSvw9GQlvbQTuYhH5heC+Cxjtxv1LAzE6W+bq6vvA76n3j1ePXsHicxuPlZlhFhrDFgNRmNnPdKDDgUAHUQWOqEq6+w97xOTi4uHHRRmDfDg/VLlDzyOdEj5rHMeW70pkr/aHr5mNiXeLDORK0HP76PpR6AfxhEpVMI3tvQaM1eYaUFgPkMOQvJ2mJglJpqVc2+4RFnPwHE/9beIaHYEqJZU4QcVBmMEiXCZymrQLG5gkcqRdLsQqDGYfJD5S/e1MVmK9Iel48vBmx9NtOuI4DHMgQ0c2wd2ckMWJpaBRRogjwhOeyR0oHo5O8kjOJgV7wovQhaf/WltGUv1QIT+msc1erA6qwa4qS+8thgFMFX3Nwgen7uecxZozjxdD/uK/H9dntpCOHjaoEY+KC3ocvTfhIirsNxGhL8s4/5aTiT0w3max9gjlGCDGHm73CdZyclR2hciwaf1bkCzb9uJALmAu07tvupmNPaNFbPki2k7kVCUXQrGHJir2yJIUjCuEFanETHp4062MGasXo7knkmtaPVPq7AqLeyWnJiY89NlIQf0hARDfJd8v9W7+aqnYSy7umrXLjUYlR/n7KqkdNua4whiYA3nRptRRmYrkT8Z3ESFlfLYxLgC6U
+  template:
+    metadata:
+      name: openobject-config-secrets
+      namespace: publicground
+    type: Opaque
