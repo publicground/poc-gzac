@@ -102,7 +102,7 @@ extraEnvVars:
         key: "password"
 
 settings:
-  allowedHosts: "localhost, openklant, openklant.wigo4it.nl"
+  # allowedHosts: "localhost, openklant, openklant.wigo4it.nl"
 
   database:
     host: "openklant-pg-cluster-rw"
