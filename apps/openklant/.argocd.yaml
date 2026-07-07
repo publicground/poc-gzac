@@ -7,6 +7,6 @@ clusters:
     chartVersion: "1.11.0"
     additionalManifests: "apps/openklant/additionalmanifests/local/"
   655-dmn-poc:
-    enabled: true
+    enabled: false
     chartVersion: "1.12.0"
     additionalManifests: "apps/openklant/additionalmanifests/655-dmn-poc/"
