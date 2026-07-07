@@ -66,19 +66,19 @@ spec:
           opennotificaties:
             - "OPENNOTIFICATIES_ADMIN"
       - id: "eb865181-ed0d-4a16-86d2-000000000005"
-        username: "adminopenobjecten"
+        username: "adminopenobject"
         enabled: true
-        email: "adminopenobjecten@example.com"
+        email: "adminopenobject@example.com"
         firstName: "Open"
-        lastName: "Objecten Admin"
+        lastName: "Object Admin"
         emailVerified: true
         credentials:
           - type: password
-            value: "${ADMIN_OPENOBJECTEN_PASSWORD}"
+            value: "${ADMIN_OPENOBJECT_PASSWORD}"
             temporary: false
         clientRoles:
-          openobjecten:
-            - "OPENOBJECTEN_ADMIN"
+          openobject:
+            - "OPENOBJECT_ADMIN"
       - id: "eb865181-ed0d-4a16-86d2-000000000006"
         username: "service-account-gzac-backend" # De vaste naam die Keycloak hanteert
         enabled: true
