@@ -112,7 +112,7 @@ settings:
 
   isHttps: false
 
-  debug: true
+  # debug: true
 
   disable2fa: true
 
