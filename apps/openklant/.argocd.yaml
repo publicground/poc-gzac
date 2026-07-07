@@ -3,8 +3,8 @@ chartRepoURL: https://maykinmedia.github.io/charts/
 targetNamespace: publicground
 clusters:
   local:
-    enabled: false
-    chartVersion: "1.12.0"
+    enabled: true
+    chartVersion: "1.11.0"
     additionalManifests: "apps/openklant/additionalmanifests/local/"
   655-dmn-poc:
     enabled: true
