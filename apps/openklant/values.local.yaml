@@ -85,7 +85,7 @@ resources:
     memory: "256Mi"
     cpu: "100m"
   limits:
-    memory: "2048Mi"
+    memory: "3Gi"
     cpu: "500m"
 
 persistence:
