@@ -112,6 +112,8 @@ settings:
 
   isHttps: false
 
+  debug: true
+
   disable2fa: true
 
   cache:
