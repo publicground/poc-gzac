@@ -100,6 +100,8 @@ extraEnvVars:
       secretKeyRef:
         name: "openarchiefbeheer-pg-cluster-app"
         key: "password"
+  - name: DISABLE_2FA
+    value: "True"
 
 settings:
   allowedHosts: "openarchiefbeheer.dmn-poc.publicground.nl"
