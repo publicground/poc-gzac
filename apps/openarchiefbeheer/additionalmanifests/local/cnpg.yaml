@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: openobject-pg-cluster
+  name: openarchiefbeheer-pg-cluster
   namespace: publicground
 spec:
   instances: 1
@@ -10,8 +10,8 @@ spec:
     size: "1Gi"
   bootstrap:
     initdb:
-      database: "openobject"
-      owner: "openobject"
+      database: "openarchiefbeheer"
+      owner: "openarchiefbeheer"
       # postInitTemplateSQL runs in template1 as the postgres superuser, before the
       # application database is created. CNPG creates openzaak from template1 so it
       # inherits PostGIS. Django's PostGIS backend then finds the extension already
