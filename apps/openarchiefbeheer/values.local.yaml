@@ -107,6 +107,7 @@ settings:
   celery:
     brokerUrl: "redis://openarchiefbeheer-redis:6379/1"
     resultBackend: "redis://openarchiefbeheer-redis:6379/1"
+    resultBackendl: "redis://openarchiefbeheer-redis:6379/1" # bug in chart
 
 worker:
   replicaCount: 1
