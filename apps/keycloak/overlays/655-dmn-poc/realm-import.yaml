@@ -114,6 +114,20 @@ spec:
         clientRoles:
           openklant:
             - "OPENKLANT_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000008"
+        username: "adminopenarchiefbeheer"
+        enabled: true
+        email: "adminopenarchiefbeheer@example.com"
+        firstName: "Open"
+        lastName: "Archiefbeheer Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENARCHIEFBEHEER_PASSWORD}"
+            temporary: false
+        clientRoles:
+          openarchiefbeheer:
+            - "OPENARCHIEFBEHEER_ADMIN"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
@@ -256,6 +270,34 @@ spec:
               usermodel.clientRoleMapping.clientId: "openklant"
               multivalued: "true"
               jsonType.label: "String"
+      - id: "eb865181-ed0d-4a16-86d3-000000000007"
+        clientId: "openarchiefbeheer"
+        name: "openarchiefbeheer"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENARCHIEFBEHEER_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        redirectUris:
+          - "https://openarchiefbeheer.dmn-poc.publicground.nl/oidc/callback/"
+        webOrigins:
+          - "https://openarchiefbeheer.dmn-poc.publicground.nl"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "oab-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "openarchiefbeheer"
+              multivalued: "true"
+              jsonType.label: "String"
 
     roles:
       realm:
@@ -286,3 +328,8 @@ spec:
             name: OPENKLANT_ADMIN
             clientRole: true
             description: "Admin rol voor OpenKlant"
+        openarchiefbeheer:
+          - id: "eb865181-ed0d-4a16-86d9-000000000001"
+            name: OPENARCHIEFBEHEER_ADMIN
+            clientRole: true
+            description: "Admin rol voor OpenArchiefbeheer"
