@@ -110,8 +110,19 @@ settings:
 
 worker:
   replicaCount: 1
+  resources:
+    limits:
+      memory: 1Gi
   livenessProbe:
     enabled: true
+
+beat:
+  resources:
+    limits:
+      memory: 1Gi
+
+flower:
+  enabled: false
 
 redis:
   enabled: false
