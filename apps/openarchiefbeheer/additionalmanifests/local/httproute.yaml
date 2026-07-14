@@ -20,6 +20,6 @@ spec:
       backendRefs:
         - group: ""
           kind: Service
-          name: openarchiefbeheer
+          name: openarchiefbeheer-nginx
           port: 80
           weight: 1
