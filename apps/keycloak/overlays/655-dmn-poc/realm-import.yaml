@@ -128,6 +128,20 @@ spec:
         clientRoles:
           openarchiefbeheer:
             - "OPENARCHIEFBEHEER_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000009"
+        username: "adminopenformulieren"
+        enabled: true
+        email: "adminopenformulieren@example.com"
+        firstName: "Open"
+        lastName: "Formulieren Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENFORMULIEREN_PASSWORD}"
+            temporary: false
+        clientRoles:
+          openformulieren:
+            - "OPENFORMULIEREN_ADMIN"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
@@ -298,6 +312,34 @@ spec:
               usermodel.clientRoleMapping.clientId: "openarchiefbeheer"
               multivalued: "true"
               jsonType.label: "String"
+      - id: "eb865181-ed0d-4a16-86d3-000000000008"
+        clientId: "openformulieren"
+        name: "openformulieren"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENFORMULIEREN_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        redirectUris:
+          - "https://openformulieren.dmn-poc.publicground.nl/oidc/callback/"
+        webOrigins:
+          - "https://openformulieren.dmn-poc.publicground.nl"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "of-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "openformulieren"
+              multivalued: "true"
+              jsonType.label: "String"
 
     roles:
       realm:
@@ -333,3 +375,8 @@ spec:
             name: OPENARCHIEFBEHEER_ADMIN
             clientRole: true
             description: "Admin rol voor OpenArchiefbeheer"
+        openformulieren:
+          - id: "eb865181-ed0d-4a16-86e1-000000000001"
+            name: OPENFORMULIEREN_ADMIN
+            clientRole: true
+            description: "Admin rol voor OpenFormulieren"
