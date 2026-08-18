@@ -1,0 +1,10 @@
+chartName: redis-operator
+chartRepoURL: https://ot-container-kit.github.io/helm-charts
+targetNamespace: redis-system
+clusters:
+  local:
+    enabled: true
+    chartVersion: 0.24.0
+  655-dmn-poc:
+    enabled: true
+    chartVersion: 0.24.0

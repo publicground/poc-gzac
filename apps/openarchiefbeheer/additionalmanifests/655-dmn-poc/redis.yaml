@@ -1,0 +1,32 @@
+apiVersion: redis.redis.opstreelabs.in/v1beta2
+kind: Redis
+metadata:
+  name: openarchiefbeheer-redis
+  namespace: publicground
+  labels:
+    app.kubernetes.io/component: cache
+    app.kubernetes.io/managed-by: redis
+    app.kubernetes.io/part-of: openarchiefbeheer
+spec:
+  podSecurityContext:
+    fsGroup: 1000
+    runAsUser: 1000
+  kubernetesConfig:
+    image: acr655.azurecr.io/quay.io/opstree/redis:v7.0.15
+    imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 20m
+        memory: 64Mi
+      limits:
+        cpu: 50m
+        memory: 128Mi
+  storage:
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: "1Gi"
+        storageClassName: managed-csi

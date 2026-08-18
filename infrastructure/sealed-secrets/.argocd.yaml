@@ -1,0 +1,11 @@
+chartName: sealed-secrets
+chartRepoURL: https://bitnami.github.io/sealed-secrets
+targetNamespace: sealed-secrets
+clusters:
+  local:
+    enabled: true
+    chartVersion: 2.18.6
+    additionalManifests: "infrastructure/sealed-secrets/additionalmanifests/local/"
+  655-dmn-poc:
+    enabled: true
+    chartVersion: 2.18.6

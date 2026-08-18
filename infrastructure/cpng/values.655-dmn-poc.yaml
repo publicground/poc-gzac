@@ -1,0 +1,9 @@
+image:
+  repository: acr655.azurecr.io/ghcr.io/cloudnative-pg/cloudnative-pg
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    memory: 500Mi
+  limits:
+    memory: 1Gi

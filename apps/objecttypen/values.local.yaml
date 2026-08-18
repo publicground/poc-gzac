@@ -1,0 +1,61 @@
+global:
+  configuration:
+    enabled: true
+    overwrite: true
+    secrets: {}
+
+configuration:
+  enabled: true
+  overwrite: true
+  superuser:
+    username: "admin"
+    password: ""
+    email: "peterdummy@wigo4it.nl"
+  initContainer:
+    enabled: false
+  job:
+    enabled: false
+
+tags:
+  redis: false
+
+replicaCount: 1
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "1024Mi"
+    cpu: "250m"
+
+existingSecret: objecttypen
+
+extraEnvVars:
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "objecttypen-pg-cluster-app"
+        key: "password"
+  - name: IS_HTTPS
+    value: 'False'
+
+settings:
+  allowedHosts: "localhost,objecttypen,objecttypen.wigo4it.nl"
+
+  database:
+    host: "objecttypen-pg-cluster-rw"
+    port: 5432
+    username: "objecttypen"
+    name: "objecttypen"
+
+  cache:
+    default: "objecttypen-redis:6379/0"
+    axes: "objecttypen-redis:6379/0"
+
+  debug: false
+
+  disable2fa: true
+
+redis:
+  enabled: false

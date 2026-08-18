@@ -1,0 +1,53 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Helm
+*/Chart.lock
+charts/*/charts/
+*.tgz
+
+# Kubernetes
+*.kubeconfig
+kubeconfig
+.kube/
+
+# IDEs
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Backup files
+*.backup
+*.bak
+
+# OS generated files
+.AppleDouble
+.LSOverride
+Icon?
+
+# Helm dependency artifacts - ArgoCD downloads these automatically
+charts/
+*.tgz
+Chart.lock
+.ignore

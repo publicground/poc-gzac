@@ -1,0 +1,12 @@
+chartName: objecten
+chartRepoURL: https://raw.githubusercontent.com/maykinmedia/charts/gh-pages/
+targetNamespace: publicground
+clusters:
+  local:
+    enabled: false
+    chartVersion: "2.12.0"
+    additionalManifests: "apps/openobjecten/additionalmanifests/local/"
+  655-dmn-poc:
+    enabled: false
+    chartVersion: "2.12.0"
+    additionalManifests: "apps/openobjecten/additionalmanifests/655-dmn-poc/"

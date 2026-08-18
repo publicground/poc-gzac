@@ -1,0 +1,21 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: openobjecten-pg-cluster
+  namespace: publicground
+spec:
+  instances: 1
+  imageName: "ghcr.io/cloudnative-pg/postgis:18-3.6-system-trixie"
+  storage:
+    size: "1Gi"
+  bootstrap:
+    initdb:
+      database: "openobjecten"
+      owner: "openobjecten"
+      # postInitTemplateSQL runs in template1 as the postgres superuser, before the
+      # application database is created. CNPG creates openzaak from template1 so it
+      # inherits PostGIS. Django's PostGIS backend then finds the extension already
+      # present and CREATE EXTENSION IF NOT EXISTS is a silent no-op (PG 15+).
+      postInitTemplateSQL:
+        - "CREATE EXTENSION IF NOT EXISTS postgis;"
+        - "CREATE EXTENSION IF NOT EXISTS postgis_topology;"

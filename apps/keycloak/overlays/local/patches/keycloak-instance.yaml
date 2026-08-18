@@ -1,0 +1,22 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak
+spec:
+  resources:
+    requests:
+      # set very low resource requests to fit in Kind cluster
+      # needs to be configured, otherwise the operator defaults are used which are too high for Kind
+      memory: 1Mi
+      cpu: 1m
+  hostname:
+    hostname: keycloak.wigo4it.nl
+    strict: true
+  unsupported:
+    podTemplate:
+      spec:
+        containers:
+          - name: keycloak
+            envFrom:
+              - secretRef:
+                  name: keycloak-realm-secrets

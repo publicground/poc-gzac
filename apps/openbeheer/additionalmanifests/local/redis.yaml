@@ -1,0 +1,29 @@
+apiVersion: redis.redis.opstreelabs.in/v1beta2
+kind: Redis
+metadata:
+  name: openbeheer-redis
+  namespace: publicground
+  labels:
+    app.kubernetes.io/component: cache
+    app.kubernetes.io/managed-by: redis
+    app.kubernetes.io/part-of: openbeheer
+spec:
+  kubernetesConfig:
+    image: quay.io/opstree/redis:v8.6.2
+    imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 20m
+        memory: 64Mi
+      limits:
+        cpu: 50m
+        memory: 128Mi
+  storage:
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: "1Gi"
+        storageClassName: standard
