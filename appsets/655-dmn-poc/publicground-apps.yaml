@@ -3,6 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: publicground-apps
+  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -23,13 +24,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: publicground-apps-helm
+  namespace: argocd
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
         repoURL: https://github.com/publicground/poc-gzac.git
-        revision: HEAD
+        revision: feature/add-local-setup
         files:
           - path: "apps/**/.argocd.yaml"
       selector:
@@ -40,16 +42,21 @@ spec:
       name: "{{.path.basename}}"
     spec:
       project: publicground-apps
+      {{- $localIgnore := dig "clusters" "local" "ignoreDifferences" "" . }}
+      {{- if $localIgnore }}
+      ignoreDifferences:
+        {{- $localIgnore | toYaml | nindent 8 }}
+      {{- end }}
       sources:
         - chart: "{{.chartName}}"
           repoURL: "{{.chartRepoURL}}"
-          targetRevision: "{{.clusters.655-dmn-poc.chartVersion}}"
+          targetRevision: '{{index .clusters "655-dmn-poc" "chartVersion"}}'
           helm:
             valueFiles:
               - $argoRepo/{{ .path.path }}/values.yaml
               - $argoRepo/{{ .path.path }}/values.655-dmn-poc.yaml
         - repoURL: https://github.com/publicground/poc-gzac.git
-          targetRevision: main
+          targetRevision: feature/add-local-setup
           ref: argoRepo
           path: '{{ dig "clusters" "655-dmn-poc" "additionalManifests" "" . }}'
       destination:
@@ -65,6 +72,46 @@ spec:
           - ServerSideApply=true
         retry:
           limit: 10
+          backoff:
+            duration: "5s"
+            factor: 2
+            maxDuration: "3m0s"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: publicground-apps-kustomize
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: https://github.com/publicground/poc-gzac.git
+      revision: feature/add-local-setup
+      directories:
+      - path: apps/*/overlays/655-dmn-poc
+  template:
+    metadata:
+      name: '{{index .path.segments 1}}'
+    spec:
+      project: publicground-apps
+      sources:
+        - repoURL: https://github.com/publicground/poc-gzac.git
+          targetRevision: feature/add-local-setup
+          path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        retry:
+          limit: 3
           backoff:
             duration: "5s"
             factor: 2

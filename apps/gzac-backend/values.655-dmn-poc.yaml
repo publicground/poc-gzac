@@ -1,0 +1,103 @@
+image:
+  tag: sha-826fca1
+
+replicaCount: 1
+
+# Liveness probe is disabled on test. This in order to facilitate remote debugging on this environment.
+livenessProbe:
+  enabled: false
+
+## An array to add env vars
+## For example:
+## env:
+##  - name: TEST_VAR
+##    value: test
+##
+env:
+  - name: SPRING_DATASOURCE_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: gzac-backend-pg-cluster-app
+        key: password
+  - name: SPRING_DATASOURCE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: gzac-backend-pg-cluster-app
+        key: password
+  - name: SPRING_DATASOURCE_URL
+    valueFrom:
+      secretKeyRef:
+        name: gzac-backend-pg-cluster-app
+        key: jdbc-uri
+  - name: KEYCLOAK_AUTH_SERVER_URL
+    value: https://keycloak.dmn-poc.publicground.nl
+  - name: KEYCLOAK_REALM
+    value: publicground
+  - name: KEYCLOAK_RESOURCE
+    value: gzac-backend
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENT_ID
+    value: gzac-backend
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_PROVIDER
+    value: keycloakapi
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_ISSUER_URI
+    value: "https://keycloak.dmn-poc.publicground.nl/realms/publicground"
+  - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_JWK_SET_URI
+    value: "https://keycloak.dmn-poc.publicground.nl/realms/publicground/protocol/openid-connect/certs"
+  - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
+    value: "https://keycloak.dmn-poc.publicground.nl/realms/publicground/protocol/openid-connect/certs"
+  - name: CAMUNDA_BPM_ADMINUSER_ID
+    value: wigoadmin
+  - name: VALTIMO_OAUTH_PUBLIC-KEY
+    value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz4NAROHmoRF6td0gBkIdEHBSWINXgPwXLxnVBfIOTX7WVRd0veUqdbessrg8PERbb2X+V3JgGIU15TCg9xRWpP5QuosKnGbtkJIP6cCN81QPmHNGnxrHYPCLsHfNcMaSaylR4JivXQlScJcF3NV/eMEcIJYKfhb75tzHMnTDizZp8AExBIw1Nj8oHQJ0sK5IvOBiG/y0PBODRIHUugMaSnfaH3KjMFAfGWy/dwydzqm+12Hmsr/iXTKNfmlIkGmp+9D4qGkEm0bT21GqAT06uH3uoTlhLTOf5NftqPyGDZFwH7OOHSnSzPIyjfxVQRf6mVeZ/iC4aiso6A3DZ4rAbwIDAQAB
+  - name: KEYCLOAK_HOST
+    value: https://keycloak.dmn-poc.publicground.nl
+  # - name: VALTIMO_RESOURCE_TEMP_DIRECTORY
+  #   value: /data/tmp
+  - name: LOGGING_LEVEL_ROOT
+    value: INFO
+
+#Suwinet
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
+    value: "http://suwinet-simulator:8080"
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SUFFIX
+    value: ""
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
+    value: "wigoadmin"
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_KEY_STORE_PATH
+    value: ""
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_TRUST_STORE_PATH
+    value: ""
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_KEY_STORE_KEY
+    value: ""
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_TRUST_STORE_KEY
+    value: ""
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_AUTHTYPE
+    value: "BASIC"
+  - name: VALTIMO_SECURITY_WHITELIST_HOSTS_0
+    value: 0.0.0.0/0
+  # ALO Object Management
+  - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_VERZOEK_ALO_OBJECTTYPE_VERSION
+    value: "1"
+  - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_ALO_ADRESSEN_MET_VEEL_BEWONERS_OBJECTTYPE-VERSION
+    value: "1"
+  - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_ALO_INFORMATIEVERZOEK_ITEMS_OBJECTTYPE-VERSION
+    value: "1"
+  - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_EXTERNE_KLANTTAAK_OBJECTTYPE_VERSION
+    value: "1"
+
+
+# persistence:
+#   enabled: true
+#   storageClass: 
+#   accessMode: ReadWriteMany
+#   size: 1Gi
+#   mountPath: /data
+
+volumes:
+- name: tmpfs-1
+  emptyDir: {}
+
+volumeMounts:
+- mountPath: /tmp
+  name: tmpfs-1
+
