@@ -5,3 +5,6 @@ clusters:
   local:
     enabled: true
     chartVersion: 0.24.0
+  655-dmn-poc:
+    enabled: true
+    chartVersion: 0.24.0

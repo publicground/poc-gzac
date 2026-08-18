@@ -8,8 +8,11 @@ metadata:
     app.kubernetes.io/managed-by: redis
     app.kubernetes.io/part-of: openzaak
 spec:
+  podSecurityContext:
+    fsGroup: 1000
+    runAsUser: 1000
   kubernetesConfig:
-    image: quay.io/opstree/redis:v7.0.15
+    image: acr655.azurecr.io/quay.io/opstree/redis:v7.0.15
     imagePullPolicy: IfNotPresent
     resources:
       requests:
@@ -26,4 +29,4 @@ spec:
         resources:
           requests:
             storage: "1Gi"
-        storageClassName: standard
+        storageClassName: managed-csi

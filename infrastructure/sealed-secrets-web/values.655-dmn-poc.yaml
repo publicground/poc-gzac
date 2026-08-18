@@ -1,0 +1,5 @@
+disableLoadSecrets: false
+
+sealedSecrets:
+  namespace: sealed-secrets
+  serviceName: sealed-secrets

@@ -1,0 +1,23 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak
+spec:
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1700Mi
+    limits:
+      cpu: 2
+      memory: 3Gi
+  hostname:
+    hostname: keycloak.dmn-poc.publicground.nl
+    strict: false
+  unsupported:
+    podTemplate:
+      spec:
+        containers:
+          - name: keycloak
+            envFrom:
+              - secretRef:
+                  name: keycloak-realm-secrets

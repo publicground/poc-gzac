@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: openklant-pg-cluster
+  namespace: publicground
+spec:
+  instances: 1
+  # imageName: "acr655.azurecr.io/ghcr.io/cloudnative-pg/postgresql:18.3-system-trixie"
+  storage:
+    size: "1Gi"
+  bootstrap:
+    initdb:
+      database: "openklant"
+      owner: "openklant"

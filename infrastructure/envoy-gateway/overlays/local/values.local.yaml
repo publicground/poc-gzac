@@ -1,0 +1,24 @@
+envoyGateway:
+  installCRDs: false
+# mkcert "*.wigo4it.nl" wigo4it.nl localhost 127.0.0.1
+provider:
+  type: Kubernetes
+
+logging:
+  level:
+    default: info
+
+deployment:
+  replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+config:
+  envoyProxy:
+    namespace: envoy-gateway-system
+    name: default-envoy-proxy

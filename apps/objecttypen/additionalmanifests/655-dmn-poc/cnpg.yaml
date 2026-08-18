@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: objecttypen-pg-cluster
+  namespace: publicground
+spec:
+  instances: 1
+  storage:
+    size: "1Gi"
+    storageClass: managed-csi-retain
+  bootstrap:
+    initdb:
+      database: "objecttypen"
+      owner: "objecttypen"

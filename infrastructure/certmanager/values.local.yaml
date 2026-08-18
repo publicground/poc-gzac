@@ -1,0 +1,5 @@
+crds:
+  enabled: true
+
+extraArgs:
+  - "--enable-gateway-api=true"

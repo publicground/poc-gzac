@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: openarchiefbeheer-config-secrets
+  namespace: publicground
+spec:
+  encryptedData:
+    KEYCLOAK_CLIENT_SECRET: AgB/MClEpZJojSI6/lcgv7eX0rPFma5thi3IPpzztUdCQzy0oDhE7VcLGEtabOXlerE47YDdwN0MiWXOUzVrX119xjqXQZlHsxx6ni2vfImjYcMKw+PscTunqkTgb0p+S6E6oVwBPNGvd9Cc4qZJmqZ0/BWP3RDNieMKMcw0ITUY3jLqfFX1j9zpQVjjuazEERRQ18CuzDbweup3efEmhwnL59pu5oIFr3y0pJrnYcjeDq3XvAogWU6dEjejg7wMLHdRxUHIGssDJU9wNiAtAVmy4/BcglURiey0NAv7vnyYQgxFM0VUNPIjUVDMAjb8Fd8ypkTMCA4zZysDojG/Fx4qrqXKaywYDSCaZaZHlH5QG9PC1ZkvVURO8NHhiW/Mp0rBjgwpQGh3+FY6GknYvl7o6V4zTHsz19/HNF61Uy250506tfDdMOIq94a2HPQ4RPo4RJF+wmyC/hiwWxYKKC+IWvKn1beluuhAyb2aee+Bx6G6OtrVqDraVHQGxfl8IbARRdqB2HFAvUh7WDvPuJi9e+TL+LPyopFeaYZL+ScDgz8g0HxznjNEVOsoeWKAWmqJWiVbRYagBdW9zxfz7dkgpHlK9gN4dO3EQABBJVIhNnuPNRa6PwE9MLlIJAHq6Vs9Sx6lSdcHh4DP4Tmw4zVSpWEFZHT4fzaCxUH/qnVGHjuvzgmmjWkM2Ug5WzRX50mFyXVFSFeg/FFpV2AUBAV/+vsDISj1qH6cFbR7sBi9jHGjC0gDPPFiyry50PLOEwAJakrlK4/dLd0WnGOGae3u
+  template:
+    metadata:
+      name: openarchiefbeheer-config-secrets
+      namespace: publicground
+    type: Opaque
