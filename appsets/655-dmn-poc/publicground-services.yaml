@@ -1,0 +1,122 @@
+# Project for Platform Services
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: publicground-services
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Publicground Services
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: "*"
+      server: "*"
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
+
+# ApplicationSet for Helm-based services
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: publicground-services-helm
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/publicground/poc-gzac.git
+        revision: feature/add-local-setup
+        files:
+          - path: "infrastructure/**/.argocd.yaml"
+      selector:
+        matchLabels:
+          clusters.655-dmn-poc.enabled: 'true'
+  template:
+    metadata:
+      name: "{{.path.basename}}"
+    spec:
+      project: publicground-services
+      sources:
+        - chart: "{{.chartName}}"
+          repoURL: "{{.chartRepoURL}}"
+          targetRevision: '{{index .clusters "655-dmn-poc" "chartVersion"}}'
+          helm:
+            valueFiles:
+              - $argoRepo/{{ .path.path }}/values.yaml
+              - $argoRepo/{{ .path.path }}/values.655-dmn-poc.yaml
+        - repoURL: https://github.com/publicground/poc-gzac.git
+          targetRevision: feature/add-local-setup
+          ref: argoRepo
+          path: '{{ dig "clusters" "655-dmn-poc" "additionalManifests" "" . }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{.targetNamespace}}"
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        retry:
+          limit: 10
+          backoff:
+            duration: "5s"
+            factor: 2
+            maxDuration: "3m0s"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: publicground-services-kustomize
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: https://github.com/publicground/poc-gzac.git
+      revision: feature/add-local-setup
+      directories:
+      - path: infrastructure/*/overlays/655-dmn-poc
+  template:
+    metadata:
+      name: '{{index .path.segments 1}}'
+    spec:
+      project: publicground-services
+      sources:
+        - repoURL: https://github.com/publicground/poc-gzac.git
+          targetRevision: feature/add-local-setup
+          path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        retry:
+          limit: 10
+          backoff:
+            duration: "5s"
+            factor: 2
+            maxDuration: "3m0s"
+      ignoreDifferences:
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          jqPathExpressions:
+            - .webhooks[].clientConfig.caBundle
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          jqPathExpressions:
+            - .webhooks[].clientConfig.caBundle

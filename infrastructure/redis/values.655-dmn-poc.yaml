@@ -1,0 +1,5 @@
+image:
+  pullPolicy: IfNotPresent
+
+redisOperator:
+  imageName: acr655.azurecr.io/quay.io/opstree/redis-operator

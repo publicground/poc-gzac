@@ -1,0 +1,12 @@
+chartName: openbeheer
+chartRepoURL: https://maykinmedia.github.io/charts/
+targetNamespace: publicground
+clusters:
+  local:
+    enabled: false
+    chartVersion: "0.1.3"
+    additionalManifests: "apps/openbeheer/additionalmanifests/local/"
+  655-dmn-poc:
+    enabled: false
+    chartVersion: "0.1.3"
+    additionalManifests: "apps/openbeheer/additionalmanifests/655-dmn-poc/"

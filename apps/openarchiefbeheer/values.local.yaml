@@ -1,0 +1,142 @@
+global:
+  configuration:
+    enabled: true
+    overwrite: true
+    secrets: {}
+
+configuration:
+  enabled: true
+  overwrite: true
+  superuser:
+    username: "admin"
+    password: ""
+    email: "peterdummy@wigo4it.nl"
+  initContainer:
+    enabled: false
+  job:
+    enabled: true
+    ttlSecondsAfterFinished: ""
+  data: |-
+    oidc_db_config_enable: true
+    oidc_db_config_admin_auth:
+      providers:
+      - identifier: keycloak-provider
+        oidc_use_nonce: true
+        oidc_nonce_size: 32
+        oidc_state_size: 32
+        endpoint_config:
+          oidc_op_discovery_endpoint: http://keycloak.wigo4it.nl/realms/publicground/
+      items:
+      - identifier: admin-oidc
+        enabled: true
+        oidc_rp_client_id: openarchiefbeheer
+        oidc_rp_client_secret:
+          value_from:
+            env: KEYCLOAK_CLIENT_SECRET
+        oidc_rp_scopes_list:
+        - openid
+        - email
+        - profile
+        oidc_rp_sign_algo: RS256
+        oidc_provider_identifier: keycloak-provider
+        userinfo_claims_source: id_token
+        options:
+          user_settings:
+            claim_mappings:
+              username:
+                - sub
+              first_name:
+                - given_name
+              email:
+                - email
+            username_case_sensitive: true
+          groups_settings:
+            claim_mapping:
+              - roles
+            sync: true
+            sync_pattern: '*'
+            default_groups: []
+            make_users_staff: true
+            superuser_group_names:
+              - OPENARCHIEFBEHEER_ADMIN
+
+    zgw_consumers_config_enable: true
+    zgw_consumers:
+      services:
+        - identifier: selectielijst-api
+          label: Selectielijst API
+          api_type: orc
+          api_root: https://selectielijst.openzaak.nl/api/v1/
+          auth_type: no_auth
+
+    api_configuration_enabled: true
+    api_configuration:
+      selectielijst_service_identifier: selectielijst-api
+
+tags:
+  redis: false
+
+replicaCount: 1
+
+resources:
+#   requests:
+#     memory: "256Mi"
+#     cpu: "100m"
+  limits:
+    memory: "2Gi"
+#     cpu: "250m"
+
+persistence:
+  enabled: false
+
+existingSecret: openarchiefbeheer
+existingConfigurationSecrets: openarchiefbeheer-config-secrets
+
+extraEnvVars:
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "openarchiefbeheer-pg-cluster-app"
+        key: "password"
+
+settings:
+  allowedHosts: "localhost, openarchiefbeheer, openarchiefbeheer.wigo4it.nl"
+
+  disable2fa: true
+
+  database:
+    host: "openarchiefbeheer-pg-cluster-rw"
+    port: 5432
+    username: "openarchiefbeheer"
+    name: "openarchiefbeheer"
+
+  siteDomain: "openarchiefbeheer.wigo4it.nl"
+
+  cache:
+    default: "openarchiefbeheer-redis:6379/0"
+    axes: "openarchiefbeheer-redis:6379/0"
+    choices: "openarchiefbeheer-redis:6379/1"
+
+  celery:
+    brokerUrl: "redis://openarchiefbeheer-redis:6379/1"
+    resultBackend: "redis://openarchiefbeheer-redis:6379/1"
+    resultBackendl: "redis://openarchiefbeheer-redis:6379/1" # bug in chart
+
+worker:
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 1Gi
+  livenessProbe:
+    enabled: true
+
+beat:
+  resources:
+    limits:
+      memory: 1Gi
+
+flower:
+  enabled: false
+
+redis:
+  enabled: false

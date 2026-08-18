@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: suwinet-simulator
+  namespace: publicground
+spec:
+  encryptedData:
+    SUWINET_PASSWORD: AgDLOJSTdiF25WBviu0GyD70UPWLvZZoRjNAxUa/ZEg3PWKcApxaWAsg/WY6iiSUBeGG+zRxwZlNDdmNzNWp3qDyJUgxajk+WP4R4BYzEr2orFKt0MgJAsh5aa5OEypdslmmgFvG9AmRX35hOMZ35JyWeEftgt08lVhiAWixOYPM6YvsEUVV2JYzkrYUlMWJiE4rPxIk3WTAgZrYNip4n7MnzHsK52lh9oK2EDKbTSdTI3FLGe2QVZTofLyPQpobrG76ndIegXN/5V0YnZqa9olvK67XeNWPxwwP0VeKUFeHUDXI9stFHRHRaAA1YgdGlOs61m6kTxWwrWX8wIMlYwSZJTg6B6+5kTKU3a5NH0mem9XxR3xWZ2+unaFZjQ6K06QRIV1mqcDlv7ocyUCukchkMyjaBlqWw92sDfcUi5CKHT7f4bEekXVWYGzP79VYAsHV8LN1ce4PMNgM6GxpJbwMsv0r5Xf7Np2nXt5Da/IX8xS95ECICj7y409v7AdTLM+NlMH4zkiJ71GKLxoU45asEoQgnDkNbv/zLnlDgJBCi9VMEA4S5xYqbeNWC6DDYseu+bNRbM008rovsQsgJIXC9+4r9RJWUv0+PNIEy9rk8daU+Fi2nZwM0ZrC9Pfvd+Uc28sbO9xSp2XqciHip73gsDE4pWz0Zd7ZTFCv6tLSKSVpFpRI1gxMQaQBQqs/ZrhOezuvv+5/Tk8zo7RyJeIt8hrai78=
+  template:
+    metadata:
+      name: suwinet-simulator
+      namespace: publicground
+    type: Opaque

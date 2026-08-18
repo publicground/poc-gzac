@@ -1,0 +1,12 @@
+chartName: sealed-secrets-web
+chartRepoURL: https://charts.bakito.net
+targetNamespace: sealed-secrets-web
+clusters:
+  local:
+    enabled: true
+    chartVersion: v3.3.0
+    additionalManifests: "infrastructure/sealed-secrets-web/additionalmanifests/local/"
+  655-dmn-poc:
+    enabled: true
+    chartVersion: v3.3.0
+    additionalManifests: "infrastructure/sealed-secrets-web/additionalmanifests/655-dmn-poc/"
