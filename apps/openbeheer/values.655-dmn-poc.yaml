@@ -1,5 +1,6 @@
 image:
   repository: acr655.azurecr.io/docker.io/maykinmedia/open-beheer
+  tag: 0.9.1
 
 global:
   configuration:
