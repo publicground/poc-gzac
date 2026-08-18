@@ -7,6 +7,6 @@ clusters:
     chartVersion: "0.1.3"
     additionalManifests: "apps/openbeheer/additionalmanifests/local/"
   655-dmn-poc:
-    enabled: true
+    enabled: false
     chartVersion: "0.1.3"
     additionalManifests: "apps/openbeheer/additionalmanifests/655-dmn-poc/"
