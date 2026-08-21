@@ -31,7 +31,8 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/publicground/poc-gzac.git
-        revision: feature/add-local-setup
+        revision: refs/heads/main
+        requeueAfterSeconds: 180
         files:
           - path: "infrastructure/**/.argocd.yaml"
       selector:
@@ -51,7 +52,7 @@ spec:
               - $argoRepo/{{ .path.path }}/values.yaml
               - $argoRepo/{{ .path.path }}/values.655-dmn-poc.yaml
         - repoURL: https://github.com/publicground/poc-gzac.git
-          targetRevision: feature/add-local-setup
+          targetRevision: refs/heads/main
           ref: argoRepo
           path: '{{ dig "clusters" "655-dmn-poc" "additionalManifests" "" . }}'
       destination:
@@ -83,7 +84,8 @@ spec:
   generators:
   - git:
       repoURL: https://github.com/publicground/poc-gzac.git
-      revision: feature/add-local-setup
+      revision: refs/heads/main
+      requeueAfterSeconds: 180
       directories:
       - path: infrastructure/*/overlays/655-dmn-poc
   template:
@@ -93,7 +95,7 @@ spec:
       project: publicground-services
       sources:
         - repoURL: https://github.com/publicground/poc-gzac.git
-          targetRevision: feature/add-local-setup
+          targetRevision: refs/heads/main
           path: '{{.path.path}}'
       destination:
         server: https://kubernetes.default.svc
