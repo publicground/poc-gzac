@@ -362,7 +362,7 @@ spec:
         clientAuthenticatorType: "client-secret"
         secret: "${OPENBEHEER_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
         redirectUris:
-          - "https://openbeheer.dmn-poc.publicground.nl/oidc/callback/"
+          - "https://openbeheer.dmn-poc.publicground.nl/auth/oidc/callback/"
         webOrigins:
           - "https://openbeheer.dmn-poc.publicground.nl"
         publicClient: false
