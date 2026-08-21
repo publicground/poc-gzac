@@ -1,5 +1,6 @@
 image:
   repository: acr655.azurecr.io/docker.io/maykinmedia/open-beheer
+  tag: 0.9.1
 
 global:
   configuration:
@@ -77,7 +78,7 @@ persistence:
   enabled: false
 
 existingSecret: openbeheer
-existingConfigurationSecrets: openbeheer-config-secrets
+existingConfigurationSecret: openbeheer-config-secrets
 
 extraEnvVars:
   - name: DB_PASSWORD

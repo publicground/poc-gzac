@@ -38,9 +38,7 @@ configuration:
       - identifier: admin-oidc
         enabled: true
         oidc_rp_client_id: openformulieren
-        oidc_rp_client_secret:
-          value_from:
-            env: KEYCLOAK_CLIENT_SECRET
+        oidc_rp_client_secret: "${KEYCLOAK_CLIENT_SECRET}"
         oidc_rp_scopes_list:
         - openid
         - email
