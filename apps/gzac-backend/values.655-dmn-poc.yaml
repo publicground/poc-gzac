@@ -64,7 +64,7 @@ env:
   - name: AUTODEPLOYMENT_PLUGINCONFIG_NOTIFICATIES-API_URL
     value: https://opennotificaties.dmn-poc.publicground.nl/api/v1/
   - name: AUTODEPLOYMENT_PLUGINCONFIG_NOTIFICATIES-API_CALLBACK-URL
-    value: http://localhost:8080/api/v1/notificatiesapi/callback
+    value: https://gzac.dmn-poc.publicground.nl:8080/api/v1/notificatiesapi/callback
 
   - name: AUTODEPLOYMENT_PLUGINCONFIG_CATALOGI-API_URL
     value: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/
