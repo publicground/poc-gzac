@@ -1,6 +1,5 @@
 image:
-  tag: sha-2402d48
-#  tag: sha-826fca1
+  tag: sha-986e8ce
 
 replicaCount: 1
 
