@@ -47,6 +47,8 @@ env:
     value: "https://keycloak.dmn-poc.publicground.nl/realms/publicground/protocol/openid-connect/certs"
   - name: CAMUNDA_BPM_ADMINUSER_ID
     value: wigoadmin
+  - name: CAMUNDA_BPM_WEBAPP_ENABLED
+    value: true
   - name: VALTIMO_OAUTH_PUBLIC-KEY
     value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz4NAROHmoRF6td0gBkIdEHBSWINXgPwXLxnVBfIOTX7WVRd0veUqdbessrg8PERbb2X+V3JgGIU15TCg9xRWpP5QuosKnGbtkJIP6cCN81QPmHNGnxrHYPCLsHfNcMaSaylR4JivXQlScJcF3NV/eMEcIJYKfhb75tzHMnTDizZp8AExBIw1Nj8oHQJ0sK5IvOBiG/y0PBODRIHUugMaSnfaH3KjMFAfGWy/dwydzqm+12Hmsr/iXTKNfmlIkGmp+9D4qGkEm0bT21GqAT06uH3uoTlhLTOf5NftqPyGDZFwH7OOHSnSzPIyjfxVQRf6mVeZ/iC4aiso6A3DZ4rAbwIDAQAB
   - name: KEYCLOAK_HOST
@@ -83,6 +85,16 @@ env:
   - name: AUTODEPLOYMENT_PLUGINCONFIG_WORDPRESS_MAIL_BASE_URL
     value: ""
 
+# ALO Verzoek
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_VERZOEK_RSIN
+    value: "100000009"
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_VERZOEK_ALO_PROPERTIES_INITIATOR-ROL-TYPE-URL
+    value: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/roltypen/ec259fcf-a346-4448-b137-c1e6e389ae78
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_VERZOEK_IOAW_PROPERTIES_INITIATOR-ROL-TYPE-URL
+    value: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/roltypen/c8addc88-ed7d-41c8-b48a-5540f64765d7
+  - name: AUTODEPLOYMENT_ALO_PORTAALFORMULIER
+    value: https://openobject.dmn-poc.publicground.nl/api/v2/objects/f710ad69-8c90-4b4d-bf94-83555212dd6c
+
 #Suwinet
   - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
     value: "http://suwinet-simulator:8080"
@@ -102,6 +114,7 @@ env:
     value: "BASIC"
   - name: VALTIMO_SECURITY_WHITELIST_HOSTS_0
     value: 0.0.0.0/0
+
   # ALO Object Management
   - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_VERZOEK_ALO_OBJECTTYPE_VERSION
     value: "1"
