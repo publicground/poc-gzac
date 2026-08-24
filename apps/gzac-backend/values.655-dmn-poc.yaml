@@ -71,7 +71,7 @@ env:
   - name: AUTODEPLOYMENT_PLUGINCONFIG_CATALOGI-API_URL
     value: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/
   - name: AUTODEPLOYMENT_PLUGINCONFIG_OPENZAAK-AUTHENTICATION_CLIENTID
-    value: gzac
+    value: gzac2
   - name: AUTODEPLOYMENT_PLUGINCONFIG_ZAKEN-API_URL
     value: https://openzaak.dmn-poc.publicground.nl/zaken/api/v1/
   - name: AUTODEPLOYMENT_PLUGINCONFIG_DOCUMENTEN_API_URL
