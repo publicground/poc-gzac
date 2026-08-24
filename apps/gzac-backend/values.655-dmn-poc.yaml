@@ -107,7 +107,7 @@ env:
 
 #Suwinet
   - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
-    value: "http://suwinet-simulator:8080"
+    value: "http://suwinet-simulator:8080/"
   - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SUFFIX
     value: ""
   - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
