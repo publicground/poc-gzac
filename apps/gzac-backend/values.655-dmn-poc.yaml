@@ -92,9 +92,6 @@ env:
   - name: AUTODEPLOYMENT_PLUGINCONFIG_OBJECTTYPES-API_URL
     value: https://openobject.dmn-poc.publicground.nl/api/v2/
 
-  - name: AUTODEPLOYMENT_PLUGINCONFIG_OBJECTS-API-AUTHENTICATION_TOKEN
-    value: "67a85be370da40635115dd67deed279f2a6ac12e"
-  
   - name: AUTODEPLOYMENT_PLUGINCONFIG_WORDPRESS_MAIL_BASE_URL
     value: ""
 
