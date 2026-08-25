@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: openformulieren-config-secrets
+  namespace: publicground
+spec:
+  encryptedData:
+    KEYCLOAK_CLIENT_SECRET: AgAp4f3yuuRO5xIU0Auhvs7RTgIWJMralW79v447nR9DHCcmo7UfpBXoltC8YuVV9xvgyGQq0WuFcHrioakdZ1Qo2r0YyGH+qIzPuCuSsbv2ddHllMprNzwYaayp0xp985spdQxbTzAVjUlXyp7PP6HIWL0SMNyJqhYAdvUZ97K3U0rKz1n5mfqlsg11CEYFICJRLGeypAxYQM/OaBbVF8sClCX15FYuZlfKGG7iQqjWZN+IJnWKPH/fRnAXlyDTiKU4fvjuP66MsBlrl5O5o4wHkA4SReqnWBWuF/mIDDbH+ieiSmCEI/j6IK7aITD0grXOvkifiKwiU7BnxawVqT5Y9g1kPfJ0ZxNuDIqcz2KkVyhVGwdalafLBeU4ddwWeKU4uJIRA8AnwjqFCOajVMcs2TxOlPLsXpQrYUcX0FawIxtbLsmS1zw2OzmgQhEwtremN2iPUrdv+XQdzq6w9SM+GAuTVUIcbq+c6cZFXii44yx1RYVXMF/zYArbXv2fBaeAIU4xyYEe56s//esZOs8+dB1lPcPfqx89cnbKXMDUqXSDNfj2xmxntYGjy+iO2i14qx9+rrUT8N13ASqnomrwSY4cDoea3bFgHxyerpZtautOPY30Rk8VVwT4iiOUnVLEXxUO/Z1XMvj4+qAfNEcAR+INYiStMRZpk0R0AotTr9VHUoenmPZnvxfrZ2ExYTAjs/+xRmPRsjtw0dQgMOC7jDxkPaMps5YjPVmSUraoAChL0exU67OOrlvtBzT0NTERzgGOVw31e7OEUT7vcGhX
+  template:
+    metadata:
+      name: openformulieren-config-secrets
+      namespace: publicground
+    type: Opaque

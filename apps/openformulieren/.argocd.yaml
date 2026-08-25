@@ -7,6 +7,6 @@ clusters:
     chartVersion: "1.12.0"
     additionalManifests: "apps/openformulieren/additionalmanifests/local/"
   655-dmn-poc:
-    enabled: false
+    enabled: true
     chartVersion: "1.12.0"
     additionalManifests: "apps/openformulieren/additionalmanifests/655-dmn-poc/"
