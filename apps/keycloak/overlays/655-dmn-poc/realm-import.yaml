@@ -157,7 +157,7 @@ spec:
           openbeheer:
             - "OPENBEHEER_ADMIN"
       - id: "eb865181-ed0d-4a16-86d2-000000000011"
-        username: "adminproduct"
+        username: "adminopenproduct"
         enabled: true
         email: "adminopenproduct@example.com"
         firstName: "Open"
