@@ -157,7 +157,7 @@ spec:
           openbeheer:
             - "OPENBEHEER_ADMIN"
       - id: "eb865181-ed0d-4a16-86d2-000000000011"
-        username: "adminproduct"
+        username: "adminopenproduct"
         enabled: true
         email: "adminopenproduct@example.com"
         firstName: "Open"
@@ -404,7 +404,7 @@ spec:
         clientAuthenticatorType: "client-secret"
         secret: "${OPENPRODUCT_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
         redirectUris:
-          - "https://openproduct.dmn-poc.publicground.nl/oidc/callback/"
+          - "https://openproduct.dmn-poc.publicground.nl/auth/oidc/callback/"
         webOrigins:
           - "https://openproduct.dmn-poc.publicground.nl"
         publicClient: false
