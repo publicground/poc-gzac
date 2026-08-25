@@ -61,6 +61,15 @@ configuration:
         - open-zaak
         label: Open Zaak
         heeft_alle_autorisaties: true
+      - uuid: c975302f-3100-438c-96d1-e00c79ef0bbg
+        client_ids:
+        - open-product
+        label: Open Product
+        heeft_alle_autorisaties: false
+        autorisaties:
+        - component: ac
+          scopes:
+          - notificaties.publiceren
     vng_api_common_credentials_config_enable: true
     vng_api_common_credentials:
       items:
@@ -76,6 +85,10 @@ configuration:
         secret:
           value_from:
             env: opennotificaties_api_secret
+      - identifier: open-product
+        secret: "testdeze"
+          # value_from:
+            # env: opennotificaties_api_secret
     sites_config_enable: true
     sites_config:
       items:
