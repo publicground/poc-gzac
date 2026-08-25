@@ -72,14 +72,15 @@ spec:
             duration: "5s"
             factor: 2
             maxDuration: "3m0s"
-  # templatePatch renders as raw text before YAML parsing, so Go-template control flow (if/end) is valid here
+  # templatePatch renders as raw text before YAML parsing, so Go-template control flow (if/end) is valid here.
+  # NB: an empty "spec:" key in the patch clears the existing spec, so only emit it when there's content to add.
   templatePatch: |
+    {{- $clusterIgnore := dig "clusters" "655-dmn-poc" "ignoreDifferences" "" . }}
+    {{- if $clusterIgnore }}
     spec:
-      {{- $clusterIgnore := dig "clusters" "655-dmn-poc" "ignoreDifferences" "" . }}
-      {{- if $clusterIgnore }}
       ignoreDifferences:
         {{- $clusterIgnore | toYaml | nindent 8 }}
-      {{- end }}
+    {{- end }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
