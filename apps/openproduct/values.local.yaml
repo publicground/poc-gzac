@@ -116,7 +116,7 @@ worker:
     enabled: true
 
 flower:
-  enable: false
+  enabled: false
 
 redis:
   enabled: false
