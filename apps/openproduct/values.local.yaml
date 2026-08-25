@@ -104,7 +104,7 @@ settings:
     axes: "openproduct-redis:6379/0"
 
   celery:
-    broker: "redis://openproduct-redis:6379/1"
+    brokerUrl: "redis://openproduct-redis:6379/1"
     result_backend: "redis://openproduct-redis:6379/1"
     resultBackendl: "redis://openproduct-redis:6379/1"
 
