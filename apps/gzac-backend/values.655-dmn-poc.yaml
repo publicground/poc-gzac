@@ -57,7 +57,17 @@ env:
   #   value: /data/tmp
   - name: LOGGING_LEVEL_ROOT
     value: INFO
-#OpenZaak
+
+# AUTODEPLOYMENT VARIABLES LOCAL
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_OPENNOTIFICATIES_AUTHENTICATION_CLIENTID
+    value: gzac
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_OPENNOTIFICATIES_AUTHENTICATION_CLIENTSECRET
+    value: dummy-garbage-dummy-garbage-dummy-garbage-dummy-garbage
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_NOTIFICATIES-API_URL
+    value: https://opennotificaties.dmn-poc.publicground.nl/api/v1/
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_NOTIFICATIES-API_CALLBACK-URL
+    value: https://gzac-backend.dmn-poc.publicground.nl:8080/api/v1/notificatiesapi/callback
+
   - name: AUTODEPLOYMENT_PLUGINCONFIG_CATALOGI-API_URL
     value: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/
   - name: AUTODEPLOYMENT_PLUGINCONFIG_OPENZAAK-AUTHENTICATION_CLIENTID
@@ -72,6 +82,7 @@ env:
     value: 1.4.2-maykin-1.13.0
   - name: AUTODEPLOYMENT_PLUGINCONFIG_BESLUITEN_API_URL
     value: https://openzaak.dmn-poc.publicground.nl/besluiten/api/v1/
+
   - name: AUTODEPLOYMENT_PLUGINCONFIG_OBJECTS-API_URL
     value: https://openobject.dmn-poc.publicground.nl/api/v2/
   - name: AUTODEPLOYMENT_PLUGINCONFIG_OBJECTTYPES-API_URL
