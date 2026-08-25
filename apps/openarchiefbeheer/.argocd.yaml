@@ -3,7 +3,7 @@ chartRepoURL: https://maykinmedia.github.io/charts/
 targetNamespace: publicground
 clusters:
   local:
-    enabled: true
+    enabled: false
     chartVersion: "2.0.0"
     additionalManifests: "apps/openarchiefbeheer/additionalmanifests/local/"
   655-dmn-poc:

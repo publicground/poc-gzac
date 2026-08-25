@@ -1,3 +1,7 @@
+image:
+  repository: maykinmedia/open-product # needed because of bug in chart
+  # tag: 1.8.0
+
 global:
   configuration:
     enabled: true
@@ -7,6 +11,10 @@ global:
 configuration:
   enabled: true
   overwrite: true
+  superuser:
+    username: admin
+    password: dummy123
+    email: "peterdummy@wigo4it.nl"
   job:
     enabled: true
     ttlSecondsAfterFinished: ""
@@ -23,10 +31,8 @@ configuration:
       items:
       - identifier: admin-oidc
         enabled: true
-        oidc_rp_client_id: openbeheer
-        oidc_rp_client_secret:
-          value_from:
-            env: KEYCLOAK_CLIENT_SECRET
+        oidc_rp_client_id: openproduct
+        oidc_rp_client_secret: '${KEYCLOAK_CLIENT_SECRET}'
         oidc_rp_scopes_list:
         - openid
         - email
@@ -52,7 +58,7 @@ configuration:
             default_groups: []
             make_users_staff: true
             superuser_group_names:
-              - OPENBEHEER_ADMIN
+              - OPENPRODUCT_ADMIN
 
 tags:
   redis: false
@@ -70,34 +76,47 @@ resources:
 persistence:
   enabled: false
 
-existingSecret: openbeheer
-existingConfigurationSecrets: openbeheer-config-secrets
+existingSecret: openproduct
+existingConfigurationSecrets: openproduct-config-secrets
 
 extraEnvVars:
   - name: DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: "openbeheer-pg-cluster-app"
+        name: "openproduct-pg-cluster-app"
         key: "password"
 
 settings:
-  allowedHosts: "localhost, openbeheer, openbeheer.wigo4it.nl"
+  allowedHosts: "localhost, openproduct, openproduct.wigo4it.nl"
 
   disable2fa: true
 
   database:
-    host: "openbeheer-pg-cluster-rw"
+    host: "openproduct-pg-cluster-rw"
     port: 5432
-    username: "openbeheer"
-    name: "openbeheer"
+    username: "openproduct"
+    name: "openproduct"
 
-  siteDomain: "openbeheer.wigo4it.nl"
+  siteDomain: "openproduct.wigo4it.nl"
 
   cache:
-    default: "openbeheer-redis:6379/0"
-    axes: "openbeheer-redis:6379/0"
+    default: "openproduct-redis:6379/0"
+    axes: "openproduct-redis:6379/0"
+
+  celery:
+    brokerUrl: "redis://openproduct-redis:6379/1"
+    result_backend: "redis://openproduct-redis:6379/1"
+    resultBackendl: "redis://openproduct-redis:6379/1"
 
   isHttps: false
+
+worker:
+  replicaCount: 1
+  livenessProbe:
+    enabled: true
+
+flower:
+  enabled: false
 
 redis:
   enabled: false

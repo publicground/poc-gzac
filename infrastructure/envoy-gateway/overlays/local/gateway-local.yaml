@@ -18,7 +18,9 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: wigo4it-tls-secret
+          - group: ''
+            kind: Secret
+            name: wigo4it-tls-secret
       allowedRoutes:
         namespaces:
           from: All

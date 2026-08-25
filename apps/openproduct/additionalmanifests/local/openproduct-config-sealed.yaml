@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: openproduct-config-secrets
+  namespace: publicground
+spec:
+  encryptedData:
+    KEYCLOAK_CLIENT_SECRET: AgDX18ONJ897EgIkX9arfpWJk3en4AdUnBnpSQ9qGJlT9GJ87cOOHg2WLkeIz2gMbqRwYdBkKOyoNR7RjzudCRawa0ZYs4hOFmMG2Mmw8iuKlKhM0fe7vC3X2okHzuuBOhPMAKetVXPORZzg5PK4C2X3pl1h3xe5fQBvzYmQo0m7LastvflEWN/7Zwt+dOf2i9rXSTizlrVoPmDO+ZJ1Sqv6eBHIzxxwuSEXVuQjCYs5FPlCYl7Z/E0EzPb9uELwaq5Saz2CaO2NdZ2kd6Re6u/hrAKdVX2Y46q2FMxPuS2otu2HaGEAjweFmpbte/i6mr2uEAMKqrHmSoxTrv8xpHr+5omrxaW3divzBZlKu92z2C9SQ1kGeamssxjRR52UmCnPtVUrzT5hgsEy4vOw/U6lTcqGqcImls45fiTjllj4Rt+HP2iOGrjnPvQVOPdU7Bmi2k6NnrloYSS/G1GyTQ5cMTK6yS+QoaObH2OSkTvojGhKYW6dk8k/OfyVqGMRDpCq7hn+nWcZuJJ1dZ4yihpDJK6OayqoGFoMeNjLnk5KW1A16/+m3hWAicPXR67ldyfVoocdC+qTi509Ga71syrUne/NA6+PacX1knwZvO/J6eKs7b2FgN+v5zrHdfB7Hh0w8TlmicOnv0xckj/qZJiWY4S8FD19gn5sKWUTMDONr42a8O2Pc9hQOLYd4n09rESfp88MqH80JHdwKUF36kcMlVoOx8Kbz1/r
+  template:
+    metadata:
+      name: openproduct-config-secrets
+      namespace: publicground
+    type: Opaque
