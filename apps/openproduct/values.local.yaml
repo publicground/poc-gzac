@@ -106,6 +106,7 @@ settings:
   celery:
     broker: "redis://openproduct-redis:6379/1"
     result_backend: "redis://openproduct-redis:6379/1"
+    resultBackendl: "redis://openproduct-redis:6379/1"
 
   isHttps: false
 
