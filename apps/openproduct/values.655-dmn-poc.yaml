@@ -28,7 +28,7 @@ configuration:
       - identifier: admin-oidc
         enabled: true
         oidc_rp_client_id: openproduct
-        oidc_rp_client_secret:'${KEYCLOAK_CLIENT_SECRET}'
+        oidc_rp_client_secret: '${KEYCLOAK_CLIENT_SECRET}'
         oidc_rp_scopes_list:
         - openid
         - email
