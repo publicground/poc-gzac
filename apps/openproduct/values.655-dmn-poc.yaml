@@ -75,7 +75,7 @@ persistence:
   enabled: false
 
 existingSecret: openproduct
-existingConfigurationSecret: openproduct-config-secrets
+existingConfigurationSecrets: openproduct-config-secrets
 
 extraEnvVars:
   - name: DB_PASSWORD
