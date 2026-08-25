@@ -156,6 +156,20 @@ spec:
         clientRoles:
           openbeheer:
             - "OPENBEHEER_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000011"
+        username: "adminproduct"
+        enabled: true
+        email: "adminopenproduct@example.com"
+        firstName: "Open"
+        lastName: "Product Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENPRODUCT_PASSWORD}"
+            temporary: false
+        clientRoles:
+          openproduct:
+            - "OPENPRODUCT_ADMIN"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
@@ -382,6 +396,34 @@ spec:
               usermodel.clientRoleMapping.clientId: "openbeheer"
               multivalued: "true"
               jsonType.label: "String"
+      - id: "eb865181-ed0d-4a16-86d3-000000000010"
+        clientId: "openproduct"
+        name: "openproduct"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENPRODUCT_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        redirectUris:
+          - "https://openproduct.dmn-poc.publicground.nl/oidc/callback/"
+        webOrigins:
+          - "https://openproduct.dmn-poc.publicground.nl"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "op-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "openproduct"
+              multivalued: "true"
+              jsonType.label: "String"
 
     roles:
       realm:
@@ -427,3 +469,8 @@ spec:
             name: OPENBEHEER_ADMIN
             clientRole: true
             description: "Admin rol voor OpenBeheer"
+        openproduct:
+          - id: "eb865181-ed0d-4a16-86e3-000000000001"
+            name: OPENPRODUCT_ADMIN
+            clientRole: true
+            description: "Admin rol voor OpenProduct"
