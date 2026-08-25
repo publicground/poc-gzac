@@ -1,6 +1,5 @@
 image:
-  tag: sha-2402d48
-#  tag: sha-826fca1
+  tag: sha-10b33a3
 
 replicaCount: 1
 
@@ -48,6 +47,8 @@ env:
     value: "https://keycloak.dmn-poc.publicground.nl/realms/publicground/protocol/openid-connect/certs"
   - name: CAMUNDA_BPM_ADMINUSER_ID
     value: wigoadmin
+  - name: CAMUNDA_BPM_WEBAPP_ENABLED
+    value: "true"
   - name: VALTIMO_OAUTH_PUBLIC-KEY
     value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz4NAROHmoRF6td0gBkIdEHBSWINXgPwXLxnVBfIOTX7WVRd0veUqdbessrg8PERbb2X+V3JgGIU15TCg9xRWpP5QuosKnGbtkJIP6cCN81QPmHNGnxrHYPCLsHfNcMaSaylR4JivXQlScJcF3NV/eMEcIJYKfhb75tzHMnTDizZp8AExBIw1Nj8oHQJ0sK5IvOBiG/y0PBODRIHUugMaSnfaH3KjMFAfGWy/dwydzqm+12Hmsr/iXTKNfmlIkGmp+9D4qGkEm0bT21GqAT06uH3uoTlhLTOf5NftqPyGDZFwH7OOHSnSzPIyjfxVQRf6mVeZ/iC4aiso6A3DZ4rAbwIDAQAB
   - name: KEYCLOAK_HOST
@@ -71,12 +72,27 @@ env:
     value: 1.4.2-maykin-1.13.0
   - name: AUTODEPLOYMENT_PLUGINCONFIG_BESLUITEN_API_URL
     value: https://openzaak.dmn-poc.publicground.nl/besluiten/api/v1/
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_OBJECTS-API_URL
+    value: https://openobject.dmn-poc.publicground.nl/api/v2/
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_OBJECTTYPES-API_URL
+    value: https://openobject.dmn-poc.publicground.nl/api/v2/
+
   - name: AUTODEPLOYMENT_PLUGINCONFIG_WORDPRESS_MAIL_BASE_URL
     value: ""
 
+# ALO Verzoek
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_VERZOEK_RSIN
+    value: "100000009"
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_VERZOEK_ALO_PROPERTIES_INITIATOR-ROL-TYPE-URL
+    value: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/roltypen/ec259fcf-a346-4448-b137-c1e6e389ae78
+  - name: AUTODEPLOYMENT_PLUGINCONFIG_VERZOEK_IOAW_PROPERTIES_INITIATOR-ROL-TYPE-URL
+    value: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/roltypen/c8addc88-ed7d-41c8-b48a-5540f64765d7
+  - name: AUTODEPLOYMENT_ALO_PORTAALFORMULIER
+    value: https://openobject.dmn-poc.publicground.nl/api/v2/objects/f710ad69-8c90-4b4d-bf94-83555212dd6c
+
 #Suwinet
   - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASE-URL
-    value: "http://suwinet-simulator:8080"
+    value: "http://suwinet-simulator:8080/ws/"
   - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SUFFIX
     value: ""
   - name: AUTODEPLOYMENT_PLUGINCONFIG_SUWINET_SIMULATOR_BASIC_NAME
@@ -93,15 +109,24 @@ env:
     value: "BASIC"
   - name: VALTIMO_SECURITY_WHITELIST_HOSTS_0
     value: 0.0.0.0/0
+
   # ALO Object Management
+  - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_ALO_INFORMATIEVERZOEK_ITEMS_OBJECTTYPE-ID
+    value: b8a7704c-cec7-4aaf-a3ac-4db97df7e7d9
   - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_VERZOEK_ALO_OBJECTTYPE_VERSION
     value: "1"
+  - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_ALO_ADRESSEN_MET_VEEL_BEWONERS_OBJECTTYPE-ID
+    value: 16ec7b1c-1217-4c44-987f-a9a78191ddb1
   - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_ALO_ADRESSEN_MET_VEEL_BEWONERS_OBJECTTYPE-VERSION
     value: "1"
   - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_ALO_INFORMATIEVERZOEK_ITEMS_OBJECTTYPE-VERSION
     value: "1"
   - name: AUTODEPLOYMENT_OBJECTMANAGEMENT_EXTERNE_KLANTTAAK_OBJECTTYPE_VERSION
     value: "1"
+  - name: ALGEMENE_BIJSTAND_AANVRAAG_ZAAKEIGENSCHAP_URL
+    value: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/eigenschappen/f6e8d3ed-761d-408a-b261-024ff839e850
+  - name: IOAW_UITKERING_AANVRAAG_ZAAKEIGENSCHAP_URL
+    value: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/eigenschappen/34eb71c7-7e77-4d28-abe2-3c61673aac7b
 
 
 # persistence:
