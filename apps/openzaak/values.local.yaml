@@ -66,7 +66,7 @@ configuration:
         - open-product
         label: Open Product
         heeft_alle_autorisaties: false
-        autorisaties:
+        heeft_autorisaties:
         - component: ac
           scopes:
           - notificaties.publiceren
