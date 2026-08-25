@@ -43,11 +43,6 @@ spec:
       name: "{{.path.basename}}"
     spec:
       project: publicground-apps
-      {{- $localIgnore := dig "clusters" "local" "ignoreDifferences" "" . }}
-      {{- if $localIgnore }}
-      ignoreDifferences:
-        {{- $localIgnore | toYaml | nindent 8 }}
-      {{- end }}
       sources:
         - chart: "{{.chartName}}"
           repoURL: "{{.chartRepoURL}}"
@@ -77,6 +72,14 @@ spec:
             duration: "5s"
             factor: 2
             maxDuration: "3m0s"
+  # templatePatch renders as raw text before YAML parsing, so Go-template control flow (if/end) is valid here
+  templatePatch: |
+    spec:
+      {{- $clusterIgnore := dig "clusters" "655-dmn-poc" "ignoreDifferences" "" . }}
+      {{- if $clusterIgnore }}
+      ignoreDifferences:
+        {{- $clusterIgnore | toYaml | nindent 8 }}
+      {{- end }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
