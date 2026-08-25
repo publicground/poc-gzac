@@ -1,6 +1,5 @@
 image:
   repository: acr655.azurecr.io/docker.io/maykinmedia/open-product
-  tag: 1.8.0
 
 global:
   configuration:
@@ -102,7 +101,19 @@ settings:
     default: "openproduct-redis:6379/0"
     axes: "openproduct-redis:6379/0"
 
-  isHttps: true
+  celery:
+    brokerUrl: "redis://openproduct-redis:6379/1"
+    result_backend: "redis://openproduct-redis:6379/1"
+    resultBackendl: "redis://openproduct-redis:6379/1"
+
+  isHttps: false
+
+worker:
+  livenessProbe:
+    enabled: true
+
+flower:
+  enabled: false
 
 redis:
   enabled: false
