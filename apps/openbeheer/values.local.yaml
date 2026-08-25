@@ -1,10 +1,3 @@
-image:
-  repository: acr655.azurecr.io/docker.io/openformulieren/open-forms
-
-nginx:
-  image:
-    repository: acr655.azurecr.io/docker.io/nginxinc/nginx-unprivileged
-
 global:
   configuration:
     enabled: true
@@ -14,13 +7,6 @@ global:
 configuration:
   enabled: true
   overwrite: true
-  superuser:
-    username: "admin"
-    email: "horstp@wigo4it.nl"
-    # password field is ignored when existingSecret is set — DJANGO_SUPERUSER_PASSWORD must be
-    # present as a key in the openklant SealedSecret (additionalmanifests/655-dmn-poc/sealedsecret-openklant.yaml)
-  initContainer:
-    enabled: false
   job:
     enabled: true
     ttlSecondsAfterFinished: ""
@@ -37,8 +23,10 @@ configuration:
       items:
       - identifier: admin-oidc
         enabled: true
-        oidc_rp_client_id: openformulieren
-        oidc_rp_client_secret: "${KEYCLOAK_CLIENT_SECRET}"
+        oidc_rp_client_id: openbeheer
+        oidc_rp_client_secret:
+          value_from:
+            env: KEYCLOAK_CLIENT_SECRET
         oidc_rp_scopes_list:
         - openid
         - email
@@ -64,7 +52,7 @@ configuration:
             default_groups: []
             make_users_staff: true
             superuser_group_names:
-              - OPENFORMULIEREN_ADMIN
+              - OPENBEHEER_ADMIN
 
 tags:
   redis: false
@@ -73,52 +61,43 @@ replicaCount: 1
 
 resources:
   requests:
-    memory: "512Mi"
-    cpu: "250m"
+    memory: "256Mi"
+    cpu: "100m"
   limits:
-    memory: "2Gi"
-    cpu: "1"
+    memory: "1024Mi"
+    cpu: "250m"
 
 persistence:
-  storageClassName: "azurefile-dmn-poc"
+  enabled: false
 
-existingSecret: openformulieren
-existingConfigurationSecrets: openformulieren-config-secrets
+existingSecret: openbeheer
+existingConfigurationSecrets: openbeheer-config-secrets
 
 extraEnvVars:
   - name: DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: "openformulieren-pg-cluster-app"
+        name: "openbeheer-pg-cluster-app"
         key: "password"
-  - name: LOG_STDOUT
-    value: "true"
-  - name: LOG_LEVEL
-    value: DEBUG
 
 settings:
-  allowedHosts: "localhost,openformulieren,openformulieren.dmn-poc.publicground.nl"
-  baseUrl: "https://openformulieren.dmn-poc.publicground.nl"
+  allowedHosts: "localhost, openbeheer, openbeheer.wigo4it.nl"
+
+  disable2fa: true
 
   database:
-    host: "openformulieren-pg-cluster-rw"
+    host: "openbeheer-pg-cluster-rw"
     port: 5432
-    name: "openformulieren"
-    username: "openformulieren"
+    username: "openbeheer"
+    name: "openbeheer"
+
+  siteDomain: "openbeheer.wigo4it.nl"
 
   cache:
-    default: "openformulieren-redis:6379/0"
-    axes: "openformulieren-redis:6379/0"
-    portalLocker: "openformulieren-redis:6379/0"
+    default: "openbeheer-redis:6379/0"
+    axes: "openbeheer-redis:6379/0"
 
-  celery:
-    brokerUrl: "redis://openformulieren-redis:6379/1"
-    resultBackendl: "redis://openformulieren-redis:6379/1"
-
-worker:
-  replicaCount: 1
-  livenessProbe:
-    enabled: true
+  isHttps: false
 
 redis:
   enabled: false

@@ -1,18 +1,15 @@
 apiVersion: redis.redis.opstreelabs.in/v1beta2
 kind: Redis
 metadata:
-  name: openzaak-redis
+  name: openbeheer-redis
   namespace: publicground
   labels:
     app.kubernetes.io/component: cache
     app.kubernetes.io/managed-by: redis
-    app.kubernetes.io/part-of: openzaak
+    app.kubernetes.io/part-of: openbeheer
 spec:
-  podSecurityContext:
-    fsGroup: 1000
-    runAsUser: 1000
   kubernetesConfig:
-    image: acr655.azurecr.io/quay.io/opstree/redis:v7.0.15
+    image: quay.io/opstree/redis:v8.6.2
     imagePullPolicy: IfNotPresent
     resources:
       requests:
@@ -29,4 +26,4 @@ spec:
         resources:
           requests:
             storage: "1Gi"
-        storageClassName: managed-csi
+        storageClassName: standard
