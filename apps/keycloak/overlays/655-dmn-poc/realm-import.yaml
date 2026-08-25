@@ -404,7 +404,7 @@ spec:
         clientAuthenticatorType: "client-secret"
         secret: "${OPENPRODUCT_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
         redirectUris:
-          - "https://openproduct.dmn-poc.publicground.nl/oidc/callback/"
+          - "https://openproduct.dmn-poc.publicground.nl/auth/oidc/callback/"
         webOrigins:
           - "https://openproduct.dmn-poc.publicground.nl"
         publicClient: false
