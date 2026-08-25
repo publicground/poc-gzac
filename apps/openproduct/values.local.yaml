@@ -1,6 +1,6 @@
 image:
   repository: maykinmedia/open-product # needed because of bug in chart
-  tag: 1.8.0
+  # tag: 1.8.0
 
 global:
   configuration:
