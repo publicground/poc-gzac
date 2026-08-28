@@ -1,5 +1,5 @@
 image:
-  tag: sha-68a8a02
+  tag: sha-148502d
 replicaCount: 1
 
 # Liveness probe is disabled on test. This in order to facilitate remote debugging on this environment.
