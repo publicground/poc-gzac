@@ -178,7 +178,6 @@ extraVolumes:
 extraVolumeMounts:
   - name: authorization-config
     mountPath: /app/fixtures/auth.json
-    subPath: auth.yaml
 
 settings:
   allowedHosts: "openzaak.wigo4it.nl, openzaak, openzaak.publicground"
