@@ -67,9 +67,9 @@ configuration:
         label: Open Product
         heeft_alle_autorisaties: false
         autorisaties:
-        - component: ac
-          scopes:
-          - notificaties.publiceren
+        - component: ac
+          scopes:
+          - notificaties.publiceren
     vng_api_common_credentials_config_enable: true
     vng_api_common_credentials:
       items:
