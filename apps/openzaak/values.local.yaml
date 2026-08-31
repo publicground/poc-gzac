@@ -164,7 +164,7 @@ extraEnvVars:
   - name: AUTHORIZATIONS_CONFIG_ENABLE
     value: "true"
   - name: AUTHORIZATIONS_CONFIG_FIXTURE_PATH
-    value: "/app/auth.yaml"
+    value: "/app/fixtures/auth.yaml"
   - name: AUTHORIZATIONS_CONFIG_DELETE_EXISTING
     value: "true"
   - name: ENVIRONMENT
@@ -177,7 +177,7 @@ extraVolumes:
 
 extraVolumeMounts:
   - name: authorization-config
-    mountPath: /app/auth.yaml
+    mountPath: /app/fixtures/auth.yaml
     subPath: auth.yaml
 
 settings:
