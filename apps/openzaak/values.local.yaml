@@ -161,6 +161,24 @@ extraEnvVars:
       secretKeyRef:
         name: "openzaak-pg-cluster-app"
         key: "password"
+  - name: AUTHORIZATIONS_CONFIG_ENABLE
+    value: "true"
+  - name: AUTHORIZATIONS_CONFIG_FIXTURE_PATH
+    value: "/app/auth.yaml"
+  - name: AUTHORIZATIONS_CONFIG_DELETE_EXISTING
+    value: "true"
+  - name: ENVIRONMENT
+    value: "openzaak"
+
+extraVolumes:
+  - name: authorization-config
+    configMap:
+      name: openzaak-authorization-config
+
+extraVolumeMounts:
+  - name: authorization-config
+    mountPath: /app/auth.yaml
+    subPath: auth.yaml
 
 settings:
   allowedHosts: "openzaak.wigo4it.nl, openzaak, openzaak.publicground"
