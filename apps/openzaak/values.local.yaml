@@ -82,9 +82,9 @@ configuration:
           value_from:
             env: opennotificaties_api_secret
       - identifier: open-product
-        secret: "testdeze"
-          # value_from:
-            # env: opennotificaties_api_secret
+        secret:
+          value_from:
+            env: OZ_APP_OPENPRODUCT_CLIENT_SECRET
     sites_config_enable: true
     sites_config:
       items:
