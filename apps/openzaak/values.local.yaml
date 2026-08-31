@@ -61,7 +61,7 @@ configuration:
         - open-zaak
         label: Open Zaak
         heeft_alle_autorisaties: true
-      - uuid: c975302f-3100-438c-96d1-e00c79ef0bbg
+      - uuid: c975302f-3100-438c-96d1-e00c79ef0bbh
         client_ids:
         - open-product
         label: Open Product
