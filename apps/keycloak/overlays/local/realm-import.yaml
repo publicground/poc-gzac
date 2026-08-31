@@ -408,10 +408,11 @@ spec:
         protocol: "openid-connect"
         clientAuthenticatorType: "client-secret"
         secret: "${OPENPRODUCT_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        rootUrl: "http://openproduct.wigo4it.nl"
         redirectUris:
-          - "https://openproduct.wigo4it.nl/auth/oidc/callback/"
+          - "/auth/oidc/callback/"
         webOrigins:
-          - "https://openproduct.wigo4it.nl"
+          - "+"
         publicClient: false
         standardFlowEnabled: true
         implicitFlowEnabled: false
