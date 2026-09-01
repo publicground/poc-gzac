@@ -55,6 +55,46 @@ configuration:
             superuser_group_names:
               - OPENPRODUCT_ADMIN
 
+    zgw_consumers_config_enable: true
+    zgw_consumers:
+      services:
+        - identifier: notificaties-api
+          label: Notificaties API
+          api_root: https://opennotificaties.dmn-poc.publicground.nl/api/v1/
+          api_type: nrc
+          auth_type: zgw
+          client_id: openproduct
+          secret: ${OPENZAAK_CLIENT_SECRET}
+        - identifier: zaken-api
+          label: Zaken API
+          api_root: https://openzaak.dmn-poc.publicground.nl/zaken/api/v1/
+          api_type: zrc
+          auth_type: zgw
+          client_id: openproduct
+          secret: ${OPENZAAK_CLIENT_SECRET}
+        - identifier: documenten-api
+          label: Documenten API
+          api_root: https://openzaak.dmn-poc.publicground.nl/documenten/api/v1/
+          api_type: drc
+          auth_type: zgw
+          client_id: openproduct
+          secret: ${OPENZAAK_CLIENT_SECRET}
+        - identifier: zaaktypen-api
+          label: Zaaktypen API
+          api_root: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/
+          api_type: ztc
+          auth_type: zgw
+          client_id: openproduct
+          secret: ${OPENZAAK_CLIENT_SECRET}
+
+    notifications_config_enable: true
+    notifications_config:
+      notifications_api_service_identifier: notificaties-api
+
+    externeverwijzing_config_enable: true
+    externeverwijzing_config:
+      zaaktypen_url: https://openzaak.dmn-poc.publicground.nl/catalogi/api/v1/
+
 tags:
   redis: false
 

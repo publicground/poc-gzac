@@ -64,11 +64,17 @@ configuration:
         - open-zaak
         label: Open Zaak
         heeft_alle_autorisaties: true
-      - uuid: c975302f-3100-438c-96d1-e00c79ef0bbe
+      - uuid: c975302f-3100-438c-96d1-e00c79ef0bbf
         client_ids:
         - open-archiefbeheer
         label: Open Archiefbeheer
         heeft_alle_autorisaties: true
+      - uuid: c975302f-3100-438c-96d1-e00c79ef0bb0
+        client_ids:
+        - open-product
+        label: Open Product
+        heeft_alle_autorisaties: false
+
     vng_api_common_credentials_config_enable: true
     vng_api_common_credentials:
       items:
@@ -87,7 +93,11 @@ configuration:
       - identifier: open-archiefbeheer
         secret:
           value_from:
-            env: openarchiefbeheer_to_openzaak_secret
+            env: OZ_APP_OPENARCHIEFBEHEER_SECRET
+      - identifier: open-product
+        secret:
+          value_from:
+            env: OZ_APP_OPENPRODUCT_SECRET
     sites_config_enable: true
     sites_config:
       items:
@@ -164,6 +174,15 @@ extraEnvVars:
       secretKeyRef:
         name: "openzaak-pg-cluster-app"
         key: "password"
+
+extraVolumes:
+  - name: authorization-config
+    configMap:
+      name: openzaak-authorization-config
+
+extraVolumeMounts:
+  - name: authorization-config
+    mountPath: /app/fixtures
 
 settings:
   allowedHosts: "openzaak.dmn-poc.publicground.nl"
