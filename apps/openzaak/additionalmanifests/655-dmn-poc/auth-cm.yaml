@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openzaak-authorization-config
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+data:
+  auth.json: |-
+    [
+      {
+        "model": "authorizations.autorisatie",
+        "fields": {
+          "applicatie": [
+            "c975302f-3100-438c-96d1-e00c79ef0bb0"
+          ],
+          "component": "nrc",
+          "scopes": [
+            "notificaties.publiceren"
+          ],
+          "zaaktype": "",
+          "informatieobjecttype": "",
+          "besluittype": "",
+          "max_vertrouwelijkheidaanduiding": ""
+        }
+      },
+      {
+        "model": "autorisaties.catalogusautorisatie",
+        "fields": {
+          "applicatie": [
+            "c975302f-3100-438c-96d1-e00c79ef0bb0"
+          ],
+          "catalogus": [
+            "9ac3e6db-9165-45ea-b564-d7616814aaf1"
+          ],
+          "component": "zrc",
+          "scopes": [
+            "zaken.lezen"
+          ],
+          "max_vertrouwelijkheidaanduiding": "vertrouwelijk"
+        }
+      }
+    ]
