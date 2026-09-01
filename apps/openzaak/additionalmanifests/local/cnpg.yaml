@@ -4,7 +4,7 @@ metadata:
   name: openzaak-pg-cluster
   namespace: publicground
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   instances: 1
   imageName: "ghcr.io/cloudnative-pg/postgis:18-3.6-system-trixie"

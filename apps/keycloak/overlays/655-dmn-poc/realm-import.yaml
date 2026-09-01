@@ -403,10 +403,11 @@ spec:
         protocol: "openid-connect"
         clientAuthenticatorType: "client-secret"
         secret: "${OPENPRODUCT_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        rootUrl: "https://openproduct.dmn-poc.publicground.nl"
         redirectUris:
-          - "https://openproduct.dmn-poc.publicground.nl/auth/oidc/callback/"
+          - "/auth/oidc/callback/"
         webOrigins:
-          - "https://openproduct.dmn-poc.publicground.nl"
+          - "+"
         publicClient: false
         standardFlowEnabled: true
         implicitFlowEnabled: false
