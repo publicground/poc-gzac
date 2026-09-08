@@ -32,11 +32,12 @@ data:
           "catalogus": [
             "335efcdd-8fc3-4114-bf76-3789b3407591"
           ],
-          "component": "",
+          "component": "zrc",
           "scopes": [
-            ""
+            "zaken.lezen",
+            "zaken.aanmaken"
           ],
-          "max_vertrouwelijkheidaanduiding": ""
+          "max_vertrouwelijkheidaanduiding": "vertrouwelijk"
         }
       }
     ]
