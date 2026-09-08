@@ -11,7 +11,7 @@ data:
         "model": "authorizations.autorisatie",
         "fields": {
           "applicatie": [
-            "c975302f-3100-438c-96d1-e00c79ef0bb0"
+            "open-product"
           ],
           "component": "nrc",
           "scopes": [
@@ -27,7 +27,7 @@ data:
         "model": "autorisaties.catalogusautorisatie",
         "fields": {
           "applicatie": [
-            "c975302f-3100-438c-96d1-e00c79ef0bb0"
+            "open-product"
           ],
           "catalogus": [
             "335efcdd-8fc3-4114-bf76-3789b3407591"
