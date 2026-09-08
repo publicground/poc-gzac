@@ -9,6 +9,7 @@ data:
     [
       {
         "model": "authorizations.autorisatie",
+        "pk": "1",
         "fields": {
           "applicatie": [
             "c975302f-3100-438c-96d1-e00c79ef0bb0"
@@ -25,6 +26,7 @@ data:
       },
       {
         "model": "autorisaties.catalogusautorisatie",
+        "pk": "2",
         "fields": {
           "applicatie": [
             "c975302f-3100-438c-96d1-e00c79ef0bb0"
