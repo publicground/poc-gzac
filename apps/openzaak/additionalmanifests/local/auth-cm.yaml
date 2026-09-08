@@ -15,7 +15,7 @@ data:
           ],
           "component": "nrc",
           "scopes": [
-
+            ""
           ],
           "zaaktype": "",
           "informatieobjecttype": "",
