@@ -29,9 +29,7 @@ data:
           "applicatie": [
             "c975302f-3100-438c-96d1-e00c79ef0bb0"
           ],
-          "catalogus": [
-            ""
-          ],
+          "catalogus": [],
           "component": "zrc",
           "scopes": [
             ""
