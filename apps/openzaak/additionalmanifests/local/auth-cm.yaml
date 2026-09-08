@@ -16,7 +16,7 @@ data:
           ],
           "component": "nrc",
           "scopes": [
-            ""
+            "notificaties.publiceren"
           ],
           "zaaktype": "",
           "informatieobjecttype": "",
