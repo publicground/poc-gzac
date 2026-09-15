@@ -4,7 +4,7 @@ targetNamespace: publicground
 clusters:
   local:
     enabled: true
-    chartVersion: "1.13.1"
+    chartVersion: "1.15.0"
     additionalManifests: "apps/openzaak/additionalmanifests/local/"
   655-dmn-poc:
     enabled: true
