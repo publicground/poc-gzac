@@ -18,7 +18,7 @@ configuration:
     email: "peterdummy@wigo4it.nl"
   job:
     enabled: true
-    ttlSecondsAfterFinished: "120"
+    ttlSecondsAfterFinished: ""
   data: |-
     zgw_consumers_config_enable: true
     zgw_consumers:
@@ -65,7 +65,8 @@ configuration:
         client_ids:
         - open-product
         label: Open Product
-        heeft_alle_autorisaties: false
+        heeft_alle_autorisaties: true
+        # heeft_alle_autorisaties needs to be true for api call to work. api call will set to false and set correct permissions
     vng_api_common_credentials_config_enable: true
     vng_api_common_credentials:
       items:
