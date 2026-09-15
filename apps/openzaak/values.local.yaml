@@ -170,14 +170,14 @@ extraEnvVars:
   - name: ENVIRONMENT
     value: "openzaak"
 
-extraVolumes:
-  - name: authorization-config
-    configMap:
-      name: openzaak-authorization-config
+# extraVolumes:
+#   - name: authorization-config
+#     configMap:
+#       name: openzaak-authorization-config
 
-extraVolumeMounts:
-  - name: authorization-config
-    mountPath: /app/fixtures
+# extraVolumeMounts:
+#   - name: authorization-config
+#     mountPath: /app/fixtures
 
 settings:
   allowedHosts: "openzaak.wigo4it.nl, openzaak, openzaak.publicground"
