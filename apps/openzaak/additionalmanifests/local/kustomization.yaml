@@ -8,18 +8,6 @@ resources:
   - job.yaml
   - httproute.yaml
 
-patches:
-  - target:
-      kind: Job
-      name: openzaak-config
-    patch: |-
-      - op: add
-        path: /metadata/annotations/helm.sh~1hook
-        value: "post-install,post-upgrade"
-      - op: add
-        path: /metadata/annotations/helm.sh~1hook-delete-policy
-        value: "before-hook-creation"
-
 configMapGenerator:
   - name: openzaak-autorisaties-script
     files:
