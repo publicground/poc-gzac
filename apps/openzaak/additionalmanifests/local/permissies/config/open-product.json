@@ -1,0 +1,14 @@
+{
+  "heeftAlleAutorisaties": false,
+  "autorisaties": [
+    {
+      "component": "zrc",
+      "scopes": [
+        "zaken.bijwerken",
+        "zaken.lezen"
+      ],
+      "maxVertrouwelijkheidaanduiding": "openbaar",
+      "zaaktype": "http://openzaak.wigo4it.nl/catalogi/api/v1/zaaktypen/123f18be-9dcb-4833-9a2f-fa5845fca4f5"
+    }
+  ]
+}

@@ -15,26 +15,27 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              pip install requests pyjwt
+              pip install --no-cache-dir -r requirements.txt
+              python /scripts/set-permissions.py
           env:
             - name: OPENZAAK_URL
               value: "http://openzaak.wigo4it.nl"
-            # - name: OPENZAAK_SECRET_KEY
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: openzaak-secrets
-            #       key: secret-key
-            - name: CONFIG_DIR
-              value: "/config"
-          # volumeMounts:
-          #   - name: script-vol
-          #     mountPath: /scripts
-          #   - name: config-vol
-          #     mountPath: /config
-      # volumes:
-      #   - name: script-vol
-      #     configMap:
-      #       name: openzaak-autorisaties-script
-      #   - name: config-vol
-      #     configMap:
-      #       name: openzaak-autorisaties-json-files  # Jouw JSON-bestanden
+            - name: OPENZAAK_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openzaak-config-secrets
+                  key: opennotificaties_api_secret
+            # - name: CONFIG_DIR
+            #   value: "/config"
+          volumeMounts:
+            - name: scripts-vol
+              mountPath: /scripts
+            - name: config-vol
+              mountPath: /scripts/config
+      volumes:
+        - name: scripts-vol
+          configMap:
+            name: openzaak-autorisaties-script
+        - name: config-vol
+          configMap:
+            name: openzaak-autorisaties-json-files
