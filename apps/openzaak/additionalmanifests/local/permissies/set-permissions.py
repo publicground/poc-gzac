@@ -14,7 +14,7 @@ openzaak_url = os.environ.get('OPENZAAK_URL', 'http://openzaak.wigo4it.nl')
 # Bepaal het absolute pad van de map waarin DIT script (set-permissions.py) staat (bijv. /scripts)
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Als CONFIG_DIR niet als environment variable is meegegeven, 
+# Als CONFIG_DIR niet als environment variable is meegegeven,
 # gebruik dan automatisch de 'config' submap náást dit script (bijv. /scripts/config)
 DEFAULT_CONFIG_DIR = os.path.join(SCRIPT_DIR, 'config')
 CONFIG_DIR = os.environ.get('CONFIG_DIR', DEFAULT_CONFIG_DIR)
