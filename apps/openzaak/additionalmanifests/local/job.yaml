@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: openzaak-autorisaties-sync
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: sync-job
+          image: python:3.11-slim
+          command: ["sh", "-c"]
+          args:
+            - |
+              pip install requests pyjwt
+          env:
+            - name: OPENZAAK_URL
+              value: "http://openzaak.wigo4it.nl"
+            # - name: OPENZAAK_SECRET_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: openzaak-secrets
+            #       key: secret-key
+            - name: CONFIG_DIR
+              value: "/config"
+          # volumeMounts:
+          #   - name: script-vol
+          #     mountPath: /scripts
+          #   - name: config-vol
+          #     mountPath: /config
+      # volumes:
+      #   - name: script-vol
+      #     configMap:
+      #       name: openzaak-autorisaties-script
+      #   - name: config-vol
+      #     configMap:
+      #       name: openzaak-autorisaties-json-files  # Jouw JSON-bestanden
