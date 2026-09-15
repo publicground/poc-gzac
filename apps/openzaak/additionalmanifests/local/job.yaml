@@ -16,10 +16,6 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              echo "ls scripts"
-              ls -al /scripts
-              echo "ls config"
-              ls -al /scripts/config
               pip install --no-cache-dir -r /scripts/requirements.txt
               python /scripts/set-permissions.py
           env:
