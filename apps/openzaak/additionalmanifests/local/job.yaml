@@ -15,7 +15,7 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              pip install --no-cache-dir -r requirements.txt
+              pip install --no-cache-dir -r /scripts/requirements.txt
               python /scripts/set-permissions.py
           env:
             - name: OPENZAAK_URL
