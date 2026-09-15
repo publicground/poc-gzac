@@ -61,11 +61,11 @@ configuration:
         - open-zaak
         label: Open Zaak
         heeft_alle_autorisaties: true
-      - uuid: c975302f-3100-438c-96d1-e00c79ef0bb0
-        client_ids:
-        - open-product
-        label: Open Product
-        heeft_alle_autorisaties: true
+      # - uuid: c975302f-3100-438c-96d1-e00c79ef0bb0
+      #   client_ids:
+      #   - open-product
+      #   label: Open Product
+      #   heeft_alle_autorisaties: true
         # heeft_alle_autorisaties needs to be true for api call to work. api call will set to false and set correct permissions
     vng_api_common_credentials_config_enable: true
     vng_api_common_credentials:
@@ -82,6 +82,10 @@ configuration:
         secret:
           value_from:
             env: opennotificaties_api_secret
+      - identifier: open-product
+        secret:
+          value_from:
+            env: OZ_APP_OPENPRODUCT_SECRET
     sites_config_enable: true
     sites_config:
       items:
