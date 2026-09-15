@@ -82,10 +82,6 @@ configuration:
         secret:
           value_from:
             env: opennotificaties_api_secret
-      - identifier: open-product
-        secret:
-          value_from:
-            env: OZ_APP_OPENPRODUCT_SECRET
     sites_config_enable: true
     sites_config:
       items:
