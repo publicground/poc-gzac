@@ -51,3 +51,4 @@ charts/
 *.tgz
 Chart.lock
 .ignore
+apps/openzaak/additionalmanifests/local/permissies/.venv
