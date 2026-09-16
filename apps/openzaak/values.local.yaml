@@ -215,5 +215,8 @@ worker:
   livenessProbe:
     enabled: true
 
+flower:
+  enabled: false
+
 redis:
   enabled: false
