@@ -41,7 +41,7 @@ headers = {
 }
 
 # ------------------------------------------------------------------------------
-# 2. ALLE BESTAANDE APPLICATIES OPHALEN (INCL. PAGINERING)
+# 2. ALLE BESTAANDE APPLICATIES DIE KLAAR ZIJN OPHALEN (INCL. PAGINERING)
 # ------------------------------------------------------------------------------
 print("\n2. Alle bestaande applicaties ophalen uit OpenZaak...")
 all_applications = []
