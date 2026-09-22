@@ -22,7 +22,7 @@ configuration:
     # present as a key in the openzaak SealedSecret (additionalmanifests/655-dmn-poc/sealedsecret-openzaak.yaml)
   job:
     enabled: true
-    ttlSecondsAfterFinished: "120"
+    ttlSecondsAfterFinished: ""
   data: |-
     zgw_consumers_config_enable: true
     zgw_consumers:
@@ -73,8 +73,8 @@ configuration:
         client_ids:
         - open-product
         label: Open Product
-        heeft_alle_autorisaties: false
-
+        heeft_alle_autorisaties: true
+        # heeft_alle_autorisaties needs to be true for api call to work. api call will set to false and set correct permissions
     vng_api_common_credentials_config_enable: true
     vng_api_common_credentials:
       items:
@@ -159,7 +159,7 @@ resources:
     memory: "512Mi"
     cpu: "250m"
   limits:
-    memory: "2Gi"
+    memory: "3Gi"
     cpu: "1"
 
 persistence:
@@ -174,15 +174,6 @@ extraEnvVars:
       secretKeyRef:
         name: "openzaak-pg-cluster-app"
         key: "password"
-
-extraVolumes:
-  - name: authorization-config
-    configMap:
-      name: openzaak-authorization-config
-
-extraVolumeMounts:
-  - name: authorization-config
-    mountPath: /app/fixtures
 
 settings:
   allowedHosts: "openzaak.dmn-poc.publicground.nl"
@@ -214,6 +205,9 @@ worker:
   replicaCount: 1
   livenessProbe:
     enabled: true
+
+flower:
+  enabled: false
 
 redis:
   enabled: false

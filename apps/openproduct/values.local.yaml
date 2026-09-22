@@ -69,7 +69,6 @@ configuration:
           api_type: nrc
           auth_type: zgw
           client_id: openproduct
-          # secret: ${OPENNOTIFICATIES_CLIENT_SECRET}
           secret: ${OPENZAAK_CLIENT_SECRET}
         - identifier: zaken-api
           label: Zaken API
