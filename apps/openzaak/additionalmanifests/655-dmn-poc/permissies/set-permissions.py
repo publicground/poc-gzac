@@ -100,6 +100,15 @@ for file_path in json_files:
     with open(file_path, 'r') as f:
         autorisatie_payload = json.load(f)
 
+    # Transformeer catalogus EN zaaktype UUID's naar volledige URL's
+    if "autorisaties" in autorisatie_payload:
+        for aut in autorisatie_payload["autorisaties"]:
+
+            # Transformeer zaaktype UUID -> URL
+            zaaktype = aut.get("zaaktype")
+            if zaaktype and not zaaktype.startswith("http"):
+                aut["zaaktype"] = f"{openzaak_url}/catalogi/api/v1/zaaktypen/{zaaktype}"
+
     # Voer de PATCH uit naar het specifieke applicatie-endpoint met de verkregen UUID
     patch_url = f"{openzaak_url}/autorisaties/api/v1/applicaties/{app_uuid}"
     print(f"[INFO] Autorisaties patchen via: {patch_url}")
