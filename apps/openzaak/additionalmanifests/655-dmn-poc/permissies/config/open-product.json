@@ -1,0 +1,15 @@
+{
+  "heeftAlleAutorisaties": false,
+  "autorisaties": [
+    {
+      "component": "zrc",
+      "scopes": [
+        "zaken.lezen"
+      ],
+      "catalogus": [
+        "9ac3e6db-9165-45ea-b564-d7616814aaf1"
+      ],
+      "maxVertrouwelijkheidaanduiding": "vertrouwelijk"
+    }
+  ]
+}
