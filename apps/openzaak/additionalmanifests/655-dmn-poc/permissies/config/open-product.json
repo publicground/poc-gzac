@@ -6,7 +6,15 @@
       "scopes": [
         "zaken.lezen"
       ],
-      "catalogus": "9ac3e6db-9165-45ea-b564-d7616814aaf1",
+      "zaaktype": "123f18be-9dcb-4833-9a2f-fa5845fca4f5",
+      "maxVertrouwelijkheidaanduiding": "vertrouwelijk"
+    },
+    {
+      "component": "zrc",
+      "scopes": [
+        "zaken.lezen"
+      ],
+      "zaaktype": "a366d359-dd75-4bd4-b5d3-e7d71df8e755",
       "maxVertrouwelijkheidaanduiding": "vertrouwelijk"
     }
   ]
