@@ -1,0 +1,39 @@
+[
+    {
+        "client_id": "gzac",
+        "secret": "${OZ_APP_GZAC_SECRET}",
+        "label": "GZAC",
+        "heeft_alle_autorisaties": true,
+        "authorizations": []
+    },
+    {
+        "client_id": "open-notificaties",
+        "secret": "${opennotificaties_to_openzaak_secret}",
+        "label": "Open Notificaties",
+        "heeft_alle_autorisaties": true,
+        "authorizations": []
+    },
+    {
+        "client_id": "open-zaak",
+        "secret": "${opennotificaties_api_secret}",
+        "label": "Open Zaak",
+        "heeft_alle_autorisaties": true,
+        "authorizations": []
+    },
+    {
+        "client_id": "open-product",
+        "secret": "${OZ_APP_OPENPRODUCT_SECRET}",
+        "label": "Open Product",
+        "heeft_alle_autorisaties": false,
+        "authorizations": [
+            {
+                "component": "zrc",
+                "catalogus": "9ac3e6db-9165-45ea-b564-d7616814aaf1",
+                "scopes": [
+                    "zaken.lezen"
+                ],
+                "max_vertrouwelijkheidaanduiding": "vertrouwelijk"
+            }
+        ]
+    }
+]

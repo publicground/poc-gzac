@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: openzaak-zet-autorisaties
+  namespace: openzaak
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook-weight": "1"
+spec:
+  ttlSecondsAfterFinished: 86400  # Ruimt de Job na 24 uur automatisch op
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: zet-autorisaties
+          # Gebruik exact dezelfde OpenZaak image en tag als je main app deployment
+          image: replace-me
+          command:
+            - "/bin/bash"
+            - "-c"
+          args:
+          - |
+            /app/src/manage.py shell < ./autorisaties/zet-autorisaties.py
+          envFrom:
+            - secretRef:
+                name: openzaak
+            - secretRef:
+                name: openzaak-config-secrets
+            - configMapRef:
+                name: openzaak
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: openzaak-pg-cluster-app
+                  key: password
+            - name: BASE_URL
+              value: ""
+              # value: "http://openzaak.wigo4it.nl"
+          volumeMounts:
+            - name: autorisaties-volume
+              mountPath: /app/autorisaties
+      volumes:
+        - name: autorisaties-volume
+          configMap:
+            name: openzaak-autorisaties

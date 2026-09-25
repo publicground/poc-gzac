@@ -1,0 +1,52 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: publicground
+
+resources:
+  - openzaak-config-sealed.yaml
+  - openzaak-sealed.yaml
+  - cnpg.yaml
+  - redis.yaml
+  - httproute.yaml
+  - autorisaties-job.yaml
+
+helmCharts:
+  - name: openzaak
+    version: 1.15.0
+    repo: https://maykinmedia.github.io/charts/
+    releaseName: openzaak
+    namespace: publicground
+    valuesFile: values.local.yaml
+
+replacements:
+  - source:
+      kind: Deployment
+      name: openzaak
+      fieldPath: spec.template.spec.containers.[name=openzaak].image
+    targets:
+      - select:
+          kind: Job
+          name: openzaak-zet-autorisaties
+        fieldPaths:
+          - spec.template.spec.containers.[name=zet-autorisaties].image
+  - source:
+      kind: HTTPRoute
+      name: openzaak
+      fieldPath: spec.hostnames.0
+    targets:
+      - select:
+          kind: Job
+          name: openzaak-zet-autorisaties
+        fieldPaths:
+          - spec.template.spec.containers.[name=zet-autorisaties].env.[name=BASE_URL].value
+        options:
+          delimiter: "http://"
+          index: 1 # Vervangt alles wat ACHTER "https://" komt
+
+configMapGenerator:
+  - name: openzaak-autorisaties
+    files:
+      - autorisaties/zet-autorisaties.py
+      - autorisaties/config.json
+    options:
+      disableNameSuffixHash: true

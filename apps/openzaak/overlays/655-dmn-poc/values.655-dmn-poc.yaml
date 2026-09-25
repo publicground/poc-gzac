@@ -1,3 +1,10 @@
+image:
+  repository: acr655.azurecr.io/docker.io/openzaak/open-zaak
+
+nginx:
+  image:
+    repository: acr655.azurecr.io/docker.io/nginxinc/nginx-unprivileged
+
 global:
   configuration:
     enabled: true
@@ -8,14 +15,11 @@ configuration:
   #   enabled: false
   # notificaties:
   #   enabled: false
-  # notificatiesAuthorization:
-  #   enabled: false
-  # notificaties:
-  #   enabled: false
   superuser:
-    username: admin
-    password: dummy123
-    email: "peterdummy@wigo4it.nl"
+    username: "admin"
+    email: "horstp@wigo4it.nl"
+    # password field is ignored when existingSecret is set — DJANGO_SUPERUSER_PASSWORD must be
+    # present as a key in the openzaak SealedSecret (additionalmanifests/655-dmn-poc/sealedsecret-openzaak.yaml)
   job:
     enabled: true
     ttlSecondsAfterFinished: ""
@@ -25,8 +29,7 @@ configuration:
       services:
         - identifier: notifications-api
           label: Notificaties API
-          api_root: http://opennotificaties.wigo4it.nl/api/v1/
-          # api_connection_check_path: notificaties
+          api_root: https://opennotificaties.dmn-poc.publicground.nl/api/v1/
           api_type: nrc
           auth_type: zgw
           client_id: open-zaak
@@ -43,7 +46,7 @@ configuration:
       notification_delivery_retry_backoff: 2
       notification_delivery_retry_backoff_max: 3
 
-    vng_api_common_applicaties_config_enable: true
+    vng_api_common_applicaties_config_enable: false
     vng_api_common_applicaties:
       items:
       - uuid: 78591bab-9a00-4887-849c-53b21a67782f
@@ -61,13 +64,18 @@ configuration:
         - open-zaak
         label: Open Zaak
         heeft_alle_autorisaties: true
+      - uuid: c975302f-3100-438c-96d1-e00c79ef0bbf
+        client_ids:
+        - open-archiefbeheer
+        label: Open Archiefbeheer
+        heeft_alle_autorisaties: true
       - uuid: c975302f-3100-438c-96d1-e00c79ef0bb0
         client_ids:
         - open-product
         label: Open Product
         heeft_alle_autorisaties: true
         # heeft_alle_autorisaties needs to be true for api call to work. api call will set to false and set correct permissions
-    vng_api_common_credentials_config_enable: true
+    vng_api_common_credentials_config_enable: false
     vng_api_common_credentials:
       items:
       - identifier: gzac
@@ -82,6 +90,10 @@ configuration:
         secret:
           value_from:
             env: opennotificaties_api_secret
+      - identifier: open-archiefbeheer
+        secret:
+          value_from:
+            env: OZ_APP_OPENARCHIEFBEHEER_SECRET
       - identifier: open-product
         secret:
           value_from:
@@ -89,7 +101,7 @@ configuration:
     sites_config_enable: true
     sites_config:
       items:
-      - domain: openzaak.wigo4it.nl
+      - domain: openzaak.dmn-poc.publicground.nl
         name: Open-Zaak Test
     oidc_db_config_enable: true
     oidc_db_config_admin_auth:
@@ -99,7 +111,7 @@ configuration:
         oidc_nonce_size: 32
         oidc_state_size: 32
         endpoint_config:
-          oidc_op_discovery_endpoint: http://keycloak.wigo4it.nl/realms/publicground/
+          oidc_op_discovery_endpoint: https://keycloak.dmn-poc.publicground.nl/realms/publicground/
       items:
       - identifier: admin-oidc
         enabled: true
@@ -132,7 +144,7 @@ configuration:
             default_groups: []
             make_users_staff: true
             superuser_group_names:
-              - Admin
+              - OPENZAAK_ADMIN
 
 tags:
   redis: false
@@ -140,7 +152,7 @@ tags:
 replicaCount: 1
 
 ingress:
-  enabled: false
+  enabled: false  # Traffic enters via Gateway API HTTPRoute — see additionalmanifests/655-dmn-poc/httproute.yaml
 
 resources:
   requests:
@@ -162,34 +174,18 @@ extraEnvVars:
       secretKeyRef:
         name: "openzaak-pg-cluster-app"
         key: "password"
-  # - name: AUTHORIZATIONS_CONFIG_ENABLE
-  #   value: "true"
-  # - name: AUTHORIZATIONS_CONFIG_FIXTURE_PATH
-  #   value: "/app/fixtures/auth.json"
-  # - name: AUTHORIZATIONS_CONFIG_DELETE_EXISTING
-  #   value: "true"
-  # - name: ENVIRONMENT
-  #   value: "openzaak"
-
-# extraVolumes:
-#   - name: authorization-config
-#     configMap:
-#       name: openzaak-authorization-config
-
-# extraVolumeMounts:
-#   - name: authorization-config
-#     mountPath: /app/fixtures
-
 
 settings:
-  allowedHosts: "openzaak.wigo4it.nl, openzaak, openzaak.publicground"
-  useXForwardedHost: true
+  allowedHosts: "openzaak.dmn-poc.publicground.nl"
+  isHttps: true
+  disable2fa: true
+  siteDomain: "openzaak.dmn-poc.publicground.nl"
 
   database:
     host: "openzaak-pg-cluster-rw"
     port: 5432
-    username: "openzaak"
     name: "openzaak"
+    username: "openzaak"
 
   cache:
     default: "openzaak-redis:6379/0"
@@ -204,12 +200,6 @@ settings:
   messageBroker:
     celeryBroker: "redis://openzaak-redis:6379/1"
     celeryResultBackend: "redis://openzaak-redis:6379/1"
-
-  isHttps: false
-
-  disable2fa: true
-
-  siteDomain: "openzaak.wigo4it.nl"
 
 worker:
   replicaCount: 1
