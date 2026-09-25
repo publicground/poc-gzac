@@ -3,10 +3,10 @@ kind: Kustomization
 namespace: publicground
 
 resources:
-  - openzaak-config-sealed.yaml
-  - openzaak-sealed.yaml
   - cnpg.yaml
   - redis.yaml
+  - sealedsecret-openzaak-config.yaml
+  - sealedsecret-openzaak.yaml
   - httproute.yaml
   - autorisaties-job.yaml
 

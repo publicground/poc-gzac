@@ -5,6 +5,7 @@ metadata:
   namespace: publicground
   annotations:
     helm.sh/resource-policy: keep
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   instances: 1
   imageName: "acr655.azurecr.io/ghcr.io/cloudnative-pg/postgis:18-3.6-system-trixie"
