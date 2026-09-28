@@ -8,3 +8,4 @@ clusters:
   655-dmn-poc:
     enabled: true
     chartVersion: 1.20.1
+    additionalManifests: "infrastructure/certmanager/additionalmanifests/655-dmn-poc/"
