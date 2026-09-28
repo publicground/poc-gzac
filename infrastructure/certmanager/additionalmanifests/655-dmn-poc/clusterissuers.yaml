@@ -1,0 +1,39 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: horstp@wigo4it.nl
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-account-key
+    solvers:
+      - dns01:
+          azureDNS:
+            environment: AzurePublicCloud
+            hostedZoneName: dmn-poc.publicground.nl
+            resourceGroupName: rg-655-dns
+            subscriptionID: ea4bdfb2-9609-4bfe-8d23-0da3a4354443
+            managedIdentity:
+              clientID: 6efe4759-6ffd-4ee2-a392-37ddb82a6f2b
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    email: horstp@wigo4it.nl
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-staging-account-key
+    solvers:
+      - dns01:
+          azureDNS:
+            environment: AzurePublicCloud
+            hostedZoneName: dmn-poc.publicground.nl
+            resourceGroupName: rg-655-dns
+            subscriptionID: ea4bdfb2-9609-4bfe-8d23-0da3a4354443
+            managedIdentity:
+              clientID: 6efe4759-6ffd-4ee2-a392-37ddb82a6f2b
