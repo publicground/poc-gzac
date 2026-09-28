@@ -108,6 +108,14 @@ All applications deploy into the `publicground` namespace. Infrastructure operat
    - Cluster selector labels
    - Any `ignoreDifferences` rules specific to the cluster
 
+   Create a root Application (app-of-apps) that syncs the appsets directory, e.g. `bootstrap/<new-env>/root.yaml` (copy from `bootstrap/655-dmn-poc/`), and apply it once:
+
+   ```bash
+   kubectl -n argocd apply -f bootstrap/<new-env>/root.yaml
+   ```
+
+   From then on, changes to `appsets/<new-env>/` are synced by Argo CD — do not `kubectl apply` appsets manually.
+
 3. Enable apps in `.argocd.yaml` by adding `clusters.<new-env>.enabled: 'true'`.
 
 ---
