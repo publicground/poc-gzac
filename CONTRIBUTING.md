@@ -39,6 +39,7 @@ Each app/infrastructure directory contains an `.argocd.yaml` (consumed by the Ap
 - Which environments the app is enabled in (`clusters.<env>.enabled: 'true'`)
 - Chart version per environment
 - Paths to additional manifests
+- Optional Helm release name per environment (`clusters.<env>.releaseName`, infrastructure only; defaults to the directory name)
 
 Do not rename or move this file without updating the corresponding ApplicationSet generator.
 

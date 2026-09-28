@@ -48,6 +48,7 @@ spec:
           repoURL: "{{.chartRepoURL}}"
           targetRevision: '{{index .clusters "655-dmn-poc" "chartVersion"}}'
           helm:
+            releaseName: '{{ dig "clusters" "655-dmn-poc" "releaseName" .path.basename . }}'
             valueFiles:
               - $argoRepo/{{ .path.path }}/values.yaml
               - $argoRepo/{{ .path.path }}/values.655-dmn-poc.yaml

@@ -8,4 +8,6 @@ clusters:
   655-dmn-poc:
     enabled: true
     chartVersion: 1.20.1
+    # Gelijk aan de oorspronkelijke handmatige Helm-release, zodat ArgoCD die installatie overneemt
+    releaseName: cert-manager
     additionalManifests: "infrastructure/certmanager/additionalmanifests/655-dmn-poc/"
