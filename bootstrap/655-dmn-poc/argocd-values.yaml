@@ -88,3 +88,61 @@ redis:
     requests:
       cpu: 25m
       memory: 64Mi
+
+extraObjects:
+  - apiVersion: gateway.networking.k8s.io/v1
+    kind: HTTPRoute
+    metadata:
+      name: argocd
+      namespace: argocd
+    spec:
+      parentRefs:
+        - group: gateway.networking.k8s.io
+          kind: Gateway
+          name: main-gateway
+          namespace: envoy-gateway-system
+          sectionName: https
+      hostnames:
+        - argocd.dmn-poc.publicground.nl
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - group: ""
+              kind: Service
+              name: argocd-server
+              port: 80
+              weight: 1
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: default-deny-all
+      namespace: argocd
+    spec:
+      podSelector: {}
+      policyTypes:
+        - Ingress
+        - Egress
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: allow-argocd
+      namespace: argocd
+    spec:
+      podSelector: {}
+      policyTypes:
+        - Ingress
+        - Egress
+      ingress:
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  kubernetes.io/metadata.name: envoy-gateway-system
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  kubernetes.io/metadata.name: argocd
+      egress:
+        - {}
