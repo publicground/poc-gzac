@@ -16,6 +16,7 @@ resources:
   - gatewayclass.yaml
   - gateway.yaml
   - certificate.yaml
+  - httproute-redirect.yaml
 
 # AKS admissions enforcer voegt deze selectors toe; zonder patch blijft de app OutOfSync
 patches:
