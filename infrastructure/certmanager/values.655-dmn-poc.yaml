@@ -1,4 +1,53 @@
+# Workload identity voor DNS01 via Azure DNS (federated credential op SA cert-manager/cert-manager)
+serviceAccount:
+  create: true
+  name: cert-manager
+  annotations:
+    azure.workload.identity/client-id: 6efe4759-6ffd-4ee2-a392-37ddb82a6f2b
+podLabels:
+  azure.workload.identity/use: "true"
+
+extraArgs:
+  - --dns01-recursive-nameservers-only
+  - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
+
+global:
+  leaderElection:
+    namespace: cert-manager
+
+prometheus:
+  enabled: true
+  servicemonitor:
+    enabled: false
+
+replicaCount: 2
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+cainjector:
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 20m
+      memory: 64Mi
+
 webhook:
+  replicaCount: 2
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 20m
+      memory: 32Mi
   validatingWebhookConfiguration:
     namespaceSelector:
       matchExpressions:
