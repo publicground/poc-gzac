@@ -1,0 +1,90 @@
+# ArgoCD zelf blijft een bootstrap-Helm-release (buiten GitOps). Bijwerken met:
+#   helm --kube-context aks-655-dmn-poc -n argocd upgrade argocd argo/argo-cd --version 9.4.17 -f bootstrap/655-dmn-poc/argocd-values.yaml
+configs:
+  cm:
+    # Nodig voor helmCharts in kustomize-overlays (o.a. openzaak, envoy-gateway)
+    kustomize.buildOptions: "--enable-helm --load-restrictor LoadRestrictionsNone"
+  params:
+    server.insecure: true
+  rbac:
+    policy.csv: |
+      p, role:admin, applications, *, */*, allow
+      p, role:admin, clusters, *, *, allow
+      p, role:admin, repositories, *, *, allow
+      p, role:admin, projects, *, *, allow
+    policy.default: role:readonly
+
+controller:
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+applicationSet:
+  replicas: 2
+  pdb:
+    enabled: true
+    minAvailable: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
+
+repoServer:
+  replicas: 2
+  pdb:
+    enabled: true
+    minAvailable: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+server:
+  replicas: 2
+  pdb:
+    enabled: true
+    minAvailable: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+dex:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+notifications:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+redis:
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 25m
+      memory: 64Mi
