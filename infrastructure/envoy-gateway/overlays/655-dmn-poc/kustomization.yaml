@@ -1,0 +1,37 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Geen top-level namespace: kustomize zou die anders ook op de cluster-scoped GatewayClass zetten
+helmCharts:
+  - name: gateway-helm
+    repo: oci://docker.io/envoyproxy
+    version: v1.7.1
+    # Zelfde releaseName als de handmatige Helm-install, zodat resourcenamen gelijk blijven bij overname
+    releaseName: envoy-gateway
+    namespace: envoy-gateway-system
+    valuesFile: values.655-dmn-poc.yaml
+    includeCRDs: false
+
+resources:
+  - gatewayclass.yaml
+  - gateway.yaml
+  - certificate.yaml
+
+# AKS admissions enforcer voegt deze selectors toe; zonder patch blijft de app OutOfSync
+patches:
+  - target:
+      kind: MutatingWebhookConfiguration
+      name: envoy-gateway-topology-injector.envoy-gateway-system
+    patch: |-
+      - op: add
+        path: /webhooks/0/namespaceSelector/matchExpressions/-
+        value:
+          key: control-plane
+          operator: NotIn
+          values: ["true"]
+      - op: add
+        path: /webhooks/0/namespaceSelector/matchExpressions/-
+        value:
+          key: kubernetes.azure.com/managedby
+          operator: NotIn
+          values: ["aks"]
