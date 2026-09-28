@@ -1,0 +1,26 @@
+# Eenmalig handmatig toepassen: kubectl --context aks-655-dmn-poc -n argocd apply -f bootstrap/655-dmn-poc/root.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: publicground-root
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/publicground/poc-gzac.git
+    path: appsets/655-dmn-poc/
+    targetRevision: refs/heads/main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      # Geen prune: een verwijderde/hernoemde appset zou anders alle gegenereerde apps (en workloads) meeslepen
+      prune: false
+      selfHeal: true
+    retry:
+      limit: 10
+      backoff:
+        duration: "5s"
+        factor: 2
+        maxDuration: "3m0s"
