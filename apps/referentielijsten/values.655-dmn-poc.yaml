@@ -74,7 +74,7 @@ persistence:
   storageClassName: "azurefile-dmn-poc"
 
 existingSecret: referentielijsten
-existingConfigurationSecret: referentielijsten-config-secrets
+existingConfigurationSecrets: referentielijsten-config-secrets
 
 extraEnvVars:
   - name: DB_PASSWORD
