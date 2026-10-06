@@ -1,0 +1,12 @@
+chartName: referentielijsten
+chartRepoURL: https://maykinmedia.github.io/charts/
+targetNamespace: publicground
+clusters:
+  local:
+    enabled: false
+    chartVersion: "0.2.0"
+    additionalManifests: "apps/referentielijsten/additionalmanifests/local/"
+  655-dmn-poc:
+    enabled: true
+    chartVersion: "0.2.0"
+    additionalManifests: "apps/referentielijsten/additionalmanifests/655-dmn-poc/"

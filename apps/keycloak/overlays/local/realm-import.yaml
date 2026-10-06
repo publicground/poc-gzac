@@ -157,6 +157,20 @@ spec:
         clientRoles:
           openproduct:
             - "OPENPRODUCT_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000012"
+        username: "adminreferentielijsten"
+        enabled: true
+        email: "adminreferentielijsten@example.com"
+        firstName: "Open"
+        lastName: "Referentielijsten Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_REFERENTIELIJSTEN_PASSWORD}"
+            temporary: false
+        clientRoles:
+          referentielijsten:
+            - "REFERENTIELIJSTEN_ADMIN"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
@@ -430,6 +444,35 @@ spec:
               usermodel.clientRoleMapping.clientId: "openproduct"
               multivalued: "true"
               jsonType.label: "String"
+      - id: "eb865181-ed0d-4a16-86d3-000000000011"
+        clientId: "referentielijsten"
+        name: "referentielijsten"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${REFERENTIELIJSTEN_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        rootUrl: "http://referentielijsten.wigo4it.nl"
+        redirectUris:
+          - "/oidc/callback/"
+        webOrigins:
+          - "+"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "ref-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "referentielijsten"
+              multivalued: "true"
+              jsonType.label: "String"
 
     roles:
       realm:
@@ -480,6 +523,11 @@ spec:
             name: OPENPRODUCT_ADMIN
             clientRole: true
             description: "Admin rol voor OpenProduct"
+        referentielijsten:
+          - id: "eb865181-ed0d-4a16-86e4-000000000001"
+            name: REFERENTIELIJSTEN_ADMIN
+            clientRole: true
+            description: "Admin rol voor Referentielijsten"
 
     scopeMappings:
       - client: "gzac-backend"

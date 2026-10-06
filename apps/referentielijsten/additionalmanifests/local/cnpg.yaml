@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: referentielijsten-pg-cluster
+  namespace: publicground
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  instances: 1
+  imageName: "ghcr.io/cloudnative-pg/postgresql:18.3-system-trixie"
+  storage:
+    size: "1Gi"
+  bootstrap:
+    initdb:
+      database: "referentielijsten"
+      owner: "referentielijsten"
