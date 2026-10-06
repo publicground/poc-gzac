@@ -5,14 +5,14 @@ metadata:
   namespace: openzaak
   annotations:
     "helm.sh/hook": post-install,post-upgrade
-    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
     "helm.sh/hook-weight": "1"
 spec:
   ttlSecondsAfterFinished: 86400  # Ruimt de Job na 24 uur automatisch op
   backoffLimit: 1
   template:
     spec:
-      restartPolicy: OnFailure
+      restartPolicy: Never
       containers:
         - name: zet-autorisaties
           # Gebruik exact dezelfde OpenZaak image en tag als je main app deployment
