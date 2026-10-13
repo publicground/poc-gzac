@@ -49,5 +49,12 @@
         "label": "Open VTB",
         "heeft_alle_autorisaties": true,
         "authorizations": []
+    },
+        {
+        "client_id": "open-organisatie",
+        "secret": "${OZ_APP_OPENORGANISATIE_SECRET}",
+        "label": "Open Organisatie",
+        "heeft_alle_autorisaties": true,
+        "authorizations": []
     }
 ]
