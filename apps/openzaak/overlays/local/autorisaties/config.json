@@ -35,5 +35,12 @@
                 "max_vertrouwelijkheidaanduiding": "vertrouwelijk"
             }
         ]
+    },
+    {
+        "client_id": "open-vtb",
+        "secret": "${OZ_APP_OPENVTB_SECRET}",
+        "label": "Open VTB",
+        "heeft_alle_autorisaties": true,
+        "authorizations": []
     }
 ]
