@@ -185,6 +185,20 @@ spec:
         clientRoles:
           openvtb:
             - "OPENVTB_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000014"
+        username: "adminopenorganisatie"
+        enabled: true
+        email: "adminopenorganisatie@example.com"
+        firstName: "Open"
+        lastName: "Organisatie Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENORGANISATIE_PASSWORD}"
+            temporary: false
+        clientRoles:
+          openorganisatie:
+            - "OPENORGANISATIE_ADMIN"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
@@ -516,6 +530,35 @@ spec:
               usermodel.clientRoleMapping.clientId: "openvtb"
               multivalued: "true"
               jsonType.label: "String"
+      - id: "eb865181-ed0d-4a16-86d3-000000000013"
+        clientId: "openorganisatie"
+        name: "openorganisatie"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENORGANISATIE_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        rootUrl: "http://openorganisatie.wigo4it.nl"
+        redirectUris:
+          - "/auth/oidc/callback/"
+        webOrigins:
+          - "+"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "openorganisatie-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "openorganisatie"
+              multivalued: "true"
+              jsonType.label: "String"
 
     roles:
       realm:
@@ -576,6 +619,11 @@ spec:
             name: OPENVTB_ADMIN
             clientRole: true
             description: "Admin rol voor OpenVTB"
+        openorganisatie:
+          - id: "eb865181-ed0d-4a16-86e6-000000000001"
+            name: OPENORGANISATIE_ADMIN
+            clientRole: true
+            description: "Admin rol voor OpenOrganisatie"
 
     scopeMappings:
       - client: "gzac-backend"
