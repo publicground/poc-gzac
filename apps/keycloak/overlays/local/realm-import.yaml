@@ -171,6 +171,20 @@ spec:
         clientRoles:
           referentielijsten:
             - "REFERENTIELIJSTEN_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000013"
+        username: "adminopenvtb"
+        enabled: true
+        email: "adminopenvtb@example.com"
+        firstName: "Open"
+        lastName: "VTB Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENVTB_PASSWORD}"
+            temporary: false
+        clientRoles:
+          openvtb:
+            - "OPENVTB_ADMIN"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
@@ -473,6 +487,35 @@ spec:
               usermodel.clientRoleMapping.clientId: "referentielijsten"
               multivalued: "true"
               jsonType.label: "String"
+      - id: "eb865181-ed0d-4a16-86d3-000000000012"
+        clientId: "openvtb"
+        name: "openvtb"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENVTB_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        rootUrl: "http://openvtb.wigo4it.nl"
+        redirectUris:
+          - "/oidc/callback/"
+        webOrigins:
+          - "+"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "ovtb-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "openvtb"
+              multivalued: "true"
+              jsonType.label: "String"
 
     roles:
       realm:
@@ -528,6 +571,11 @@ spec:
             name: REFERENTIELIJSTEN_ADMIN
             clientRole: true
             description: "Admin rol voor Referentielijsten"
+        openvtb:
+          - id: "eb865181-ed0d-4a16-86e5-000000000001"
+            name: OPENVTB_ADMIN
+            clientRole: true
+            description: "Admin rol voor OpenVTB"
 
     scopeMappings:
       - client: "gzac-backend"
