@@ -4,9 +4,9 @@ targetNamespace: publicground
 clusters:
   local:
     enabled: false
-    chartVersion: "2.5.0"
+    chartVersion: "2.6.0"
     additionalManifests: "apps/openinwoner/additionalmanifests/local/"
   655-dmn-poc:
     enabled: false
-    chartVersion: "2.5.0"
+    chartVersion: "2.6.0"
     additionalManifests: "apps/openinwoner/additionalmanifests/655-dmn-poc/"
