@@ -7,6 +7,6 @@ clusters:
     chartVersion: "2.6.0"
     additionalManifests: "apps/openinwoner/additionalmanifests/local/"
   655-dmn-poc:
-    enabled: false
+    enabled: true
     chartVersion: "2.6.0"
     additionalManifests: "apps/openinwoner/additionalmanifests/655-dmn-poc/"
