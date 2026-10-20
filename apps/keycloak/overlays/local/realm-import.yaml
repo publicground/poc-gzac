@@ -582,7 +582,7 @@ spec:
         secret: "${OPENINWONER_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
         rootUrl: "http://openinwoner.wigo4it.nl"
         redirectUris:
-          - "/auth/oidc/callback/"
+          - "/oidc/callback/"
         webOrigins:
           - "+"
         publicClient: false
