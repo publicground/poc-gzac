@@ -224,7 +224,7 @@ spec:
             value: "${ADMIN_OPENINWONER_PASSWORD}"
             temporary: false
         clientRoles:
-          openorganisatie:
+          openinwoner:
             - "OPENINWONER_ADMIN"
 
     clients:
