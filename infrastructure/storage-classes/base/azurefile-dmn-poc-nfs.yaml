@@ -1,0 +1,13 @@
+# needed for openinwoner, chmod healthcheck permission error
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: azurefile-dmn-poc-nfs
+provisioner: file.csi.azure.com
+parameters:
+  protocol: nfs
+  resourceGroup: rg-655-dmn-poc-nodes
+  skuName: Premium_LRS
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
