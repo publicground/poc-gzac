@@ -199,6 +199,20 @@ spec:
         clientRoles:
           openorganisatie:
             - "OPENORGANISATIE_ADMIN"
+      - id: "eb865181-ed0d-4a16-86d2-000000000015"
+        username: "adminopeninwoner"
+        enabled: true
+        email: "adminopeninwoner@example.com"
+        firstName: "Open"
+        lastName: "Inwoner Admin"
+        emailVerified: true
+        credentials:
+          - type: password
+            value: "${ADMIN_OPENINWONER_PASSWORD}"
+            temporary: false
+        clientRoles:
+          openorganisatie:
+            - "OPENINWONER_ADMIN"
 
     clients:
       - id: "eb865181-ed0d-4a16-86d3-000000000001"
@@ -559,6 +573,35 @@ spec:
               usermodel.clientRoleMapping.clientId: "openorganisatie"
               multivalued: "true"
               jsonType.label: "String"
+      - id: "eb865181-ed0d-4a16-86d3-000000000014"
+        clientId: "openinwoner"
+        name: "openinwoner"
+        enabled: true
+        protocol: "openid-connect"
+        clientAuthenticatorType: "client-secret"
+        secret: "${OPENINWONER_APP_CLIENT_SECRET}" # Verwijst naar env var in de Keycloak pod
+        rootUrl: "http://openinwoner.wigo4it.nl"
+        redirectUris:
+          - "/auth/oidc/callback/"
+        webOrigins:
+          - "+"
+        publicClient: false
+        standardFlowEnabled: true
+        implicitFlowEnabled: false
+        directAccessGrantsEnabled: true
+        serviceAccountsEnabled: false
+        protocolMappers:
+          - name: "openinwoner-client-roles-mapper-to-roles-claim"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+            consentRequired: false
+            config:
+              claim.name: "roles"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              usermodel.clientRoleMapping.clientId: "openinwoner"
+              multivalued: "true"
+              jsonType.label: "String"
 
     roles:
       realm:
@@ -624,6 +667,11 @@ spec:
             name: OPENORGANISATIE_ADMIN
             clientRole: true
             description: "Admin rol voor OpenOrganisatie"
+        openinwoner:
+          - id: "eb865181-ed0d-4a16-86e7-000000000001"
+            name: OPENINWONER_ADMIN
+            clientRole: true
+            description: "Admin rol voor OpenInwoner"
 
     scopeMappings:
       - client: "gzac-backend"
