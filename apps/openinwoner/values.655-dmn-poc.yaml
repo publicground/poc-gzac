@@ -70,14 +70,14 @@ ingress:
 
 resources:
   requests:
-    memory: "256Mi"
-    cpu: "100m"
+    memory: "1Gi"
+    cpu: "500m"
   limits:
-    memory: "1024Mi"
-    cpu: "250m"
+    memory: "2Gi"
+    cpu: "1"
 
 persistence:
-  storageClassName: "azurefile-dmn-poc"
+  storageClassName: "azurefile-dmn-poc-nfs" # azurefile-dmn-poc-nfs
 
 existingSecret: openinwoner
 existingConfigurationSecret: openinwoner-config-secrets
