@@ -251,10 +251,13 @@ cd poc-gzac
 # 2. Check all required tools are installed
 task requirements-check
 
-# 3. Create Kind cluster, install Argo CD, and deploy the full stack
+# 3. Create Kind cluster, install Argo CD, and onboard the stack
 task run-local
 
-# 4. Get Argo CD credentials
+# 4. Provision fresh local secrets (see Secret Management below).
+#    Applications cannot become healthy until their secrets are provisioned.
+
+# 5. Get Argo CD credentials
 task fetch-argocd-creds
 ```
 
@@ -285,7 +288,7 @@ argocd app sync argocd/<app-name>
 
 ## Secret Management
 
-Secrets are stored in git as **SealedSecrets** (encrypted with the cluster's public key). They are only decryptable by the `sealed-secrets` controller running in the target cluster.
+Secrets are stored in git as **SealedSecrets** (encrypted with the cluster's public key). Anyone holding the matching private key can decrypt them. Private controller keys must stay in the cluster or in an access-controlled backup outside this repository; only public certificates and encrypted manifests may be committed.
 
 ### Sealing a new secret (655-dmn-poc)
 
@@ -306,7 +309,61 @@ Sealed secret files live in `apps/<app>/additionalmanifests/<env>/`.
 
 ### Local environment
 
-Use the **Sealed Secrets Web UI** available at `http://sealed-secrets-web.wigo4it.nl` when running locally.
+The local controller generates its own private key in the cluster and renews sealing keys every 30 days. No shared private key is provisioned from Git.
+
+**The previously committed local key and all credentials sealed with it must be treated as public.** Removing the key from the current tree does not remove it from Git history. Existing local ciphertext is not a safe source of credentials and will not unseal on a newly created cluster.
+
+After `task run-local`, provision fresh, local-only credentials before expecting applications to become healthy:
+
+1. Wait for the controller to be available and fetch its public certificate:
+
+   ```bash
+   kubectl --context kind-gitops-argocd -n sealed-secrets \
+     rollout status deployment/sealed-secrets-controller --timeout=180s
+   kubeseal --context kind-gitops-argocd --fetch-cert \
+     --controller-namespace sealed-secrets \
+     --controller-name sealed-secrets-controller > /tmp/poc-gzac-local-cert.pem
+   ```
+
+2. Generate new credentials in your password manager. Preserve required relationships between consumers (for example, matching database credentials and client secrets). Never reuse credentials from another environment.
+3. For each field in the local `SealedSecret` manifests, seal the new value with the public certificate and the **exact existing Secret name and namespace**. In Bash, this reads the value without echoing it or putting it in shell history:
+
+   ```bash
+   (
+     set +x
+     read -r -s -p 'New local secret value: ' secret_value
+     printf '\n' >&2
+     printf '%s' "$secret_value" | kubeseal --raw \
+       --cert /tmp/poc-gzac-local-cert.pem \
+       --namespace publicground \
+       --name '<existing-secret-name>' \
+       --from-file=/dev/stdin
+   )
+   ```
+
+   Replace the corresponding `spec.encryptedData` field with the encrypted output. Process the local manifests in both `additionalmanifests/local/` and `overlays/local/`; preserve their metadata, templates and annotations. Do not change `655-dmn-poc` manifests. The local Sealed Secrets Web UI at `http://sealed-secrets-web.wigo4it.nl` is an alternative for sealing.
+
+4. Commit only the updated encrypted manifests to your local `local` branch so the file-based Argo CD repository can reconcile them. Verify that the SealedSecrets report `Synced=True` and that the dependent applications are healthy:
+
+   ```bash
+   kubectl --context kind-gitops-argocd -n publicground get sealedsecrets \
+     -o custom-columns=NAME:.metadata.name,SYNCED:.status.conditions[*].status,REASON:.status.conditions[*].reason
+   ```
+
+   Remove the temporary public certificate when finished. Keep private-key backups outside the checkout. A recreated cluster needs either a protected backup of its non-compromised key or new credentials sealed against its new certificate.
+
+#### Existing clusters and exposed credentials
+
+For a disposable local cluster, recreate it and follow the fresh-secret procedure above. This removes local cluster data: back up required non-secret development data first.
+
+For a cluster that must be retained, use an authorized administrator and a maintenance window:
+
+1. Stop provisioning the exposed key from Git. Force [early sealing-key renewal](https://github.com/bitnami-labs/sealed-secrets#early-key-renewal) and verify that the newly fetched certificate differs from the exposed certificate **before** sealing any new credentials. Removing the static manifest or enabling periodic renewal alone is not proof that the active key is safe.
+2. Rotate the actual credentials in the applications and backing services, coordinating consumers and any database/account changes. Replacing a Kubernetes Secret alone does not necessarily change an existing database password or imported Keycloak account. Seal only the new values with the new certificate.
+3. After every affected SealedSecret and dependent service has been verified, retire the exposed controller key and restart the controller so it no longer holds that key in memory. Do not remove keys still needed by unrelated secrets.
+4. Have the `655-dmn-poc` owners check credential reuse through approved internal administration channels and rotate any reused credentials. This repository change does not establish whether reuse occurred or perform live rotation.
+
+Key renewal and re-encryption do not revoke previously exposed passwords. `SUWINET_PASSWORD` is configured for the `suwinet-simulator` mock service; that does not make credential reuse safe.
 
 ---
 

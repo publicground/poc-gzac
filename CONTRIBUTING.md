@@ -123,7 +123,7 @@ All applications deploy into the `publicground` namespace. Infrastructure operat
 
 ## Working with secrets
 
-All secrets are stored as **SealedSecrets** — encrypted with the target cluster's public key. The raw secret value is **never** committed to git.
+All secrets are stored as **SealedSecrets** — encrypted with the target cluster's public key. Raw secret values and private controller keys are **never** committed to git. Keep private-key backups outside the checkout; base64 encoding is not encryption.
 
 ### Sealing a secret for 655-dmn-poc
 
@@ -161,13 +161,16 @@ spec:
 
 ### Sealing for local
 
-Use the **Sealed Secrets Web UI** at `http://sealed-secrets-web.wigo4it.nl` when the local cluster is running.
+Follow the [local secret provisioning and migration procedure](README.md#local-environment). The local controller generates a cluster-specific private key; do not restore the formerly committed key or its public certificate. Existing local ciphertext must be replaced with fresh, local-only credentials sealed against the current controller certificate.
+
+The **Sealed Secrets Web UI** at `http://sealed-secrets-web.wigo4it.nl` is also available when the local cluster is running.
 
 ### Rotating a secret
 
-1. Generate the new sealed value using `kubeseal --raw` against the target cluster.
-2. Replace the value in the SealedSecret manifest.
-3. Commit and push — Argo CD will sync and the controller will update the underlying Secret.
+1. Generate a fresh credential, distinct from credentials in other environments. If a controller key was exposed, renew it and verify the new public certificate before sealing.
+2. Change the credential in its backing service/account and coordinate dependent consumers; updating a Kubernetes Secret alone may not rotate an existing account.
+3. Seal the new value using `kubeseal --raw` against the target cluster and replace the value in the SealedSecret manifest.
+4. Commit and push — Argo CD will sync and the controller will update the underlying Secret. Verify reconciliation and application authentication.
 
 ### Important: cluster-scoped seals
 
