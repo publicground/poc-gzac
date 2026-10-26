@@ -1,0 +1,16 @@
+image:
+  tag: 0.9.1
+
+extraEnvVars:
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "openbeheer-pg-cluster-app"
+        key: "password"
+  - name: KEYCLOAK_DISCOVERY_URL
+    value: "https://keycloak.dmn-poc.publicground.nl/realms/publicground/"
+
+settings:
+  allowedHosts: "openbeheer.dmn-poc.publicground.nl"
+
+  siteDomain: "openbeheer.dmn-poc.publicground.nl"
