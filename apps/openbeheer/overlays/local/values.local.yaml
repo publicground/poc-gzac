@@ -1,0 +1,18 @@
+image:
+  tag: 0.9.1
+
+extraEnvVars:
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "openbeheer-pg-cluster-app"
+        key: "password"
+  - name: KEYCLOAK_DISCOVERY_URL
+    value: "http://keycloak.wigo4it.nl/realms/publicground/"
+
+settings:
+  allowedHosts: "openbeheer.wigo4it.nl"
+
+  disable2fa: true
+
+  siteDomain: "openbeheer.wigo4it.nl"
