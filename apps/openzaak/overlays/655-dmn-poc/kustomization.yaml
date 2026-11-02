@@ -12,7 +12,7 @@ resources:
 
 helmCharts:
   - name: openzaak
-    version: 1.15.0
+    version: 1.16.0
     repo: https://maykinmedia.github.io/charts/
     releaseName: openzaak
     namespace: publicground
