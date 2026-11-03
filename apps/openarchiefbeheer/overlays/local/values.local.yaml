@@ -1,5 +1,6 @@
 image:
   repository: docker.io/maykinmedia/open-archiefbeheer
+  tag: 2.1.2
 
 extraEnvVars:
   - name: DB_PASSWORD

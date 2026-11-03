@@ -14,7 +14,7 @@ patches:
 
 helmCharts:
   - name: openarchiefbeheer
-    version: 2.0.0
+    version: 2.1.0
     repo: https://maykinmedia.github.io/charts/
     releaseName: openarchiefbeheer
     namespace: publicground

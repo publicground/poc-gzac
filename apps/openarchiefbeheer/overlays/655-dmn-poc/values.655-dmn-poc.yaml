@@ -1,3 +1,6 @@
+image:
+  tag: 2.1.2
+
 extraEnvVars:
   - name: DB_PASSWORD
     valueFrom:

@@ -17,7 +17,6 @@ configuration:
     enabled: false
   job:
     enabled: true
-    ttlSecondsAfterFinished: ""
   data: |-
     oidc_db_config_enable: true
     oidc_db_config_admin_auth:
@@ -117,7 +116,7 @@ settings:
   celery:
     brokerUrl: "redis://openarchiefbeheer-redis:6379/1"
     resultBackend: "redis://openarchiefbeheer-redis:6379/1"
-    resultBackendl: "redis://openarchiefbeheer-redis:6379/1" # bug in chart
+    # resultBackendl: "redis://openarchiefbeheer-redis:6379/1" # bug in chart
 
 worker:
   # replicaCount: 1
