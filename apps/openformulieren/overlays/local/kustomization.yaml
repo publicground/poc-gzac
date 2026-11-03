@@ -13,7 +13,7 @@ patches:
 
 helmCharts:
   - name: openforms
-    version: 1.12.0
+    version: 1.13.0
     repo: https://maykinmedia.github.io/charts/
     releaseName: openformulieren
     namespace: publicground
