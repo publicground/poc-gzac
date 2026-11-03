@@ -14,7 +14,7 @@ patches:
 
 helmCharts:
   - name: openbeheer
-    version: 0.1.3
+    version: 0.2.0
     repo: https://maykinmedia.github.io/charts/
     releaseName: openbeheer
     namespace: publicground
