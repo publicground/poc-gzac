@@ -25,8 +25,9 @@ configuration:
         oidc_nonce_size: 32
         oidc_state_size: 32
         endpoint_config:
-          value_from:
-            env: KEYCLOAK_DISCOVERY_URL
+          oidc_op_discovery_endpoint:
+            value_from:
+              env: KEYCLOAK_DISCOVERY_URL
       items:
       - identifier: admin-oidc
         enabled: true
@@ -67,7 +68,7 @@ tags:
 replicaCount: 1
 
 ingress:
-  enabled: false  # Traffic enters via Gateway API HTTPRoute — see additionalmanifests/655-dmn-poc/httproute.yaml
+  enabled: false # Traffic enters via Gateway API HTTPRoute — see additionalmanifests/655-dmn-poc/httproute.yaml
 
 resources:
   requests:
