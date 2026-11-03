@@ -11,7 +11,7 @@ patches:
   - path: patches/httproute.yaml
 
 helmCharts:
-  - name: openformulieren
+  - name: openforms
     version: 1.12.0
     repo: https://maykinmedia.github.io/charts/
     releaseName: openformulieren
