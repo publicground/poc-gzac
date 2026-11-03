@@ -1,4 +1,5 @@
 image:
+  repository: docker.io/maykinmedia/open-beheer
   tag: 0.9.1
 
 extraEnvVars:

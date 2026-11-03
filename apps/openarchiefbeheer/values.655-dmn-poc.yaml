@@ -114,7 +114,7 @@ settings:
     username: "openarchiefbeheer"
     name: "openarchiefbeheer"
 
-  siteDomain: "openarchiefbeheer.wigo4it.nl"
+  siteDomain: "openarchiefbeheer.dmn-poc.publicground.nl"
 
   cache:
     default: "openarchiefbeheer-redis:6379/0"

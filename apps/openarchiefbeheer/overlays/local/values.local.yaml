@@ -1,0 +1,21 @@
+image:
+  repository: docker.io/maykinmedia/open-archiefbeheer
+
+extraEnvVars:
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "openarchiefbeheer-pg-cluster-app"
+        key: "password"
+  - name: KEYCLOAK_DISCOVERY_URL
+    value: "http://keycloak.wigo4it.nl/realms/publicground/"
+
+settings:
+  allowedHosts: "openarchiefbeheer.wigo4it.nl"
+
+  disable2fa: true
+
+  siteDomain: "openarchiefbeheer.wigo4it.nl"
+
+worker:
+  replicaCount: 1

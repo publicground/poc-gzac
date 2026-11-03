@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: publicground
+
+resources:
+  - ../../base
+  - openarchiefbeheer-cl-config-sealed.yaml
+  - openarchiefbeheer-cl-secret-sealed.yaml
+
+patches:
+  - path: patches/httproute.yaml
+
+helmCharts:
+  - name: openarchiefbeheer
+    version: 2.0.0
+    repo: https://maykinmedia.github.io/charts/
+    releaseName: openarchiefbeheer
+    namespace: publicground
+    valuesFile: ../../base/values.yaml
+    additionalValuesFiles:
+      - values.655-dmn-poc.yaml
