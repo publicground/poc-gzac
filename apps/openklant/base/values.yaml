@@ -19,7 +19,7 @@ configuration:
     enabled: false
   job:
     enabled: true
-    ttlSecondsAfterFinished: ""
+    # ttlSecondsAfterFinished: ""
   data: |-
     oidc_db_config_enable: true
     oidc_db_config_admin_auth:
@@ -115,7 +115,7 @@ settings:
   celery:
     brokerUrl: "redis://openklant-redis:6379/1"
     resultBackend: "redis://openklant-redis:6379/1"
-    resultBackendl: "redis://openklant-redis:6379/1"
+    # resultBackendl: "redis://openklant-redis:6379/1"
 
   # siteDomain: "openklant.dmn-poc.publicground.nl"
 
@@ -124,6 +124,9 @@ worker:
   # replicaCount: 1
   livenessProbe:
     enabled: true
+
+flower:
+  enabled: false
 
 redis:
   enabled: false

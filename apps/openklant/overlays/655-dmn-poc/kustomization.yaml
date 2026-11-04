@@ -12,7 +12,7 @@ patches:
 
 helmCharts:
   - name: openklant
-    version: 1.11.0
+    version: 1.14.2
     repo: https://maykinmedia.github.io/charts/
     releaseName: openklant
     namespace: publicground
