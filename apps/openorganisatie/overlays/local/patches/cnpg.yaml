@@ -10,7 +10,3 @@ spec:
   imageName: "ghcr.io/cloudnative-pg/postgresql:18.3-system-trixie"
   storage:
     size: "1Gi"
-  # bootstrap:
-  #   initdb:
-  #     database: "openorganisatie"
-  #     owner: "openorganisatie"
