@@ -5,7 +5,7 @@ metadata:
   namespace: publicground
 spec:
   kubernetesConfig:
-    image: quay.io/opstree/redis:v7.0.15
+    image: quay.io/opstree/redis:v8.10.1
   storage:
     volumeClaimTemplate:
       spec:
