@@ -7,6 +7,6 @@ clusters:
     chartVersion: "1.1.1"
     additionalManifests: "apps/openobject/additionalmanifests/local/"
   655-dmn-poc:
-    enabled: true
+    enabled: false
     chartVersion: "1.1.1"
     additionalManifests: "apps/openobject/additionalmanifests/655-dmn-poc/"
