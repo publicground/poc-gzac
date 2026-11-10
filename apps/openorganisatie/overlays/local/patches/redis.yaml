@@ -1,0 +1,14 @@
+apiVersion: redis.redis.opstreelabs.in/v1beta2
+kind: Redis
+metadata:
+  name: openorganisatie-redis
+  namespace: publicground
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  kubernetesConfig:
+    image: quay.io/opstree/redis:v8.6.2
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: standard

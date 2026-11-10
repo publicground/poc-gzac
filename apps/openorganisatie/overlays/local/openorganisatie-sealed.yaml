@@ -1,0 +1,17 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: openorganisatie
+  namespace: publicground
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  encryptedData:
+    DJANGO_SUPERUSER_PASSWORD: AgCLFDWiHw0Tue88TmTz0AJd5quyKDoN5Y9bf2s1fwFShrS3St9qmw+dtUMEYdfyh7ySs7/OL8bW6fPHGjlABbIRMYzfcSFyig8Vkii57ArFJ2RbWKK+oVWZhOjxTSWAA8OnJlhnvNxRPNyRZNPOL6RApTh8UkZYaYd8YNmPw8oaxkjD7fzftXROc96GfbXz6BXuGFRnIgcWA/6TQGW6O08qVlvo6r5ShdYoOD3OfGjhg4v0KrTxeLPhL8GuPloTtudwWRdj3+yFb6/V0f/wao4tVkOVTAH7QRONz6aD3InGyaRovIBJrCaQRepoBkaic9E8xJKQDZxKWx/pYg4CjBlHfcednrTKenPLEqEmetlhIrA4pxkAVMYjJTVl6XfFelAzlfe/yTm0lg1dmDTtcSjeiLWldsh/dMJAIH/79Z5GhbqA/z+aMrPlvSiXlJSqe2xA4JCgrdqZwUWtawNVrnAFakgpNhiwijXHEK5S+5EhDBPewUo2hY82h/3FpOOPDbqQ/ziSI87zq+5+BIE6QYRnaMCF9zBEYu0meFNuQgj+q0GXnXig62ROCY2EjU8e8ZnRQ6vfkSlSizLpokbw0s9wLNp8p+lM66ZI5dFb03VFIxugM1w9R4IvEaYI2xeMQg+8wRHGa2ffOgxO+GDYdz437qHNuAtth/JAbdL9hDdLKTia6mIn6lZD5b/tOkzUqcr/9V+Xpvm7Ow==
+    SECRET_KEY: AgABgqPAReEduP9hl+/tBRcOpVNEzxgG+F/A0HVeP1lo3GDs/UytP+Uf7eQDS6cDomXmSInfJ0cLBkdh6AF4A3Z2eJv6xhZpfLIfqLPbYFTA5B+szX3FEyBXIbVER2e6450arGfecCxFRMSDfwhq+A1E08z/m8juRfejNp3fVUpX/KCTaUQhKy8qiOMEPlMTEe9dD13DgyXVAllTkyeMX/AP3QH0KUx9nO4jGzKsTLhX0s3a3NqGjuefaX4R9JHv05WKuA0Dz/rx82zUK+bFGP3cw6DlGbzIwno1Ia/d7NujjoZD1r/GREB7Izx1PH/dzSz0RELQd+4MhmQrVYLpZPIeIAXWN695P0X89AbsHoC8Dp1BFikhLsVraxw3yu7q0IT3/8CsLZAXMQWxS5cZbtWylXU8MbXpO87C4UA9FfBzRqQNA+R0CGFlemuBEaGtIPxdN7QnAojvy8a/oRW5LNHbtUBRYFIy38bTDy/ZsVmW6sm1kGwEqM/5f73NowzYkMfCKn+SigL75d97njuvnniE9L+YCMi+NcC5DTCApbF8WeXfuOPHhaH/xE0vdBd+Bcy7BPQ7gGgOBeqIp7eMLgqS1lHj4CTTCd9SXKYdkNUeZzfPjcC9iZR0C+oz0TSpnfnSYoDQ4dPlRkfHsDf1wUH3HzuDkIITkNCbk5Orj/XxI9rQ/fKyK3yQYYnSTRjavwYXFsN/6f187/KttfXje4vCKPJ3UZgYMXBbeqtA2jLEFOuzOtfp1L1kbayJqucPEKnMFg==
+  template:
+    metadata:
+      name: openorganisatie
+      namespace: publicground
+    type: Opaque
