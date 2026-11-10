@@ -19,7 +19,6 @@ configuration:
     enabled: false
   job:
     enabled: true
-    ttlSecondsAfterFinished: ""
   data: |-
     oidc_db_config_enable: true
     oidc_db_config_admin_auth:
