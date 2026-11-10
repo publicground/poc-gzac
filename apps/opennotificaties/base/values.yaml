@@ -19,8 +19,8 @@ configuration:
     # present as a key in the opennotificaties SealedSecret (additionalmanifests/655-dmn-poc/sealedsecret-opennotificaties.yaml)
   job:
     enabled: true
-    backoffLimit: 6
-    restartPolicy: OnFailure
+    backoffLimit: 0
+    restartPolicy: Never
   data: |-
     oidc_db_config_enable: false
     zgw_consumers_config_enable: True
@@ -187,6 +187,10 @@ settings:
   # allowedHosts: "opennotificaties.dmn-poc.publicground.nl"
   useXForwardedHost: true
 
+  cleanOldNotifications:
+    # -- Clean logged notifications
+    enabled: true
+
   database:
     host: "opennotificaties-pg-cluster-rw"
     port: 5432
@@ -196,6 +200,12 @@ settings:
   cache:
     default: "opennotificaties-redis:6379/0"
     axes: "opennotificaties-redis:6379/0"
+    oidc: "opennotificaties-redis:6379/0"
+
+  celery:
+    brokerUrl: "redis://opennotificaties-redis:6379/0"
+    resultBackend: "redis://opennotificaties-redis:6379/1"
+    publishBrokerUrl: "redis://opennotificaties-redis:6379/0"
 
   disable2fa: false
 
@@ -216,31 +226,31 @@ worker:
 redis:
   enabled: false
 
-rabbitmq:
-  enabled: true
-  image:
-    registry: acr655.azurecr.io/docker.io
-    repository: bitnamilegacy/rabbitmq
-  networkPolicy:
-    enabled: false
-  auth:
-    username: user
-    existingPasswordSecret: opennotificaties
-    existingErlangSecret: opennotificaties
-  persistence:
-    enabled: false
-  rbac:
-    create: false
-  clustering:
-    enabled: false
-  serviceAccount:
-    create: true
-    automountServiceAccountToken: false
+# rabbitmq:
+#   enabled: true
+#   image:
+#     registry: acr655.azurecr.io/docker.io
+#     repository: bitnamilegacy/rabbitmq
+#   networkPolicy:
+#     enabled: false
+#   auth:
+#     username: user
+#     existingPasswordSecret: opennotificaties
+#     existingErlangSecret: opennotificaties
+#   persistence:
+#     enabled: false
+#   rbac:
+#     create: false
+#   clustering:
+#     enabled: false
+#   serviceAccount:
+#     create: true
+#     automountServiceAccountToken: false
 
-  resources:
-    requests:
-      cpu: "50m"
-      memory: "256Mi"
-    limits:
-      cpu: "200m"
-      memory: "512Mi"
+#   resources:
+#     requests:
+#       cpu: "50m"
+#       memory: "256Mi"
+#     limits:
+#       cpu: "200m"
+#       memory: "512Mi"

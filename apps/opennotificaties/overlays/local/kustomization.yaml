@@ -14,7 +14,7 @@ patches:
 
 helmCharts:
   - name: opennotificaties
-    version: 1.13.1
+    version: 2.1.0
     repo: https://maykinmedia.github.io/charts/
     releaseName: opennotificaties
     namespace: publicground

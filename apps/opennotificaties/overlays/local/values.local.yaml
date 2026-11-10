@@ -138,7 +138,7 @@ worker:
 redis:
   enabled: false
 
-rabbitmq:
-  enabled: true
-  image:
-    registry: docker.io
+# rabbitmq:
+#   enabled: true
+#   image:
+#     registry: docker.io
