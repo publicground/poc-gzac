@@ -1,0 +1,11 @@
+image:
+  tag: sha-35b82f7
+## config values will be used for generating the config.js
+config:
+  apiUri: https://gzac.dmn-poc.publicground.nl/api
+  keycloakClientId: gzac-frontend
+  keycloakLogoutRedirectUri: https://gzac.dmn-poc.publicground.nl
+  keycloakRealm: publicground
+  keycloakRedirectUri: https://gzac.dmn-poc.publicground.nl/keycloak/callback
+  keycloakUrl: https://keycloak.dmn-poc.publicground.nl
+  whiteListedDomain: https://gzac.dmn-poc.publicground.nl
