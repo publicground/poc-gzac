@@ -1,0 +1,16 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: referentielijsten-config-secrets
+  namespace: publicground
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  encryptedData:
+    KEYCLOAK_CLIENT_SECRET: AgCTXqjYiNKDfySmeANmhKBOabOp09B8pccHiKZACxllSzGmvZpYNwQvXtn9yC3RgJGhqd2kh0iMN2Ff4wOUACuIX5pnBkkWr/vWumovelsm7Cam4PTNzu9ZSK5lOXYCqHB0qBHQlbZ0sSztoA8Gy+MFm2XaYTnIYoX9p67ZpS5aszNCyuh0hIqQkpYGdGB4jnmyCLjK+4x1qrlae5gHHJ2Tpgrca6NrJF5ZKvfiZWFmTTRSnYGzWqIEIGuV5Cd1cmU9B6q6rxW+B2PDgYZc9rOr0vq6rDD/ZAXriGxYCUpi+wkRIOUOp3HLykDtNkPaTNp8Y8aJW3jU9F+GJzmPgdY1Wt94t0uaSQDHwrinpA78qudzcXqa96FpDp9dDT/h7guCFxn9HBGFDwZVQUjGQ71+j5QyszeB7wSuDiTBPXm2QvmqnBGsNFB6W2xm4UgJa5RXy7qvxG9nU5pcLZrd399kSeoccbCte/E6DYLFp4ipS6ZEKHEkBhQkuKCBU7bhgeUka0v0X5Joel3wzEILjgpq5aWrA2EOylwuk84dtuAdEm+nVYr+FGS1IRMBcPgbJ8uETPD+3W8LjHMFT7tNrRoZgwR8EWvymd3AdtoDHski73n64IxbHFvTPDgG1Ev7nATZwHKHt3njHpulVwNBJZMPwFn0IF4zW7MRtkfS2254HBfRpIpT2Y9erXv2M2p9pLOQvtfORrXu1qIBXUgwWmybIxP43fOKSVrA
+  template:
+    metadata:
+      name: referentielijsten-config-secrets
+      namespace: publicground
+    type: Opaque

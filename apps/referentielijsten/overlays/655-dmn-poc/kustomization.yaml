@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: publicground
+
+resources:
+  - ../../base
+  - sealedsecret-referentielijsten-config.yaml
+  - sealedsecret-referentielijsten.yaml
+
+patches:
+  - path: patches/httproute.yaml
+
+helmCharts:
+  - name: referentielijsten
+    version: 0.2.0
+    repo: https://maykinmedia.github.io/charts/
+    releaseName: referentielijsten
+    namespace: publicground
+    valuesFile: ../../base/values.yaml
+    additionalValuesFiles:
+      - values.655-dmn-poc.yaml
