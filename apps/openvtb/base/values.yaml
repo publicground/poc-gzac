@@ -81,16 +81,7 @@ persistence:
 existingSecret: openvtb
 existingConfigurationSecret: openvtb-config-secrets
 
-# extraEnvVars:
-#   - name: DB_PASSWORD
-#     valueFrom:
-#       secretKeyRef:
-#         name: "openvtb-pg-cluster-app"
-#         key: "password"
-
 settings:
-  # allowedHosts: "openvtb.dmn-poc.publicground.nl"
-
   disable2fa: false
 
   database:
@@ -98,8 +89,6 @@ settings:
     port: 5432
     username: "openvtb"
     name: "openvtb"
-
-  # siteDomain: "openvtb.dmn-poc.publicground.nl"
 
   cache:
     default: "openvtb-redis:6379/0"
