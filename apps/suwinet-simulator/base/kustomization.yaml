@@ -3,6 +3,4 @@ kind: Kustomization
 namespace: publicground
 
 resources:
-  # - cnpg.yaml
-  # - redis.yaml
   - httproute.yaml
