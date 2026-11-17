@@ -8,31 +8,6 @@ resources:
   - httproute.yaml
   - autorisaties-job.yaml
 
-# replacements:
-#   - source:
-#       kind: Deployment
-#       name: openzaak
-#       fieldPath: spec.template.spec.containers.[name=openzaak].image
-#     targets:
-#       - select:
-#           kind: Job
-#           name: openzaak-zet-autorisaties
-#         fieldPaths:
-#           - spec.template.spec.containers.[name=zet-autorisaties].image
-#   - source:
-#       kind: HTTPRoute
-#       name: openzaak
-#       fieldPath: spec.hostnames.0
-#     targets:
-#       - select:
-#           kind: Job
-#           name: openzaak-zet-autorisaties
-#         fieldPaths:
-#           - spec.template.spec.containers.[name=zet-autorisaties].env.[name=BASE_URL].value
-#         options:
-#           delimiter: "https://"
-#           index: 1 # Vervangt alles wat ACHTER "https://" komt
-
 configMapGenerator:
   - name: openzaak-autorisaties
     files:

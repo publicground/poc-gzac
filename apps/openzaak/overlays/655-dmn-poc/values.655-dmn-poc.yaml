@@ -1,28 +1,4 @@
-# image:
-#   repository: acr655.azurecr.io/docker.io/openzaak/open-zaak
-
-# nginx:
-#   image:
-#     repository: acr655.azurecr.io/docker.io/nginxinc/nginx-unprivileged
-
-# global:
-#   configuration:
-#     enabled: true
 configuration:
-  # enabled: true
-  # overwrite: true
-  # # notificatiesAuthorization:
-  # #   enabled: false
-  # # notificaties:
-  # #   enabled: false
-  # superuser:
-  #   username: "admin"
-  #   email: "horstp@wigo4it.nl"
-  #   # password field is ignored when existingSecret is set — DJANGO_SUPERUSER_PASSWORD must be
-  #   # present as a key in the openzaak SealedSecret (additionalmanifests/655-dmn-poc/sealedsecret-openzaak.yaml)
-  # job:
-  #   enabled: true
-  #   ttlSecondsAfterFinished: ""
   data: |-
     zgw_consumers_config_enable: true
     zgw_consumers:
@@ -148,28 +124,6 @@ configuration:
             superuser_group_names:
               - OPENZAAK_ADMIN
 
-# tags:
-#   redis: false
-
-# replicaCount: 1
-
-# ingress:
-#   enabled: false  # Traffic enters via Gateway API HTTPRoute — see additionalmanifests/655-dmn-poc/httproute.yaml
-
-# resources:
-#   requests:
-#     memory: "512Mi"
-#     cpu: "250m"
-#   limits:
-#     memory: "3Gi"
-#     cpu: "1"
-
-# persistence:
-#   enabled: false
-
-# existingSecret: openzaak
-# existingConfigurationSecrets: openzaak-config-secrets
-
 extraEnvVars:
   - name: DB_PASSWORD
     valueFrom:
@@ -181,37 +135,5 @@ extraEnvVars:
 
 settings:
   allowedHosts: "openzaak.dmn-poc.publicground.nl"
-  # isHttps: true
-  # disable2fa: true
+
   siteDomain: "openzaak.dmn-poc.publicground.nl"
-
-  # database:
-  #   host: "openzaak-pg-cluster-rw"
-  #   port: 5432
-  #   name: "openzaak"
-  #   username: "openzaak"
-
-  # cache:
-  #   default: "openzaak-redis:6379/0"
-  #   axes: "openzaak-redis:6379/1"
-  #   portalLocker: "openzaak-redis:6379/2"
-
-  # celery:
-  #   brokerUrl: "redis://openzaak-redis:6379/1"
-  #   resultBackend: "redis://openzaak-redis:6379/1"
-  #   resultBackendl: "redis://openzaak-redis:6379/1"
-
-  # messageBroker:
-  #   celeryBroker: "redis://openzaak-redis:6379/1"
-  #   celeryResultBackend: "redis://openzaak-redis:6379/1"
-
-# worker:
-#   replicaCount: 1
-#   livenessProbe:
-#     enabled: true
-
-# flower:
-#   enabled: false
-
-# redis:
-#   enabled: false

@@ -5,27 +5,11 @@ nginx:
   image:
     repository: nginxinc/nginx-unprivileged
 
-# global:
-#   configuration:
-#     enabled: true
 configuration:
-  # enabled: true
-  # overwrite: true
-  # # notificatiesAuthorization:
-  # #   enabled: false
-  # # notificaties:
-  # #   enabled: false
-  # # notificatiesAuthorization:
-  # #   enabled: false
-  # # notificaties:
-  # #   enabled: false
   superuser:
     username: admin
     password: dummy123
     email: "peterdummy@wigo4it.nl"
-  # job:
-  #   enabled: true
-  #   ttlSecondsAfterFinished: ""
   data: |-
     zgw_consumers_config_enable: true
     zgw_consumers:
@@ -143,27 +127,7 @@ configuration:
             superuser_group_names:
               - OPENZAAK_ADMIN
 
-# tags:
-#   redis: false
-
 replicaCount: 1
-
-# ingress:
-#   enabled: false
-
-# resources:
-#   requests:
-#     memory: "512Mi"
-#     cpu: "250m"
-#   limits:
-#     memory: "3Gi"
-#     cpu: "1"
-
-# persistence:
-#   enabled: false
-
-# existingSecret: openzaak
-# existingConfigurationSecrets: openzaak-config-secrets
 
 extraEnvVars:
   - name: DB_PASSWORD
@@ -182,39 +146,9 @@ extraEnvVars:
   # - name: ENVIRONMENT
   #   value: "openzaak"
 
-# extraVolumes:
-#   - name: authorization-config
-#     configMap:
-#       name: openzaak-authorization-config
-
-# extraVolumeMounts:
-#   - name: authorization-config
-#     mountPath: /app/fixtures
-
-
 settings:
   allowedHosts: "openzaak.wigo4it.nl"
   useXForwardedHost: true
-
-  # database:
-  #   host: "openzaak-pg-cluster-rw"
-  #   port: 5432
-  #   username: "openzaak"
-  #   name: "openzaak"
-
-  # cache:
-  #   default: "openzaak-redis:6379/0"
-  #   axes: "openzaak-redis:6379/1"
-  #   portalLocker: "openzaak-redis:6379/2"
-
-  # celery:
-  #   brokerUrl: "redis://openzaak-redis:6379/1"
-  #   resultBackend: "redis://openzaak-redis:6379/1"
-  #   resultBackendl: "redis://openzaak-redis:6379/1"
-
-  # messageBroker:
-  #   celeryBroker: "redis://openzaak-redis:6379/1"
-  #   celeryResultBackend: "redis://openzaak-redis:6379/1"
 
   isHttps: false
 
@@ -224,11 +158,3 @@ settings:
 
 worker:
   replicaCount: 1
-  # livenessProbe:
-  #   enabled: true
-
-# flower:
-#   enabled: false
-
-# redis:
-#   enabled: false
