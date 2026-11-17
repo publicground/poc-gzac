@@ -12,7 +12,6 @@ configuration:
   overwrite: true
   job:
     enabled: true
-    ttlSecondsAfterFinished: ""
 
 tags:
   redis: false
@@ -49,8 +48,7 @@ settings:
 
   celery:
     brokerUrl: "redis://openproduct-redis:6379/1"
-    result_backend: "redis://openproduct-redis:6379/1"
-    resultBackendl: "redis://openproduct-redis:6379/1"
+    resultBackend: "redis://openproduct-redis:6379/1"
 
   isHttps: true
 
