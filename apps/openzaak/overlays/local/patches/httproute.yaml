@@ -12,14 +12,3 @@ spec:
       sectionName: http
   hostnames:
     - "openzaak.wigo4it.nl"
-  rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      backendRefs:
-        - group: ""
-          kind: Service
-          name: openzaak-nginx
-          port: 80
-          weight: 1

@@ -10,8 +10,8 @@ spec:
     name: main-gateway
     namespace: envoy-gateway-system
     sectionName: https
-  hostnames:
-  - "openzaak.dmn-poc.publicground.nl"
+  # hostnames:
+  # - "openzaak.dmn-poc.publicground.nl"
   rules:
   - matches:
     - path:

@@ -3,12 +3,12 @@ kind: Kustomization
 namespace: publicground
 
 resources:
-  - cnpg.yaml
-  - redis.yaml
+  - ../../base
   - sealedsecret-openzaak-config.yaml
   - sealedsecret-openzaak.yaml
-  - httproute.yaml
-  - autorisaties-job.yaml
+
+patches:
+  - path: patches/httproute.yaml
 
 helmCharts:
   - name: openzaak
@@ -16,7 +16,9 @@ helmCharts:
     repo: https://maykinmedia.github.io/charts/
     releaseName: openzaak
     namespace: publicground
-    valuesFile: values.655-dmn-poc.yaml
+    valuesFile: ../../base/values.yaml
+    additionalValuesFiles:
+      - values.655-dmn-poc.yaml
 
 replacements:
   - source:
@@ -45,8 +47,8 @@ replacements:
 
 configMapGenerator:
   - name: openzaak-autorisaties
+    behavior: merge
     files:
-      - autorisaties/zet-autorisaties.py
       - autorisaties/config.json
     options:
       disableNameSuffixHash: true
