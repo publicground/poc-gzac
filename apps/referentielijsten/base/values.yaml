@@ -78,16 +78,7 @@ persistence:
 existingSecret: referentielijsten
 existingConfigurationSecrets: referentielijsten-config-secrets
 
-# extraEnvVars:
-#   - name: DB_PASSWORD
-#     valueFrom:
-#       secretKeyRef:
-#         name: "referentielijsten-pg-cluster-app"
-#         key: "password"
-
 settings:
-  # allowedHosts: "referentielijsten.dmn-poc.publicground.nl"
-
   disable2fa: false
 
   database:
@@ -101,8 +92,6 @@ settings:
     axes: "referentielijsten-redis:6379/0"
 
   isHttps: true
-
-  # siteDomain: "referentielijsten.dmn-poc.publicground.nl"
 
 redis:
   enabled: false
