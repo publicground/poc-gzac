@@ -3,6 +3,12 @@ kind: Keycloak
 metadata:
   name: keycloak
 spec:
+  # CVE-2026-114938 (Java4Shell): the Keycloak image bundles an affected OpenJDK
+  # 21 build. Disable the AVX-512 Base64 decoder until the image ships
+  # OpenJDK >= 21.0.13.1.
+  env:
+    - name: JAVA_OPTS_APPEND
+      value: "-XX:-UseBASE64Intrinsics"
   ingress:
     enabled: false
   db:
