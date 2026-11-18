@@ -13,7 +13,7 @@ patches:
 
 helmCharts:
   - name: generic
-    version: 0.0.30
+    version: 0.0.31
     repo: https://gemeente-denhaag.github.io/helm-charts
     releaseName: gzac-backend
     namespace: publicground
