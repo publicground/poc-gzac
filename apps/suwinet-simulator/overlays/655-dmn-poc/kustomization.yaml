@@ -11,7 +11,7 @@ patches:
 
 helmCharts:
   - name: generic
-    version: 0.0.30
+    version: 0.0.32
     repo: https://gemeente-denhaag.github.io/helm-charts
     releaseName: suwinet-simulator
     namespace: publicground
