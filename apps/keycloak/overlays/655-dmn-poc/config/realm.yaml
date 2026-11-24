@@ -370,10 +370,11 @@ clients:
     protocol: "openid-connect"
     clientAuthenticatorType: "client-secret"
     secret: "$(env:OPENFORMULIEREN_APP_CLIENT_SECRET)" # Verwijst naar een secret in de config-cli job
+    rootUrl: "https://openformulieren.dmn-poc.publicground.nl"
     redirectUris:
-      - "https://openformulieren.dmn-poc.publicground.nl/oidc/callback/"
+      - "/auth/oidc/callback/"
     webOrigins:
-      - "https://openformulieren.dmn-poc.publicground.nl"
+      - "+"
     publicClient: false
     standardFlowEnabled: true
     implicitFlowEnabled: false
