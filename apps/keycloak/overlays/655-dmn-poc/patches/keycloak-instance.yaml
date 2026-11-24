@@ -13,11 +13,3 @@ spec:
   hostname:
     hostname: keycloak.dmn-poc.publicground.nl
     strict: false
-  unsupported:
-    podTemplate:
-      spec:
-        containers:
-          - name: keycloak
-            envFrom:
-              - secretRef:
-                  name: keycloak-realm-secrets

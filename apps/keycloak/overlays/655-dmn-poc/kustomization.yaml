@@ -5,8 +5,12 @@ namespace: keycloak
 resources:
   - ../../base
   - keycloak-realm-secrets-sealed.yaml
-  - realm-import.yaml
 
 patches:
   - path: patches/keycloak-instance.yaml
   - path: patches/httproute.yaml
+
+configMapGenerator:
+  - name: keycloak-realm-config
+    files:
+      - config/realm.yaml

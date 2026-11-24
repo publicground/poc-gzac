@@ -5,3 +5,4 @@ resources:
   - cnpg.yaml
   - keycloak-instance.yaml
   - httproute.yaml
+  - keycloak-config-cli-job.yaml

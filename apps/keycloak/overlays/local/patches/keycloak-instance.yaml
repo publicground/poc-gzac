@@ -12,11 +12,3 @@ spec:
   hostname:
     hostname: keycloak.wigo4it.nl
     strict: true
-  unsupported:
-    podTemplate:
-      spec:
-        containers:
-          - name: keycloak
-            envFrom:
-              - secretRef:
-                  name: keycloak-realm-secrets
