@@ -488,7 +488,7 @@ clients:
     secret: "$(env:OPENVTB_APP_CLIENT_SECRET)" # Verwijst naar een secret in de config-cli job
     rootUrl: "http://openvtb.wigo4it.nl"
     redirectUris:
-      - "/oidc/callback/"
+      - "/auth/oidc/callback/"
     webOrigins:
       - "+"
     publicClient: false
