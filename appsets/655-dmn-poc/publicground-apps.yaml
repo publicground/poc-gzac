@@ -38,6 +38,9 @@ spec:
       selector:
         matchLabels:
           clusters.655-dmn-poc.enabled: 'true'
+        matchExpressions:
+          - key: chartName
+            operator: Exists
   template:
     metadata:
       name: "{{.path.basename}}"
@@ -91,12 +94,18 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - git:
-      repoURL: https://github.com/publicground/poc-gzac.git
-      revision: refs/heads/main
-      requeueAfterSeconds: 180
-      directories:
-      - path: apps/*/overlays/655-dmn-poc
+    - git:
+        repoURL: https://github.com/publicground/poc-gzac.git
+        revision: refs/heads/main
+        requeueAfterSeconds: 180
+        files:
+          - path: "apps/**/.argocd.yaml"
+      selector:
+        matchLabels:
+          clusters.655-dmn-poc.enabled: "true"
+        matchExpressions:
+          - key: chartName
+            operator: DoesNotExist
   template:
     metadata:
       name: '{{index .path.segments 1}}'
@@ -105,7 +114,7 @@ spec:
       sources:
         - repoURL: https://github.com/publicground/poc-gzac.git
           targetRevision: refs/heads/main
-          path: '{{.path.path}}'
+          path: '{{.path.path}}/overlays/655-dmn-poc'
       destination:
         server: https://kubernetes.default.svc
         namespace: publicground

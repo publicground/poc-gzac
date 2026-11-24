@@ -1,0 +1,5 @@
+clusters:
+  local:
+    enabled: false
+  655-dmn-poc:
+    enabled: true

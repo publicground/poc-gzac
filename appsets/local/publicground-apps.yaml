@@ -37,6 +37,9 @@ spec:
       selector:
         matchLabels:
           clusters.local.enabled: 'true'
+        matchExpressions:
+          - key: chartName
+            operator: Exists
   template:
     metadata:
       name: "{{.path.basename}}"
@@ -83,11 +86,18 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - git:
-      repoURL: file:///mnt/poc-gzac.git
-      revision: local
-      directories:
-      - path: apps/*/overlays/local
+    - git:
+        repoURL: file:///mnt/poc-gzac.git
+        revision: local
+        files:
+          - path: "apps/**/.argocd.yaml"
+      selector:
+        matchLabels:
+          clusters.local.enabled: "true"
+        matchExpressions:
+          - key: chartName
+            operator: DoesNotExist
+
   template:
     metadata:
       name: '{{index .path.segments 1}}'
@@ -96,7 +106,7 @@ spec:
       sources:
         - repoURL: file:///mnt/poc-gzac.git
           targetRevision: local
-          path: '{{.path.path}}'
+          path: '{{.path.path}}/overlays/local'
       destination:
         server: https://kubernetes.default.svc
         namespace: publicground
