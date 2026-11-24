@@ -1,0 +1,1 @@
+this static-key will and should only be used on a laptop used for development purposes. it has no connection with a live kubernetes cluster.
